@@ -5,9 +5,9 @@ function MiddleBar(_main, _mapView, _streetView, _middleBarEl){
     this.middleBarEl = _middleBarEl;
     this.setMiddleBarDraggable();
     this.setBtnListeners()
-    $(window).resize = function(){
+    //$(window).resize = function(){
         //resizeMapAndPano(evt);
-    }
+    //}
     
 }
 MiddleBar.prototype.setMiddleBarDraggable = function(){
@@ -132,8 +132,7 @@ MiddleBar.prototype.handlePausePlayBtns = function(){
         });                                     
 }*/
 MiddleBar.prototype.resizeMapAndPano = function(){
-    this.main.windowResize();
-    return;
+    this.main.windowResize("resizeMiddleBar");
 }
 
 

@@ -16,12 +16,14 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-y: hidden
+  /*overflow-y: hidden;*/
 }
   
 #mainHolder{
-  width:100%;
-  height:100%;
+  width:80%;
+  height:500px;
+  position:relative;
+  margin: 0 auto;
 }
   
   #map, #pano {
@@ -32,7 +34,7 @@ html, body {
   #middleBar{
     height:43px;
     width:43px;
-    background: black;
+    background: white;
     position:absolute;
     left:48%;
     top:48%;
@@ -101,7 +103,7 @@ html, body {
   position:relative;
   width:39px;
   height:39px;
-  background:#0099ff;
+  background:#9cd7ff;
   /*border-bottom: 1px solid black;*/
   line-height:35px;
   margin-left:2px;
@@ -132,7 +134,6 @@ html, body {
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */
@@ -156,10 +157,23 @@ html, body {
     visibility: visible;
 }
 /**** tooltip  ****/
+#topNav{
+  width:100%;
+  height:160px;
+  background:white;
+}
+#btmNav{
+  width:100%;
+  height:160px;
+  background:white;
+}
 
 </style>
 </head>
 <body>
+
+<div id="topNav">
+</div>
 
 <div id="txtBox">xzxz xcxc</div>
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
@@ -182,8 +196,11 @@ html, body {
     </div>
   </div>
   <div id="pano"></div>
+</div> <!-- end mainContainer-->
 
+<div id="btmNav">
 </div>
+
 
 
   <script src="./js/jquery-3.0.0.min.js"></script>

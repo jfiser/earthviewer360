@@ -10,35 +10,34 @@ function Main(_latLongObj){
     var _self = this;
 
     $(window).resize(function(){
-        _self.windowResize();
+        _self.windowResize("window Resize event");
     });
-    this.windowResize();
+    this.windowResize("Startup window resize");
 }
 Main.prototype.handleTouchDevices = function(){
     if(this.isTouchDevice()){
         $(".tooltiptext").css("visibility", "hidden");
     }  
 }
-Main.prototype.windowResize = function(){
+Main.prototype.windowResize = function(_reason){
+    var reason = _reason;
+    
     // horizontal    
-    /*if($(window).width() > $(window).height()){
-        middleBarLoc = parseInt($("#middleBar").css("left")) / $("#mainHolder").width()
-                                                * $("#mainHolder").width();
-    }
-    else{ // vertical
-        middleBarLoc = parseInt($("#middleBar").css("top")) / $("#mainHolder").height()
-                                                * $("#mainHolder").height();
-    }*/
-
-    // horizontal    
-    if($(window).width() > $(window).height()){
+    if($("#mainHolder").width() > $("#mainHolder").height()){
         if(this.orientation == "vertical"){ // just switched from vertical orientation to horiz
-            this.middleBarLoc = parseInt($("#middleBar").css("top")) / $("#mainHolder").height()
-                                                * $("#mainHolder").height();
+                //this.middleBarLoc = parseInt($("#middleBar").css("top")) / $("#mainHolder").height()
+                                                //* $("#mainHolder").height();
+                this.middleBarLoc = .5 * $("#mainHolder").height();
         }
         else{
-            this.middleBarLoc = parseInt($("#middleBar").css("left")) / $("#mainHolder").width()
+            console.log("reason: " + reason);
+            if(reason == "resizeMiddleBar"){
+                this.middleBarLoc = parseInt($("#middleBar").css("left")) / $("#mainHolder").width()
                                                 * $("#mainHolder").width();
+            }
+            else{
+                this.middleBarLoc = .5 * $("#mainHolder").width();
+            }
         }
         this.orientation = "horizontal";
         $("#pano").width(this.middleBarLoc);
@@ -63,12 +62,18 @@ Main.prototype.windowResize = function(){
     }
     else{  // vertical
         if(this.orientation == "horizontal"){ // just switched from horiz orientation to vert
-            this.middleBarLoc = parseInt($("#middleBar").css("left")) / $("#mainHolder").width()
-                                                * $("#mainHolder").width();
+            //this.middleBarLoc = parseInt($("#middleBar").css("left")) / $("#mainHolder").width()
+                                                //* $("#mainHolder").width();
+                this.middleBarLoc = .5 * $("#mainHolder").width();
         }
         else{
-            this.middleBarLoc = parseInt($("#middleBar").css("top")) / $("#mainHolder").height()
+            if(reason == "resizeMiddleBar"){
+                this.middleBarLoc = parseInt($("#middleBar").css("top")) / $("#mainHolder").height()
                                                 * $("#mainHolder").height();
+            }
+            else{
+                this.middleBarLoc = .5 * $("#mainHolder").height();
+            }
         }        
         this.orientation = "vertical";
         $("#pano").height(this.middleBarLoc);
