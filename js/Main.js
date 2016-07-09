@@ -9,10 +9,30 @@ function Main(_latLongObj){
     this.handleTouchDevices();
     var _self = this;
 
+    this.setListeners();
+    this.windowResize("Startup window resize");
+}
+Main.prototype.setListeners = function(){
+    var _self = this;
+
+    window.addEventListener('orientationchange', function()
+        {
+            switch(window.orientation) 
+            {  
+            case -90:
+            case 90:
+                console.log('landscape');
+                break; 
+            default:
+                console.log('portrait');
+                break; 
+            }
+            _self.windowResize("orientationchange");
+        });
+
     $(window).resize(function(){
         _self.windowResize("window Resize event");
     });
-    this.windowResize("Startup window resize");
 }
 Main.prototype.handleTouchDevices = function(){
     if(this.isTouchDevice()){
@@ -21,13 +41,19 @@ Main.prototype.handleTouchDevices = function(){
 }
 Main.prototype.windowResize = function(_reason){
     var reason = _reason;
-    
+    console.log("reason: " + reason);
+    /*var spaceAvailable = $(window).height() - $("#topNav").height();
+
+    if($(window).height() > ($("#topNav").height() + $("#mainHolder").height())){
+        $("#mainHolder").height(spaceAvailable + "px");
+    }*/
+
     // horizontal    
     if($("#mainHolder").width() > $("#mainHolder").height()){
         if(this.orientation == "vertical"){ // just switched from vertical orientation to horiz
                 //this.middleBarLoc = parseInt($("#middleBar").css("top")) / $("#mainHolder").height()
                                                 //* $("#mainHolder").height();
-                this.middleBarLoc = .5 * $("#mainHolder").height();
+                this.middleBarLoc = .5 * $("#mainHolder").width();
         }
         else{
             console.log("reason: " + reason);
@@ -64,7 +90,7 @@ Main.prototype.windowResize = function(_reason){
         if(this.orientation == "horizontal"){ // just switched from horiz orientation to vert
             //this.middleBarLoc = parseInt($("#middleBar").css("left")) / $("#mainHolder").width()
                                                 //* $("#mainHolder").width();
-                this.middleBarLoc = .5 * $("#mainHolder").width();
+                this.middleBarLoc = .5 * $("#mainHolder").height();
         }
         else{
             if(reason == "resizeMiddleBar"){
