@@ -39,7 +39,7 @@ MapView.prototype.addMap = function(_latLongObj){
     this.map.addListener('bounds_changed', function(){
         console.log("boundschanged");
         google.maps.event.trigger(this, 'resize');
-        _self.main.windowResize();
+        //_self.main.windowResize();
 
         /*if(this.searchPlaces){
             this.searchPlaces.searchBox.setBounds(this.getBounds());
