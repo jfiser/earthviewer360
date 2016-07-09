@@ -18,29 +18,40 @@ html, body {
   padding: 0;
   /*overflow-y: hidden;*/
 }
-  
+
 #mainHolder{
   width:80%;
   height:500px;
   position:relative;
   margin: 0 auto;
 }
-  
-  #map, #pano {
-    height: 100%;
-    width: 100%;
-    position:absolute;
+@media (max-width: 1025px){
+  #mainHolder{
+    width:98%;
   }
-  #middleBar{
-    height:43px;
-    width:43px;
-    background: white;
-    position:absolute;
-    left:48%;
-    top:48%;
-    z-index:10;
-    cursor: e-resize;
+}
+
+@media (max-width: 769px){
+  #mainHolder{
+    width:98%;
   }
+}
+#map, #pano {
+  height: 100%;
+  width: 100%;
+  position:absolute;
+  border-radius: 15px;
+}
+#middleBar{
+  height:43px;
+  width:43px;
+  background: white;
+  position:absolute;
+  left:48%;
+  top:48%;
+  z-index:10;
+  cursor: e-resize;
+}
 
 /* searchPlaces */
     .controls {
@@ -109,6 +120,7 @@ html, body {
   margin-left:2px;
   margin-top:2px;
   cursor: pointer;
+  border-radius: 6px;
 }
 .middleBarBtnIcons{
   width:25px;
@@ -158,21 +170,64 @@ html, body {
 }
 /**** tooltip  ****/
 #topNav{
-  width:100%;
-  height:160px;
+  width:80%;
+  /*height:136px;*/
+  height:auto;
   background:white;
+  margin:0 auto;
 }
-#btmNav{
-  width:100%;
-  height:160px;
-  background:white;
+@media (max-width: 1025px){
+  #topNav{
+    width:93%;
+  }
 }
 
+#btmNav{
+  width:80%;
+  height:136px;
+  background:white;
+  margin:0 auto;
+}
+#birdLogo{
+  width:100px;
+  height:100px;
+  margin-top:15px;
+}
+@media (max-width: 1025px){
+  #birdLogo{
+    width:40px;
+    height:40px;
+  }
+}
+
+#earthViewerTxt{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 22px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 300;
+	line-height: 50px;
+  display:inline;
+}
+.myItalic{
+  font-style: italic;
+}
+.myBrown{
+  color:#cc6600;
+}
+.myGreen{
+  color:#009933;
+}
+.myBlue{
+  color:#0099ff;
+}
 </style>
 </head>
 <body>
 
 <div id="topNav">
+  <img id="birdLogo" src="./img/birdsEyeIcon2.png"/>
+  <div id="earthViewerTxt"><span class="myBrown">e</span><span class="myGreen">arth</span><span class="myBlue">Viewer</span> <span class="myItalic">360</span></div>
 </div>
 
 <div id="txtBox">xzxz xcxc</div>
@@ -228,18 +283,18 @@ html, body {
 
   function getCurLoc(){
       console.log("getCurLoc");
-      if (navigator.geolocation){
+      /*if (navigator.geolocation){
         console.log("newz - xxxyyy");
         navigator.geolocation.getCurrentPosition(showStreet, getLocError);
         console.log("newz - after");
           //showStreet({lat: 42.345573, lng: -71.098326});
       }
-      else{
+      else{*/
         console.log("nnn");
         var obj1 = {latitude:40.73685214795608, longitude:-73.99154663085938};
         var obj2 = {coords:obj1};
         showStreet(obj2);
-      }
+      //}
   }
   function getLocError(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
