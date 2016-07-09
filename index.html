@@ -9,6 +9,10 @@
 
 <meta name="author" content="Joel Fiser">
 
+<meta property="og:title" content="Earth Viewer 360"/> 
+<meta property="og:description" content="StreetView and Google Maps, side by side. Click the Map window anywhere in the world and immediately see a 360 panorama of that spot in the StreetView window. Click on the roof of a house in the map window and see what the house looks like from the street in the StreetView window." />
+<meta property="og:image" content="./img/ogImage.jpg" />
+
 <!-- favicon -->
 <link rel="apple-touch-icon" sizes="57x57" href="./favicon/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="./favicon/apple-icon-60x60.png">
@@ -162,6 +166,10 @@ html, body {
 #playIcon{
   display:none;
 }
+#svgDots{
+  margin-top:70px;
+  width:43px;
+}
 
 /**** tooltip  ****/
 
@@ -275,6 +283,19 @@ html, body {
       <img src="./img/birdsEyeIcon2.png" class="middleBarBtnIcons"/>
       <span class="tooltiptext">Bird's eye view</span>
     </div>
+
+    <!--<svg id="svgDots"  xmlns="http://www.w3.org/2000/svg">
+      <g stroke=null fill="#cccccc" stroke-width="0">
+        <circle cx="15" cy="5" r="2"/>
+        <circle cx="28" cy="5" r="2"/>
+
+        <circle cx="15" cy="25" r="2"/>
+        <circle cx="28" cy="25" r="2"/>
+        
+        <circle cx="15" cy="45" r="2"/>
+        <circle cx="28" cy="45" r="2"/>        
+      </g>
+    </svg>-->
   </div>
   <div id="pano"></div>
 </div> <!-- end mainContainer-->
@@ -355,5 +376,8 @@ html, body {
   </script><script src=./js/plugins/ThrowPropsPlugin.min.js>
   </script><script src=./js/EasePack.min.js></script>
   <script src=./js/utils/Draggable.min.js></script>-->
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-535ed624174cd51c"></script>
 </body>
 </html>
