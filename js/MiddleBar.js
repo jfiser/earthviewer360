@@ -34,6 +34,9 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                 console.log("swiperight");
                 break;
             case "dragstart":
+                evt.preventDefault();
+                evt.stopPropagation();
+                evt.gesture.preventDefault();
                 console.log("dragstart");
                 cur_x = $middleBarEl.position().left;
                 cur_y = $middleBarEl.position().top;
@@ -54,12 +57,24 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                 _self.resizeMapAndPano();
                 break;
             case "dragup":
-                $middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
+                //evt.preventDefault();
+                //evt.stopPropagation();
+                if(_self.main.orientation == "vertical"){
+                    evt.gesture.preventDefault();
+                    $middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
+                }
+                //$middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
                 _self.resizeMapAndPano();
                 console.log("deltaX: " + evt.gesture.deltaX);
                 break;
             case "dragdown":
-                $middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
+                //evt.preventDefault();
+                //evt.stopPropagation();
+                if(_self.main.orientation == "vertical"){
+                    evt.gesture.preventDefault();
+                    $middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
+                }
+                //$middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
                 _self.resizeMapAndPano();
                 break;
             }
