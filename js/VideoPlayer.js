@@ -1,5 +1,6 @@
 function VideoPlayer(){
-    this.myPlayer = null;
+    this.thePlayer = null;
+    this.resultsArr = [];
     this.addPlayer();
 
 }
@@ -13,10 +14,13 @@ VideoPlayer.prototype.addPlayer = function(){
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 }
-
+VideoPlayer.prototype.playVideoId = function(_id){
+    console.log("____id: " + _id);
+    this.thePlayer.loadVideoById(_id);
+}
 function onYouTubeIframeAPIReady() {
     console.log("<<>>player");
-    main.videoPlayer.myPlayer = new YT.Player('videoPlayerDiv', {
+    main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
                 height: '390',
                 width: '640',
                 //videoId: 'M7lc1UVf-VE',
@@ -44,11 +48,13 @@ function onPlayerStateChange(event) {
     }
 }
 function stopVideo() {
-    main.videoPlayer.myPlayer.stopVideo();
+    main.videoPlayer.thePlayer.stopVideo();
 }
 
 
 VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
+    var _self = this;
+
     console.log("gapi %o: ", gapi)
     try {
         var request = gapi.client.youtube.search.list({
@@ -56,8 +62,8 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             order: "date",
             type: "video",
             part: "id,snippet",
-            maxResults: "50",
-            eventType: "live",
+            maxResults: "5",
+            //eventType: "live",
             videoLiscense: "", //inputObject.videoLiscense,
             videoEmbeddable: true, //inputObject.videoEmbeddable,
             location: _latLongObj.lat + "," + _latLongObj.lng,
@@ -75,7 +81,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
     }
     console.log("request: %o", request);
     request.execute(function(response) {
-        var resultsArr = [];
+        _self.resultsArr = [];
         var videoIDString = '';
         console.log("response: %o", response);
         //if the result object from the response is null, show error; if its empty, remove old results and display
@@ -110,8 +116,10 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             videoResult.liveBroadcastContent = entryArr[i].snippet.liveBroadcastContent;
             videoResult.thumbNailURL = entryArr[i].snippet.thumbnails.default.url;
             videoResult.description = entryArr[i].snippet.description;
+            videoResult.videoId = entryArr[i].id.videoId;
 
             console.log("descrip: " + videoResult.description);
+            console.log("videoId: " + videoResult.videoId);
 
             var year = entryArr[i].snippet.publishedAt.substr(0, 4);
             var monthNumeric = entryArr[i].snippet.publishedAt.substr(5, 2);
@@ -133,9 +141,9 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             //videoResult.publishTimeStamp = entryArr[i].snippet.publishedAt;
 
             //add result to results
-            resultsArr.push(videoResult);
+            _self.resultsArr.push(videoResult);
         }
-
+        _self.playVideoId(_self.resultsArr[0].videoId);
         }
     });
 }
