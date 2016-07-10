@@ -27,6 +27,8 @@ MapView.prototype.addMap = function(_latLongObj){
         //_self.streetView.setPanorama(myLatLongObj);
         _self.streetView.setPanorama(event.latLng);
 
+        _self.main.videoPlayer.searchYouTubeByLoc(myLatLongObj);
+
         //_self.streetView.panorama.setPano(_self.streetView.panorama.getPano());
         console.log("getPano: " + _self.streetView.panorama.getPano());
 

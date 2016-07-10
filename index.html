@@ -319,7 +319,13 @@ html, body {
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
 }*/
-
+#videoPlayerDiv{
+  width:400px;
+  height:400px;
+  background:pink;
+  position:fixed;
+  top:0;
+}
 </style>
 </head>
 <body>
@@ -381,6 +387,8 @@ html, body {
 
 <p id="dedicatedTo">Dedicated to unearthing the perfect panorama</p>
 
+<div id="videoPlayerDiv"></div>
+
 
 
 
@@ -394,68 +402,32 @@ html, body {
   <script src="./js/MiddleBar.js"></script>
   <script src="./js/MapView.js"></script>
   <script src="./js/SpeechRecognition.js"></script>
+  <script src="./js/VideoPlayer.js"></script>
 
 <script>
-  var main, input;
 
-  function showStreet(_latLongObj) {
-    //var fenway = {lat: 42.345573, lng: -71.098326};
-    //console.log("showStreet lat/long: " + _latLongObj.coords.latitude + ":" + _latLongObj.coords.longitude);
-    var latLongObj = {lat:_latLongObj.coords.latitude, lng:_latLongObj.coords.longitude};
-    //var latLongObj = {lat: 42.345573, lng: -71.098326};;
+var main, input;
+$(document).ready(function() {
+  $.getScript('https://apis.google.com/js/client.js?onload=handleClientLoad');
+
+});
+function handleClientLoad() {
+  console.log("handleClientLoad");
+  gapi.client.load('youtube', 'v3', function() {
+    console.log("gapi.client.load - youTube");
+  });
+}
+function getCurLoc(){
+    console.log("getCurLoc");
+    var latLongObj = {lat:40.73685214795608, lng:-73.99154663085938};
     input = document.getElementById('pac-input');
     main = new Main(latLongObj);
-
-  }
-
-  function getCurLoc(){
-      console.log("getCurLoc");
-      /*if (navigator.geolocation){
-        console.log("newz - xxxyyy");
-        navigator.geolocation.getCurrentPosition(showStreet, getLocError);
-        console.log("newz - after");
-          //showStreet({lat: 42.345573, lng: -71.098326});
-      }
-      else{*/
-        console.log("nnn");
-        var obj1 = {latitude:40.73685214795608, longitude:-73.99154663085938};
-        var obj2 = {coords:obj1};
-        showStreet(obj2);
-      //}
-  }
-  /*function getLocError(err) {
-    console.warn('ERROR(' + err.code + '): ' + err.message);
-    var obj1 = {latitude:40.73685214795608, longitude:-73.99154663085938};
-    var obj2 = {coords:obj1};
-    showStreet(obj2);
-    switch(err.code) {
-        case err.PERMISSION_DENIED:
-            console.warn("User denied the request for Geolocation.");
-            break;
-        case err.POSITION_UNAVAILABLE:
-            console.warn("Location information is unavailable.");
-            break;
-        case err.TIMEOUT:
-            console.warn("The request to get user location timed out.");
-            break;
-        case err.UNKNOWN_ERROR:
-            console.warn("An unknown error occurred.");
-            break;
-        default:
-            console.warn("An unknown error occurred (default).");
-            break;
-
-    }
-  }*/
-
+}
 </script>
+
   <script 
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE&callback=getCurLoc&libraries=places">
   </script>
-  <!--<script src=./js/plugins/CSSPlugin.min.js>
-  </script><script src=./js/plugins/ThrowPropsPlugin.min.js>
-  </script><script src=./js/EasePack.min.js></script>
-  <script src=./js/utils/Draggable.min.js></script>-->
 
   <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-535ed624174cd51c"></script>

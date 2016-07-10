@@ -7,11 +7,13 @@ function Main(_latLongObj){
     this.middleBar = new MiddleBar(this, this.mapView, this.streetView, 
                                         document.getElementById('middleBar'));
     this.mapView.addSearchPlaces(this.searchPlaces);
+    this.videoPlayer = new VideoPlayer();
     this.handleTouchDevices();
     var _self = this;
 
     this.setListeners();
     this.windowResize("Startup window resize");
+
 }
 Main.prototype.setListeners = function(){
     var _self = this;
