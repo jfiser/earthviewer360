@@ -98,7 +98,17 @@ MiddleBar.prototype.setBtnListeners = function(){
         }
         _self.handlePausePlayBtns();
         console.log("panoState: " + _self.streetView.panoSpinState)
-    })
+    });
+
+    $("#homeBtn").click(function(){
+        _self.main.locator.showCurrentUserLoc();
+    });
+
+
+
+
+
+
 }
 MiddleBar.prototype.handlePausePlayBtns = function(){
     if(this.streetView.panoSpinning){

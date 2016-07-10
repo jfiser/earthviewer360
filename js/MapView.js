@@ -81,11 +81,14 @@ MapView.prototype.addMarker = function(_latLongObj){
         //zIndex: 0
     });
 }
-MapView.prototype.zoomInOut = function(_zoomInOut){
+MapView.prototype.zoomInOut = function(_zoomInOut, _increment){
     if(_zoomInOut == "in"){
-        this.map.setZoom(this.map.getZoom() + 1);
+        this.map.setZoom(this.map.getZoom() + _increment);
     }
     else{
-        this.map.setZoom(this.map.getZoom() - 1);
+        this.map.setZoom(this.map.getZoom() - _increment);
     }
+}
+MapView.prototype.setZoom = function(_newZoomLevel){
+    this.map.setZoom(_newZoomLevel);
 }

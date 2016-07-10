@@ -1,4 +1,5 @@
 function Main(_latLongObj){
+    this.locator = new Locator(this, _latLongObj);
     this.streetView = new StreetView(this, _latLongObj);
     this.mapView = new MapView(this, _latLongObj, this.streetView);
     this.searchPlaces = new SearchPlaces(input, this.mapView.map, this.streetView);
@@ -85,6 +86,14 @@ Main.prototype.windowResize = function(_reason){
         $("#map").css("bottom", "auto");
         $("#map").css("right", 0);
         $("#map").css("top", 0);
+
+        $("#svgDotsHoriz").hide();
+        $("#svgDotsVert").show();
+        $(".middleBarBtn").css("margin", "2px 3px");
+        //$(".middleBarBtn").css("margin-top", "3px");
+        //$(".middleBarBtn").css("margin-right", "13px");
+        //$(".middleBarBtn").css("margin-bottom", "3px");
+        //$(".middleBarBtn").css("margin-left", "3px");
     }
     else{  // vertical
         if(this.orientation == "horizontal"){ // just switched from horiz orientation to vert
@@ -126,6 +135,12 @@ Main.prototype.windowResize = function(_reason){
         $("#map").css("right", "auto");
         $("#map").css("left", 0);
         $("#map").css("bottom", 0);
+
+        $("#svgDotsHoriz").show();
+        $("#svgDotsVert").hide();
+
+        $(".middleBarBtn").css("margin", "3px 2px");
+
     }
 }
 Main.prototype.isTouchDevice = function(){

@@ -139,21 +139,21 @@ html, body {
 .middleBarBtn{
   text-align: center;
   position:relative;
-  width:39px;
-  height:39px;
+  width:37px;
+  height:37px;
   background:#9cd7ff;
   /*border-bottom: 1px solid black;*/
-  line-height:35px;
-  margin-left:2px;
-  margin-top:2px;
+  line-height:37px;
+  margin:2px 3px;
   cursor: pointer;
   border-radius: 6px;
+  display:inline-block;
 }
 .middleBarBtnIcons{
-  width:25px;
-  height:25px;
+  width:24px;
+  height:24px;
   position:relative;
-  line-height: 35px;
+  line-height: 37px;
   vertical-align: middle;
   text-align: center;
 }
@@ -166,17 +166,26 @@ html, body {
 #playIcon{
   display:none;
 }
-#svgDots{
-  margin-top:70px;
-  width:43px;
+#svgDotsVert{
+  top:48%;
+  left:48%;
+  width:4px;
+  position:absolute;
+  /*background:pink;*/
 }
-
+#svgDotsHoriz{
+  top:48%;
+  left:51%;
+  height:4px;
+  position:absolute;
+  /*background:pink;*/
+}
 /**** tooltip  ****/
 
 /* Tooltip container */
 .tooltip {
     position: relative;
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 /* Tooltip text */
@@ -201,6 +210,7 @@ html, body {
 }
 /**** tooltip  ****/
 #topNav{
+  position:relative;
   width:80%;
   /*height:136px;*/
   height:auto;
@@ -215,12 +225,59 @@ html, body {
     width:93%;
   }
 }
-
+#topNavInstruction{
+  position:absolute;
+  right:0px;
+  bottom:12px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align:right;
+  font-size:16px;
+}
+@media (max-width: 570px){
+  #topNavInstruction{
+    font-size:12px;
+  }
+}
+@media (max-width: 450px){
+  #topNavInstruction{
+    display:none;
+  }
+}
 #btmNav{
   width:80%;
-  height:136px;
+  height:336px;
   background:white;
   margin:0 auto;
+}
+@media (min-width:801px){
+  #btmInstructions{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width:60%;
+    font-size:19px;
+    margin: 30px auto 0 auto;
+    padding:0;
+  }
+}
+@media (min-width:451px) and (max-width: 800px){
+  #btmInstructions{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width:80%;
+    font-size:15px;
+    margin: 30px auto 0 auto;
+    padding:0;
+  }
+}
+@media (max-width: 450px){
+  #btmInstructions{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    max-width:100%;
+    font-size:15px;
+    margin: 30px 10px 0px 10px;
+    padding:0;
+  }
+}
+#btmInstructions li{
+  margin: 0 0 10px 0;
 }
 #birdLogo{
   width:100px;
@@ -255,6 +312,14 @@ html, body {
 .myBlue{
   color:#0099ff;
 }
+/*.rotate90{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}*/
+
 </style>
 </head>
 <body>
@@ -262,9 +327,10 @@ html, body {
 <div id="topNav">
   <img id="birdLogo" src="./img/birdsEyeIcon2.png"/>
   <div id="earthViewerTxt"><span class="myBrown">e</span><span class="myGreen">arth</span><span class="myBlue">Viewer</span> <span class="myItalic">360</span></div>
+  <div id="topNavInstruction">Click anywhere in the World <br>to see a 360&deg; street view.</div>
 </div>
 
-<div id="txtBox">xzxz xcxc</div>
+<!--<div id="txtBox">xzxz xcxc</div>-->
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="mainHolder">
   <div id="map"></div>
@@ -272,36 +338,49 @@ html, body {
     <div id="homeBtn" class="middleBarBtn tooltip">
       <img src="./img/homeIcon.png" class="middleBarBtnIcons"/>
       <span class="tooltiptext">Your location Now</span>
-    </div>
-
-    <div id="playBtn" class="middleBarBtn tooltip">
+    </div><!-- using this comment to get rid of space for an inline-block element
+    --><div id="playBtn" class="middleBarBtn tooltip">
       <img id="pauseIcon" src="./img/pauseIcon.png" class="middleBarBtnIcons"/>
       <img id="playIcon" src="./img/playIcon.png" class="middleBarBtnIcons"/>
       <span class="tooltiptext">Start / stop spinning</span>
-    </div>
-    <div id="bidesEyeBtn" class="middleBarBtn tooltip">
+    </div><!-- using this comment to get rid of space for an inline-block element
+    --><div id="bidesEyeBtn" class="middleBarBtn tooltip">
       <img src="./img/birdsEyeIcon2.png" class="middleBarBtnIcons"/>
       <span class="tooltiptext">Bird's eye view</span>
     </div>
 
-    <!--<svg id="svgDots"  xmlns="http://www.w3.org/2000/svg">
-      <g stroke=null fill="#cccccc" stroke-width="0">
-        <circle cx="15" cy="5" r="2"/>
-        <circle cx="28" cy="5" r="2"/>
-
-        <circle cx="15" cy="25" r="2"/>
-        <circle cx="28" cy="25" r="2"/>
-        
-        <circle cx="15" cy="45" r="2"/>
-        <circle cx="28" cy="45" r="2"/>        
+    <svg id="svgDotsVert"  xmlns="http://www.w3.org/2000/svg">
+      <g stroke=null fill="#aaaaaa" stroke-width="0">
+        <circle cx="2" cy="2" r="2"/>
+        <circle cx="2" cy="18" r="2"/>
+        <circle cx="2" cy="34" r="2"/>
       </g>
-    </svg>-->
+    </svg>
+    <svg id="svgDotsHoriz"  xmlns="http://www.w3.org/2000/svg">
+      <g stroke=null fill="#aaaaaa" stroke-width="0">
+        <circle cx="2" cy="2" r="2"/>
+        <circle cx="18" cy="2" r="2"/>
+        <circle cx="34" cy="2" r="2"/>
+      </g>
+    </svg>
+
   </div>
   <div id="pano"></div>
-</div> <!-- end mainContainer-->
+</div> <!-- end mainHolder -->
 
 <div id="btmNav">
+  <ul id="btmInstructions">
+    <li>Zoom in on the map and click on the roof of a building or house to see what it looks like to stand in front of that house. This is a great way to explore a neighborhood or village.</li>
+    <li>Click the Home button to see your current location.</li>
+    <li>Click the Play / Pause button to start / stop turning the panorama.</li>
+    <li>If you click on the map and the location doesn't change - try again. Google hasn't mapped everywhere just yet. But there's plenty to see. And more is added every day.</li>
+    <li>Voice activation, directions, and much more are on the way. Stay tuned.</li>
+    <li>Works great on your mobile device!</li>
+  </ul>
 </div>
+
+<p id="dedicatedTo">Dedicated to unearthing the perfect panorama</p>
+
 
 
 
@@ -309,6 +388,7 @@ html, body {
   <script src=./js/hammer.min.js></script>
   <script src="./js/annyang.min.js"></script>
   <script src="./js/Main.js"></script>
+  <script src="./js/Locator.js"></script>
   <script src="./js/SearchPlaces.js"></script>
   <script src="./js/StreetView.js"></script>
   <script src="./js/MiddleBar.js"></script>
@@ -343,7 +423,7 @@ html, body {
         showStreet(obj2);
       //}
   }
-  function getLocError(err) {
+  /*function getLocError(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
     var obj1 = {latitude:40.73685214795608, longitude:-73.99154663085938};
     var obj2 = {coords:obj1};
@@ -366,7 +446,7 @@ html, body {
             break;
 
     }
-  }
+  }*/
 
 </script>
   <script 

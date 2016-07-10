@@ -25,7 +25,7 @@ function SpeechRecognition(_mapView, _streetView){
 SpeechRecognition.prototype.zoomInOut = function(_tag){
     //console.log("tag: " + _tag);
     document.getElementById("txtBox").innerHTML = _tag;
-    this.mapView.zoomInOut(_tag);
+    this.mapView.zoomInOut(_tag, 1);
 }
 SpeechRecognition.prototype.nearMe = function(_tag){
     //console.log("tag: " + _tag);
