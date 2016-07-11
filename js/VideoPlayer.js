@@ -1,6 +1,7 @@
 function VideoPlayer(){
     this.thePlayer = null;
     this.resultsArr = [];
+    this.curVideoIndx = 0;
     this.addPlayer();
 
 }
@@ -12,12 +13,19 @@ VideoPlayer.prototype.addPlayer = function(){
 
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+    $("#videoPlayerCover").click(function(evt){
+        //_self.;
+    });
 }
 VideoPlayer.prototype.playVideoId = function(_id){
     console.log("____id: " + _id);
     this.thePlayer.loadVideoById(_id);
 }
+VideoPlayer.prototype.pauseVideo = function(_id){
+    console.log("____id: " + _id);
+    this.thePlayer.pauseVideo();
+}
+
 function onYouTubeIframeAPIReady() {
     console.log("<<>>player");
     main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
@@ -34,7 +42,9 @@ function onYouTubeIframeAPIReady() {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-    event.target.playVideo();
+    if(this.main.getVideoOrPano == "video"){
+        event.target.playVideo();
+    }
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -58,19 +68,21 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
     console.log("gapi %o: ", gapi)
     try {
         var request = gapi.client.youtube.search.list({
-            q: "", //inputObject.inputQuery,
+            //q: "politics|music|art|movies|sports", 
+            q: "trump", 
             order: "date",
             type: "video",
             part: "id,snippet",
-            maxResults: "5",
+            maxResults: "20",
             //eventType: "live",
             videoLiscense: "", //inputObject.videoLiscense,
-            videoEmbeddable: true, //inputObject.videoEmbeddable,
+            safeSearch:"none",
+            //videoEmbeddable: true, //inputObject.videoEmbeddable,
             location: _latLongObj.lat + "," + _latLongObj.lng,
             //location: "40.73685214795608, -73.99154663085938",
-            locationRadius: "100mi",
+            locationRadius: "311mi",
             publishedAfter: '2016-03-01T00:00:00Z',
-            publishedBefore: '2016-06-01T00:00:00Z',
+            publishedBefore: '2016-09-01T00:00:00Z',
             key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
             //key: "AIzaSyAEcfhZe0akd47CTYaEOWQ1bLCCbLUfVEY"
         });
@@ -143,9 +155,13 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             //add result to results
             _self.resultsArr.push(videoResult);
         }
-        _self.playVideoId(_self.resultsArr[0].videoId);
+        if(_self.curVideoIndx >= _self.resultsArr.length){
+            _self.curVideoIndx = 0;
         }
-    });
+        console.log("curVideoIndx: " + _self.curVideoIndx);
+        _self.playVideoId(_self.resultsArr[_self.curVideoIndx++].videoId);
+    }
+});
 }
 
 

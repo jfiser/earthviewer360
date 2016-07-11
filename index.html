@@ -68,6 +68,12 @@ html, body {
   width: 100%;
   position:absolute;
   border-radius: 15px;
+  overflow:hidden;
+}
+#panoHolder{
+  width:100%;
+  height:100%;
+  border-radius: 15px;
 }
 #middleBar{
   height:43px;
@@ -164,6 +170,9 @@ html, body {
   position:relative;
 }
 #playIcon{
+  display:none;
+}
+#videoIcon{
   display:none;
 }
 #svgDotsVert{
@@ -320,11 +329,23 @@ html, body {
     transform: rotate(90deg);
 }*/
 #videoPlayerDiv{
-  width:400px;
-  height:400px;
+  width:100%;
+  height:100%;
   background:pink;
-  position:fixed;
+  position:absolute;
+  z-index:10;
   top:0;
+  border-radius: 15px;
+}
+#videoPlayerCover{
+  width:35%;
+  height:50%;
+  background:pink;
+  position:absolute;
+  right:0;
+  top:25%;
+  z-index:11;
+  opacity:.4;
 }
 </style>
 </head>
@@ -350,8 +371,9 @@ html, body {
       <img id="playIcon" src="./img/playIcon.png" class="middleBarBtnIcons"/>
       <span class="tooltiptext">Start / stop spinning</span>
     </div><!-- using this comment to get rid of space for an inline-block element
-    --><div id="bidesEyeBtn" class="middleBarBtn tooltip">
-      <img src="./img/birdsEyeIcon2.png" class="middleBarBtnIcons"/>
+    --><div id="videoBtn" class="middleBarBtn tooltip">
+      <img id="videoIcon" src="./img/videoIcon.png" class="middleBarBtnIcons"/>
+      <img id="panoIcon" src="./img/panoIcon.png" class="middleBarBtnIcons"/>
       <span class="tooltiptext">Bird's eye view</span>
     </div>
 
@@ -371,9 +393,11 @@ html, body {
     </svg>
 
   </div>
-  <div id="panoAndVideoHolder">
-    <div id="pano"></div>
+  <!-- pano and video -->
+  <div id="pano">
     <div id="videoPlayerDiv"></div>
+    <div id="videoPlayerCover"></div>
+    <!--<div id="panoHolder"></div>-->
   </div>
 </div> <!-- end mainHolder -->
 
