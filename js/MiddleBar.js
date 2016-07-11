@@ -37,7 +37,7 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                 evt.preventDefault();
                 evt.stopPropagation();
                 evt.gesture.preventDefault();
-                console.log("dragstart");
+                //console.log("dragstart");
                 cur_x = $middleBarEl.position().left;
                 cur_y = $middleBarEl.position().top;
                 break;
@@ -50,7 +50,7 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
             case "dragright":
                 $middleBarEl.css("left", (cur_x + evt.gesture.deltaX) + "px");
                 _self.resizeMapAndPano();
-                console.log("deltaX: " + evt.gesture.deltaX);
+                //console.log("deltaX: " + evt.gesture.deltaX);
                 break;
             case "dragleft":
                 $middleBarEl.css("left", (cur_x + evt.gesture.deltaX) + "px");
@@ -65,7 +65,7 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                 }
                 //$middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
                 _self.resizeMapAndPano();
-                console.log("deltaX: " + evt.gesture.deltaX);
+                //console.log("deltaX: " + evt.gesture.deltaX);
                 break;
             case "dragdown":
                 //evt.preventDefault();
@@ -87,14 +87,10 @@ MiddleBar.prototype.setBtnListeners = function(){
         if(_self.streetView.panoSpinning){
             _self.streetView.stopSpinPanorama();
             _self.streetView.panoSpinState = "off";
-            //$("#playIcon").show();
-            //$("#pauseIcon").hide();
         }
         else{
             _self.streetView.startSpinPanorama();
             _self.streetView.panoSpinState = "on";
-            //$("#playIcon").hide();
-            //$("#pauseIcon").show();
         }
         _self.handlePausePlayBtns();
         console.log("panoState: " + _self.streetView.panoSpinState)
@@ -103,12 +99,23 @@ MiddleBar.prototype.setBtnListeners = function(){
     $("#homeBtn").click(function(){
         _self.main.locator.showCurrentUserLoc();
     });
-
-
-
-
-
-
+    $("#videoBtn").click(function(){
+        // was showing video
+        if($("#videoPlayerDiv").is(":visible")){
+            $("#videoPlayerDiv").hide();
+            $("#videoIcon").show();
+            $("#panoIcon").hide();
+            _self.main.setVideoOrPano("pano");
+            _self.main.videoPlayer.pauseVideo();
+        }
+        else{ // was showing pano
+            $("#videoPlayerDiv").show();
+            $("#videoIcon").hide();
+            $("#panoIcon").show();
+            _self.main.setVideoOrPano("video");
+            _self.main.streetView.stopSpinPanorama();
+        }
+    });
 }
 MiddleBar.prototype.handlePausePlayBtns = function(){
     if(this.streetView.panoSpinning){
@@ -121,41 +128,6 @@ MiddleBar.prototype.handlePausePlayBtns = function(){
     }
 }
 
-/*MiddleBar.prototype.setMiddleBarDraggable2 = function(){
-    var _self = this;
-
-    this.middleBarDrag = Draggable.create("#middleBar", {type:"top,left", 
-            //edgeResistance:0.65, 
-            //dragResistance:.20,
-            //throwResistance:10000,
-            //throwProps:true,
-            //bounds:{minX: -1100, maxY:1855},
-            force3D: false,
-            //bounds:{top:0, left:100},
-            onDrag:function(evt){      
-                evt.preventDefault();
-                _self.resizeMapAndPano(evt);
-            },
-            onDragStart:function(evt){
-                //evt.preventDefault();
-            },
-            onPress:function(evt){
-                //console.log("onPress -css(left): " + parseInt($("#middleBar").css("left")));
-            },
-            onRelease:function(evt){
-                //console.log("release this.y: " + this.y);
-                google.maps.event.trigger(_self.mapView.map, "resize");
-                google.maps.event.trigger(_self.streetView.panorama, "resize");
-                //$("#middleBar").y 
-            },
-            onDragEnd:function(evt){
-                _self.resizeMapAndPano(evt);
-            },
-            //onThrowComplete:testBounds,                             
-            lockaxis:true
-
-        });                                     
-}*/
 MiddleBar.prototype.resizeMapAndPano = function(){
     this.main.windowResize("resizeMiddleBar");
 }

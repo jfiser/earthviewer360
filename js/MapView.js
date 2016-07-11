@@ -25,12 +25,13 @@ MapView.prototype.addMap = function(_latLongObj){
         var myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
         //_self.addMarker(myLatLongObj);
         //_self.streetView.setPanorama(myLatLongObj);
+        if(_self.main.getVideoOrPano() == "video"){
+            _self.main.videoPlayer.searchYouTubeByLoc(myLatLongObj);
+        }
         _self.streetView.setPanorama(event.latLng);
 
-        _self.main.videoPlayer.searchYouTubeByLoc(myLatLongObj);
-
         //_self.streetView.panorama.setPano(_self.streetView.panorama.getPano());
-        console.log("getPano: " + _self.streetView.panorama.getPano());
+        //console.log("getPano: " + _self.streetView.panorama.getPano());
 
         
         //this.setStreetView(_self.streetView.panorama);
