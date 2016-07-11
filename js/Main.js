@@ -1,4 +1,5 @@
 function Main(_latLongObj){
+    this.videoOrPano = "video";
     this.locator = new Locator(this, _latLongObj);
     this.streetView = new StreetView(this, _latLongObj);
     this.mapView = new MapView(this, _latLongObj, this.streetView);
@@ -7,11 +8,13 @@ function Main(_latLongObj){
     this.middleBar = new MiddleBar(this, this.mapView, this.streetView, 
                                         document.getElementById('middleBar'));
     this.mapView.addSearchPlaces(this.searchPlaces);
+    this.videoPlayer = new VideoPlayer();
     this.handleTouchDevices();
     var _self = this;
 
     this.setListeners();
     this.windowResize("Startup window resize");
+
 }
 Main.prototype.setListeners = function(){
     var _self = this;
@@ -35,6 +38,13 @@ Main.prototype.setListeners = function(){
         _self.windowResize("window Resize event");
     });
 }
+Main.prototype.setVideoOrPano = function(_newState){
+    this.videoOrPano = _newState;
+}
+Main.prototype.getVideoOrPano = function(){
+    console.log("returning: " + this.videoOrPano);
+    return(this.videoOrPano);
+}
 Main.prototype.handleTouchDevices = function(){
     if(this.isTouchDevice()){
         $(".tooltiptext").css("visibility", "hidden");
@@ -57,7 +67,7 @@ Main.prototype.windowResize = function(_reason){
                 this.middleBarLoc = .5 * $("#mainHolder").width();
         }
         else{
-            console.log("reason: " + reason);
+            //console.log("reason: " + reason);
             if(reason == "resizeMiddleBar"){
                 this.middleBarLoc = parseInt($("#middleBar").css("left")) / $("#mainHolder").width()
                                                 * $("#mainHolder").width();
@@ -127,8 +137,8 @@ Main.prototype.windowResize = function(_reason){
         $("#map").height($("#mainHolder").height() 
                             - $("#middleBar").height() 
                             - this.middleBarLoc);
-        console.log("after middle_t: " + $("#middleBar").css("top"));
-        console.log("mappp_h: " + $("#map").height());
+        //console.log("after middle_t: " + $("#middleBar").css("top"));
+        //console.log("mappp_h: " + $("#map").height());
         $("#map").width("100%");
 
         $("#map").css("top", "auto");
