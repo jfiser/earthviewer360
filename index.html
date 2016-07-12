@@ -208,16 +208,18 @@ html, body {
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 165px;
+    line-height: 20px;
     background-color: rgba(0,0,0,.7);
     color: #fff;
-    text-align: center;
-    padding: 3px 0;
+    text-align: left;
+    padding: 3px 0 3px 9px;
     /*border-radius: 6px;*/
     margin-left:10px;
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
-    font-family: "arial", sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:12px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
@@ -376,7 +378,7 @@ iframe{
   }
 }
 #controlBtnsHolder{
-  width:350px;
+  width:370px;
   margin: 0 auto;
   /*background:pink;*/
 }
@@ -384,14 +386,52 @@ iframe{
   font-size:22px;
   position:relative;
 }
-#filterSubmitBtn{
-  font-size:22px;
-}
 input[type=text] {
     border: 2px solid #aaaaaa;
     border-radius: 4px;
     padding-left: 10px;
     text-align:center;
+    width:240px;
+}
+@media (max-width:470px){
+  input[type=text] {
+      width:200px;
+  }
+}
+input[type=submit] {
+    padding:6px 10px; 
+    background:#9cd7ff; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    font-size:18px;
+    margin-bottom:2px;
+    position:relative;
+    bottom:2px;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #bbbbbb;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #bbbbbb;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #bbbbbb;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #bbbbbb;
+}
+#currentFilterTxt{
+  margin-top: -2px;
+  margin-left:4px;
+  font-size:13px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color:#aaaaaa;
+
 }
 </style>
 </head>
@@ -405,13 +445,15 @@ input[type=text] {
 
 <div id="controlBar">
   <div id="controlBtnsHolder">
-    <input type="text" id="filterTxt" value="">
-    <input type="submit" id=filterSubmitBtn" value="Set Filter" onclick="main.controlBar.filterTxtClicked()">
+    <input type="text" id="filterTxt" placeholder="ex: trump">
+    <input type="submit" id=filterSubmitBtn" value="Set Filter" 
+                              onclick="main.controlBar.filterTxtClicked()">
+    <!--<p id="currentFilterTxt">current filter: none</p>-->
   </div>
 </div>
 
 <!--<div id="txtBox">xzxz xcxc</div>-->
-<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<input id="pac-input" class="controls" type="text" placeholder="Enter address or place">
 <div id="mainHolder">
   <div id="map"></div>
   <div id="middleBar">
@@ -427,7 +469,7 @@ input[type=text] {
     --><div id="videoBtn" class="middleBarBtn tooltip">
       <img id="videoIcon" src="./img/videoIcon.png" class="middleBarBtnIcons"/>
       <img id="panoIcon" src="./img/panoIcon.png" class="middleBarBtnIcons"/>
-      <span class="tooltiptext">Bird's eye view</span>
+      <span class="tooltiptext">switch video / panorama</span>
     </div>
 
     <svg id="svgDotsVert"  xmlns="http://www.w3.org/2000/svg">
