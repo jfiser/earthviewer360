@@ -3,7 +3,8 @@ function StreetView(_main, _latLongObj){
     this.addPanorama(_latLongObj);
     this.streetViewSvc = new google.maps.StreetViewService();
     //this.oldPoint = _latLongObj;
-    this.curYellowManLatLng = new google.maps.LatLng({lat: _latLongObj.lat, lng: _latLongObj.lng}); 
+    this.curYellowManLatLng = new google.maps.LatLng({lat: _latLongObj.lat, 
+                                                        lng: _latLongObj.lng}); 
     this.fixPanoTries = 0;
     this.fixPanoId = 0;
     this.heading = 90;
@@ -119,7 +120,7 @@ StreetView.prototype.setPanorama = function(_latLongObj){
 StreetView.prototype.stopSpinPanorama = function(){
   	clearTimeout(this.spinIntervalId);
     this.panoSpinning = false;
-    this.main.middleBar.handlePausePlayBtns();
+    this.main.middleBar.handlePausePlayBtn();
 }
 StreetView.prototype.startSpinPanorama = function(){
     clearTimeout(this.spinIntervalId);
@@ -127,7 +128,7 @@ StreetView.prototype.startSpinPanorama = function(){
   	var _self = this;
     this.need_spinPanoramaStartHeading = true;
     this.panoSpinning = true;
-    this.main.middleBar.handlePausePlayBtns();
+    this.main.middleBar.handlePausePlayBtn();
     console.log("this.spinPanoramaStartHeading: " + this.spinPanoramaStartHeading);
     //this.spinPanoramaStartPov.heading = this.panorama.getPov().heading;
     this.spinIntervalId = setInterval(function(){
