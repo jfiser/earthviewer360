@@ -30,6 +30,9 @@ Locator.prototype.showLatLong = function(_latLongObj){
                                         _latLongObj.coords.longitude);
     this.main.mapView.map.panTo(center);
     this.main.streetView.setPanorama(center);
+    if(this.main.getVideoOrPano() == "video"){
+        this.main.videoPlayer.searchYouTubeByLoc(latLongObj);
+    }
 }
 Locator.prototype.getLocError = function(err){
     console.warn('ERROR(' + err.code + '): ' + err.message);
