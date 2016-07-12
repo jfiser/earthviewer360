@@ -31,7 +31,7 @@ StreetView.prototype.addPanorama = function(_latLongObj){
     var _self = this;
 
     this.panorama = new google.maps.StreetViewPanorama(
-    document.getElementById('panoHolder'), {
+    document.getElementById('pano'), {
                 position: _latLongObj,
                 pov: {
                     heading: 34,
