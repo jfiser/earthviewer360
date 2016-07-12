@@ -7,6 +7,8 @@ function Main(_latLongObj){
     this.speechRecog = new SpeechRecognition(this.streetView);
     this.middleBar = new MiddleBar(this, this.mapView, this.streetView, 
                                         document.getElementById('middleBar'));
+
+    this.controlBar = new ControlBar(this);
     this.mapView.addSearchPlaces(this.searchPlaces);
     this.videoPlayer = new VideoPlayer(this);
     this.handleTouchDevices();
