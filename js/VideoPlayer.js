@@ -74,9 +74,9 @@ VideoPlayer.prototype.playPauseClick = function(){
 }
 function onYouTubeIframeAPIReady() {
     console.log("<<>>player");
-    main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
-                height: '390',
-                width: '640',
+    main.videoPlayer.thePlayer = new YT.Player('videoPlayerHolder', {
+                height: '100%',
+                width: '100%',
                 videoId: 'uHNCv0kUH38',
                 //videoId: "UtblXY7Lg4k",
                 events: {
@@ -125,7 +125,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             //videoEmbeddable: true, //inputObject.videoEmbeddable,
             location: _latLongObj.lat + "," + _latLongObj.lng,
             //location: "40.73685214795608, -73.99154663085938",
-            locationRadius: "40mi",
+            locationRadius: "5mi",
             publishedAfter: '2013-07-01T00:00:00Z',
             publishedBefore: '2016-09-01T00:00:00Z',
             key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
