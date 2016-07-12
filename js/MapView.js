@@ -1,6 +1,5 @@
 function MapView(_main, _latLongObj, _streetView){
     this.main = _main;
-    this.startLatLongObj = _latLongObj;
     this.streetView = _streetView;
     this.streetView.mapView = this; // map reference for streetView
     this.addMap(_latLongObj);
@@ -13,17 +12,9 @@ MapView.prototype.addMap = function(_latLongObj){
     var _self = this;
     this.map = (new google.maps.Map(document.getElementById('map'), {
       center: _latLongObj,
-      mapTypeId: google.maps.MapTypeId.HYBRID,
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
       zoom: 3
     }));
-
-    console.log("this.streetView.panorama: %o", this.streetView.panorama);
-    
-    var myLatLng = new google.maps.LatLng(_latLongObj); 
-    this.streetView.setPanorama(myLatLng);
-
-    this.map.setStreetView(this.streetView.panorama);
-
 
     this.map.addListener('click', function(event) {
         //_self.streetView.streetViewSvc.getPanorama({location: event.latLng, radius: 50}, processStreetViewData);
@@ -64,6 +55,8 @@ MapView.prototype.addMap = function(_latLongObj){
 
         //_self.streetView.getPanorama({location: event.latLng, radius: 50}, processSVData);
     });
+    
+    this.map.setStreetView(this.streetView.panorama);
 }
 MapView.prototype.addMarker = function(_latLongObj){
     var image = {

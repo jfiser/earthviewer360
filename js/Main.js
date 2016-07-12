@@ -8,14 +8,13 @@ function Main(_latLongObj){
     this.middleBar = new MiddleBar(this, this.mapView, this.streetView, 
                                         document.getElementById('middleBar'));
     this.mapView.addSearchPlaces(this.searchPlaces);
-    this.videoPlayer = new VideoPlayer(this);
+    this.videoPlayer = new VideoPlayer();
     this.handleTouchDevices();
     var _self = this;
 
     this.setListeners();
     this.windowResize("Startup window resize");
-    
-    $("#videoPlayerCover").hide();
+
 }
 Main.prototype.setListeners = function(){
     var _self = this;
@@ -49,12 +48,11 @@ Main.prototype.getVideoOrPano = function(){
 Main.prototype.handleTouchDevices = function(){
     if(this.isTouchDevice()){
         $(".tooltiptext").css("visibility", "hidden");
-        //$("html, body").css("overflow-y", "hidden"); 
     }  
 }
 Main.prototype.windowResize = function(_reason){
     var reason = _reason;
-    //console.log("reason: " + reason);
+    console.log("reason: " + reason);
     /*var spaceAvailable = $(window).height() - $("#topNav").height();
 
     if($(window).height() > ($("#topNav").height() + $("#mainHolder").height())){
@@ -102,13 +100,10 @@ Main.prototype.windowResize = function(_reason){
         $("#svgDotsHoriz").hide();
         $("#svgDotsVert").show();
         $(".middleBarBtn").css("margin", "2px 3px");
-        // need this to cover the YT player because it listens to mouseover
-        $("#videoPlayerCover").css("right", 0);
-        $("#videoPlayerCover").css("top", "25%");
-        $("#videoPlayerCover").css("bottom:", "auto");
-        $("#videoPlayerCover").css("left", "auto");
-        $("#videoPlayerCover").css("height", "62%");
-        $("#videoPlayerCover").css("width", "50%");
+        //$(".middleBarBtn").css("margin-top", "3px");
+        //$(".middleBarBtn").css("margin-right", "13px");
+        //$(".middleBarBtn").css("margin-bottom", "3px");
+        //$(".middleBarBtn").css("margin-left", "3px");
     }
     else{  // vertical
         if(this.orientation == "horizontal"){ // just switched from horiz orientation to vert
@@ -155,13 +150,7 @@ Main.prototype.windowResize = function(_reason){
         $("#svgDotsVert").hide();
 
         $(".middleBarBtn").css("margin", "3px 2px");
-        // need this to cover the YT player because it listens to mouseover
-        $("#videoPlayerCover").css("right", "auto");
-        $("#videoPlayerCover").css("top", "auto");
-        $("#videoPlayerCover").css("bottom", 0);
-        $("#videoPlayerCover").css("left", "17%");
-        $("#videoPlayerCover").css("width", "72%");
-        $("#videoPlayerCover").css("height", "42%");
+
     }
 }
 Main.prototype.isTouchDevice = function(){

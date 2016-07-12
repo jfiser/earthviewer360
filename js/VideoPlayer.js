@@ -1,5 +1,4 @@
-function VideoPlayer(_main){
-    this.main = _main;
+function VideoPlayer(){
     this.thePlayer = null;
     this.resultsArr = [];
     this.curVideoIndx = 0;
@@ -14,83 +13,38 @@ VideoPlayer.prototype.addPlayer = function(){
 
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    /*$("#videoPlayerCover").click(function(evt){
+    $("#videoPlayerCover").click(function(evt){
         //_self.;
-    });*/
-}
-VideoPlayer.prototype.playVideo = function(){
-    this.thePlayer.playVideo();
+    });
 }
 VideoPlayer.prototype.playVideoId = function(_id){
-    console.log("_id: " + _id);
+    console.log("____id: " + _id);
     this.thePlayer.loadVideoById(_id);
 }
-VideoPlayer.prototype.pauseVideo = function(){
+VideoPlayer.prototype.pauseVideo = function(_id){
+    console.log("____id: " + _id);
     this.thePlayer.pauseVideo();
 }
-// -1 - unstarted, 0 - ended, 1 - playing, 2 - paused, 3 buffering
-// Have to change the play/pause icon here because there's a delay from when
-// user clicks and the state changes
-VideoPlayer.prototype.playPauseClick = function(){
-    var _playerState = this.thePlayer.getPlayerState();
-    switch(_playerState){
-        case -1: 
-            this.playVideo();
-            //$("#playIcon").hide();
-            //$("#pauseIcon").show();
-            break;
-        case YT.PlayerState.ENDED: 
-            this.playVideo();
-            //$("#playIcon").hide();
-            //$("#pauseIcon").show();
-            console.log("playPauseClick 0");
-            break;
-        case YT.PlayerState.PLAYING: 
-            //$("#playIcon").show();
-            //$("#pauseIcon").hide();
-            this.pauseVideo();
-            console.log("playPauseClick 1");
-            break;
-        case YT.PlayerState.PAUSED:
-            //$("#playIcon").hide();
-            //$("#pauseIcon").show();
-            this.playVideo();
-            console.log("playPauseClick 2");
-            break;
-        case YT.PlayerState.BUFFERING:
-            //$("#playIcon").hide();
-            //$("#pauseIcon").show();
-            console.log("buffering - handle this");
-            break;
-        case YT.PlayerState.CUED: 
-            //$("#playIcon").hide();
-            //$("#pauseIcon").show();
-            this.playVideo();
-            console.log("playPauseClick 5")
-            break;
-        default: console.log("playerState: " + _playerState);
-            break;
-    }
-}
+
 function onYouTubeIframeAPIReady() {
     console.log("<<>>player");
     main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
                 height: '390',
                 width: '640',
-                videoId: 'uHNCv0kUH38',
-                //videoId: "UtblXY7Lg4k",
+                //videoId: 'M7lc1UVf-VE',
+                videoId: "UtblXY7Lg4k",
                 events: {
                 'onReady': onPlayerReady,
                 'onStateChange': onPlayerStateChange
             }
     });
 }
+
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-    //console.log("zz-onPlayerReady: %o", this);
-    var latLongObj = {lat:22.895691687705654, lng:113.9501953125};
-
-    //main.videoPlayer.searchYouTubeByLoc(latLongObj);
+    if(this.main.getVideoOrPano == "video"){
+        event.target.playVideo();
+    }
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -98,7 +52,10 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 var done = false;
 function onPlayerStateChange(event) {
-    this.main.middleBar.handlePausePlayBtn();
+    if (event.data == YT.PlayerState.PLAYING && !done) {
+        setTimeout(stopVideo, 6000);
+        done = true;
+    }
 }
 function stopVideo() {
     main.videoPlayer.thePlayer.stopVideo();
@@ -112,21 +69,19 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
     try {
         var request = gapi.client.youtube.search.list({
             //q: "politics|music|art|movies|sports", 
-            //q: "trump|clinton|", 
-            //q: "travel",
-            q: "",
-            order: "rating",
+            q: "trump", 
+            order: "date",
             type: "video",
             part: "id,snippet",
-            maxResults: "10",
+            maxResults: "20",
             //eventType: "live",
             videoLiscense: "", //inputObject.videoLiscense,
             safeSearch:"none",
             //videoEmbeddable: true, //inputObject.videoEmbeddable,
             location: _latLongObj.lat + "," + _latLongObj.lng,
             //location: "40.73685214795608, -73.99154663085938",
-            locationRadius: "40mi",
-            publishedAfter: '2013-07-01T00:00:00Z',
+            locationRadius: "311mi",
+            publishedAfter: '2016-03-01T00:00:00Z',
             publishedBefore: '2016-09-01T00:00:00Z',
             key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
             //key: "AIzaSyAEcfhZe0akd47CTYaEOWQ1bLCCbLUfVEY"

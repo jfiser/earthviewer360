@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="title" content="Earth Viewer 360">
 <meta name="description" content="StreetView and Google Maps, side by side. Click the Map window anywhere in the world and immediately see a 360 panorama of that spot in the StreetView window. Click on the roof of a house in the map window and see what the house looks like from the street in the StreetView window.">
 <meta name="keywords" content="panorama, earth, streetview, maps, spin, fun, realty, realtor, house, explore, world, views, travel, 360 degrees">
@@ -38,10 +38,9 @@
 <style>
 html, body {
   height: 100%;
-  width:100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  /*overflow-y: hidden;*/
 }
 
 #mainHolder{
@@ -85,7 +84,6 @@ html, body {
   top:48%;
   z-index:10;
   cursor: e-resize;
-  /*border: 1px solid gray;*/
 }
 
 /* searchPlaces */
@@ -108,8 +106,7 @@ html, body {
         margin-left: 12px;
         padding: 0 11px 0 13px;
         text-overflow: ellipsis;
-        /*min-width:180px;*/
-        width: 50%;
+        width: 300px;
       }
 
       #pac-input:focus {
@@ -172,7 +169,7 @@ html, body {
 #playBtn{
   position:relative;
 }
-#pauseIcon{
+#playIcon{
   display:none;
 }
 #videoIcon{
@@ -223,35 +220,31 @@ html, body {
 /**** tooltip  ****/
 #topNav{
   position:relative;
-  width:100%;
+  width:80%;
   /*height:136px;*/
   height:auto;
-  background:#e3edf5;
+  background:white;
   margin:0 auto;
-  margin-bottom:30px;
   /*border:1px solid #cdcdcd;
   border-radius: 15px;
   margin: 15px auto 15px auto;*/
 }
 @media (max-width: 1025px){
   #topNav{
-    width:100%;
+    width:93%;
   }
 }
 #topNavInstruction{
   position:absolute;
   right:0px;
-  bottom:14px;
+  bottom:12px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align:right;
   font-size:16px;
-  margin-right:25px;
-
 }
 @media (max-width: 570px){
   #topNavInstruction{
     font-size:12px;
-    margin-right:12px;
   }
 }
 @media (max-width: 450px){
@@ -299,13 +292,11 @@ html, body {
   width:100px;
   height:100px;
   margin-top:15px;
-  margin-left:25px;
 }
 @media (max-width: 1025px){
   #birdLogo{
     width:40px;
     height:40px;
-    margin-left:12px;
   }
 }
 
@@ -340,7 +331,7 @@ html, body {
 #videoPlayerDiv{
   width:100%;
   height:100%;
-  background:white;
+  background:pink;
   position:absolute;
   z-index:10;
   top:0;
@@ -354,7 +345,7 @@ html, body {
   right:0;
   top:25%;
   z-index:11;
-  opacity:0;
+  opacity:.4;
 }
 </style>
 </head>
@@ -363,7 +354,7 @@ html, body {
 <div id="topNav">
   <img id="birdLogo" src="./img/birdsEyeIcon2.png"/>
   <div id="earthViewerTxt"><span class="myBrown">e</span><span class="myGreen">arth</span><span class="myBlue">Viewer</span> <span class="myItalic">360</span></div>
-  <div id="topNavInstruction">Click anywhere in the World to <br>see local video or a 360&deg; street view.</div>
+  <div id="topNavInstruction">Click anywhere in the World <br>to see a 360&deg; street view.</div>
 </div>
 
 <!--<div id="txtBox">xzxz xcxc</div>-->
@@ -454,10 +445,7 @@ function handleClientLoad() {
 }
 function getCurLoc(){
     console.log("getCurLoc");
-    //var latLongObj = {lat:40.73685214795608, lng:-73.99154663085938};
-    //var latLongObj = {lat:16.97274101999902, lng:-0.087890625};
-    var latLongObj = {lat:25.005972656239187, lng:91.00250244140625};
-    //var latLongObj = {lat:27.68352808378776, lng:-82.001953125};
+    var latLongObj = {lat:40.73685214795608, lng:-73.99154663085938};
     input = document.getElementById('pac-input');
     main = new Main(latLongObj);
 }
