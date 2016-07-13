@@ -78,6 +78,7 @@ function onYouTubeIframeAPIReady() {
                 height: '390',
                 width: '640',
                 videoId: 'uHNCv0kUH38',
+                modestbranding: 1,
                 //videoId: "UtblXY7Lg4k",
                 events: {
                 'onReady': onPlayerReady,
@@ -108,13 +109,16 @@ function stopVideo() {
 VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
     var _self = this;
 
-    console.log("gapi %o: ", gapi)
+    //console.log("gapi %o: ", gapi);
+    console.log(">>> _latLongObj: %o", _latLongObj);
+    console.log("radius: " + this.main.mapView.zoomArr[this.main.mapView.map.getZoom()]);
     try {
         var request = gapi.client.youtube.search.list({
             //q: "politics|music|art|movies|sports", 
             //q: "trump|clinton|", 
             //q: "travel",
-            q: "",
+            //q: "",
+            q: this.main.controlBar.filterTxt,
             order: "rating",
             type: "video",
             part: "id,snippet",
@@ -125,9 +129,13 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             //videoEmbeddable: true, //inputObject.videoEmbeddable,
             location: _latLongObj.lat + "," + _latLongObj.lng,
             //location: "40.73685214795608, -73.99154663085938",
-            locationRadius: "40mi",
-            publishedAfter: '2013-07-01T00:00:00Z',
-            publishedBefore: '2016-09-01T00:00:00Z',
+            //locationRadius: "2mi",
+            locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
+            
+            //publishedAfter: '2013-07-01T00:00:00Z',
+            //publishedBefore: '2016-09-01T00:00:00Z',
+            publishedAfter: this.main.controlBar.curPublishedAfter,
+            publishedBefore: moment().format(),
             key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
             //key: "AIzaSyAEcfhZe0akd47CTYaEOWQ1bLCCbLUfVEY"
         });
@@ -175,10 +183,10 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             videoResult.description = entryArr[i].snippet.description;
             videoResult.videoId = entryArr[i].id.videoId;
 
-            console.log("descrip: " + videoResult.description);
-            console.log("videoId: " + videoResult.videoId);
+            //console.log("descrip: " + videoResult.description);
+            //console.log("videoId: " + videoResult.videoId);
 
-            var year = entryArr[i].snippet.publishedAt.substr(0, 4);
+            /*var year = entryArr[i].snippet.publishedAt.substr(0, 4);
             var monthNumeric = entryArr[i].snippet.publishedAt.substr(5, 2);
             var monthInt = 0;
 
@@ -191,11 +199,13 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             var day = entryArr[i].snippet.publishedAt.substr(8, 2);
             var time = entryArr[i].snippet.publishedAt.substr(11, 8);
 
-            //var monthString = MONTH_NAMES[monthInt - 1];
+            var monthString = MONTH_NAMES[monthInt - 1];
 
-            //videoResult.displayTimeStamp = monthString + " " + day + ", " 
-                                                    //+ year + " - " + time + " UTC";
-            //videoResult.publishTimeStamp = entryArr[i].snippet.publishedAt;
+            videoResult.displayTimeStamp = monthString + " " + day + ", " 
+                                                    + year + " - " + time + " UTC";
+            videoResult.publishTimeStamp = entryArr[i].snippet.publishedAt;*/
+
+            console.log("pubDate: " + entryArr[i].snippet.publishedAt);
 
             //add result to results
             _self.resultsArr.push(videoResult);

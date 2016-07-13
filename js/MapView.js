@@ -3,7 +3,14 @@ function MapView(_main, _latLongObj, _streetView){
     this.startLatLongObj = _latLongObj;
     this.streetView = _streetView;
     this.streetView.mapView = this; // map reference for streetView
+    this.zoomArr = ["200mi", "200mi", "180mi", "170mi", "160mi", 
+                    "140mi", "105mi", "64mi", "53mi", "28mi", "10mi",
+                    "13mi", "11mi", "7mi", "5mi", "4mi", "4mi",
+                    "3mi", "3mi", "3mi", "2mi", "2mi", "1mi"
+                    ];
+    
     this.addMap(_latLongObj);
+
 }
 MapView.prototype.addSearchPlaces = function(_searchPlaces){
     this.searchPlaces = _searchPlaces;
@@ -31,11 +38,11 @@ MapView.prototype.addMap = function(_latLongObj){
         //console.log("evt: %o", event.latLng.lat());
         console.log("lat: %o", event.latLng.lat());
         console.log("lng: %o", event.latLng.lng());
-        var myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
+        _self.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
         //_self.addMarker(myLatLongObj);
         //_self.streetView.setPanorama(myLatLongObj);
         if(_self.main.getVideoOrPano() == "video"){
-            _self.main.videoPlayer.searchYouTubeByLoc(myLatLongObj);
+            _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj);
         }
         _self.streetView.setPanorama(event.latLng);
 
