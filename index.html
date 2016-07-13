@@ -32,7 +32,19 @@
 <meta name="msapplication-TileImage" content="./favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 <!-- favicon -->
+<script type="text/javascript" src="//fast.fonts.net/jsapi/535b5a28-7505-48da-bba4-d0b2e85095b7.js"></script>
 
+<link rel="stylesheet" href="./css/pikaday.css">
+<!--
+font-family:'Helvetica Neue LT W01_41488878';
+font-family:'Helvetica Neue LT W01_46 Lt It';
+font-family:'Helvetica Neue LT W01_56 It';
+font-family:'Helvetica Neue LT W01_65 Md';
+font-family:'Helvetica Neue LT W01_66 Md It';
+font-family:'Helvetica Neue LT W01_71488914';
+-->
+
+<!--<link rel="stylesheet" href="./css/fonts.css" type="text/css" charset="utf-8" />-->
 
 <title>Earth Viewer 360</title>
 <style>
@@ -43,7 +55,6 @@ html, body {
   padding: 0;
   overflow-x: hidden;
 }
-
 #mainHolder{
   width:80%;
   height:88%;
@@ -106,7 +117,7 @@ html, body {
 
       #pac-input {
         background-color: #fff;
-        font-family: Roboto;
+        font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
         font-size: 15px;
         font-weight: 300;
         margin-left: 12px;
@@ -121,7 +132,7 @@ html, body {
       }
 
       .pac-container {
-        font-family: Roboto;
+        font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
       }
 
       #type-selector {
@@ -131,7 +142,7 @@ html, body {
       }
 
       #type-selector label {
-        font-family: Roboto;
+        font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
         font-size: 13px;
         font-weight: 300;
       }
@@ -218,7 +229,7 @@ html, body {
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
     font-size:12px;
 }
 
@@ -246,13 +257,19 @@ html, body {
   position:absolute;
   right:0px;
   bottom:14px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
   text-align:right;
-  font-size:16px;
+  font-size:22px;
   margin-right:25px;
 
 }
-@media (max-width: 570px){
+
+@media (max-width: 1025px){
+  #topNavInstruction{
+	  font-size: 16px;
+  }
+}
+@media (max-width: 620px){
   #topNavInstruction{
     font-size:12px;
     margin-right:12px;
@@ -271,7 +288,7 @@ html, body {
 }
 @media (min-width:801px){
   #btmInstructions{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
     width:60%;
     font-size:19px;
     margin: 30px auto 0 auto;
@@ -280,7 +297,7 @@ html, body {
 }
 @media (min-width:451px) and (max-width: 800px){
   #btmInstructions{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
     width:80%;
     font-size:15px;
     margin: 30px auto 0 auto;
@@ -289,7 +306,7 @@ html, body {
 }
 @media (max-width: 450px){
   #btmInstructions{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
     max-width:100%;
     font-size:15px;
     margin: 30px 10px 0px 10px;
@@ -314,13 +331,23 @@ html, body {
 }
 
 #earthViewerTxt{
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 22px;
+  font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
+	font-size: 42px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 300;
 	line-height: 50px;
   display:inline;
+}
+@media (max-width: 1025px){
+  #earthViewerTxt{
+	  font-size: 26px;
+  }
+}
+@media (max-width: 570px){
+  #earthViewerTxt{
+	  font-size: 22px;
+  }
 }
 .myItalic{
   font-style: italic;
@@ -377,13 +404,14 @@ iframe{
   }
 }
 #controlBtnsHolder{
-  width:370px;
+  width:470px;
   margin: 0 auto;
   /*background:pink;*/
 }
 #filterTxt{
   font-size:22px;
   position:relative;
+  font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
 }
 input[type=text] {
     border: 2px solid #aaaaaa;
@@ -391,6 +419,7 @@ input[type=text] {
     padding-left: 10px;
     text-align:center;
     width:240px;
+    font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
 }
 @media (max-width:470px){
   input[type=text] {
@@ -428,9 +457,21 @@ input[type=submit] {
   margin-top: -2px;
   margin-left:4px;
   font-size:13px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;*/
+  font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
   color:#aaaaaa;
 
+}
+#datePicker{
+  z-index:200;
+  width:100px;
+  background:white;
+}
+#filterSubmitBtn{
+  font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+input{
+  font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 </style>
 </head>
@@ -439,12 +480,13 @@ input[type=submit] {
 <div id="topNav">
   <img id="birdLogo" src="./img/birdsEyeIcon2.png"/>
   <div id="earthViewerTxt"><span class="myBrown">e</span><span class="myGreen">arth</span><span class="myBlue">Viewer</span> <span class="myItalic">360</span></div>
-  <div id="topNavInstruction">Click anywhere in the World to <br>see local video or a 360&deg; street view.</div>
+  <div id="topNavInstruction">Click anywhere in the World to <br>watch local video or a 360&deg; street view.</div>
 </div>
 
 <div id="controlBar">
   <div id="controlBtnsHolder">
-    <input type="text" id="filterTxt" placeholder="ex: trump">
+    <input type="text" id="datePicker" placeholder="Wed Jul 13 2016" >
+    <input type="text" id="filterTxt" placeholder="ex: trump" autocomplete="on">
     <input type="submit" id=filterSubmitBtn" value="Set Filter" 
                               onclick="main.controlBar.filterTxtClicked()">
     <!--<p id="currentFilterTxt">current filter: none</p>-->
@@ -508,13 +550,12 @@ input[type=submit] {
 
 <p id="dedicatedTo">Dedicated to unearthing the perfect panorama</p>
 
-
-
-
-
   <script src="./js/jquery-3.0.0.min.js"></script>
   <script src=./js/hammer.min.js></script>
   <script src="./js/annyang.min.js"></script>
+  <script src="./js/moment.js"></script>
+  <script src="./js/pikaday.js"></script>
+  
   <script src="./js/Main.js"></script>
   <script src="./js/Locator.js"></script>
   <script src="./js/SearchPlaces.js"></script>
@@ -533,8 +574,8 @@ $(document).ready(function() {
 
 });
 function handleClientLoad() {
-  console.log("handleClientLoad");
-  gapi.client.load('youtube', 'v3', function() {
+    console.log("handleClientLoad");
+    gapi.client.load('youtube', 'v3', function() {
     console.log("gapi.client.load - youTube");
   });
 }
