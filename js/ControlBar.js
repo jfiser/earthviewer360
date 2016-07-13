@@ -5,6 +5,9 @@ function ControlBar(_main){
 }
 ControlBar.prototype.filterTxtClicked = function(){
     this.filterTxt = ($("#filterTxt").val());
+    if(this.main.getVideoOrPano() == "video"){
+        this.main.videoPlayer.searchYouTubeByLoc(this.main.myLatLongObj);
+    }
 }
 ControlBar.prototype.setListeners = function(){
     var _self = this;
@@ -14,6 +17,9 @@ ControlBar.prototype.setListeners = function(){
             evt.preventDefault(); // <<< Most important missing piece from icedwater
             _self.filterTxt = ($("#filterTxt").val());
             console.log("filterTxt: " + _self.filterTxt);
+            if(_self.main.getVideoOrPano() == "video"){
+                _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj);
+            }
         }
     });
 }

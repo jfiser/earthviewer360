@@ -1,4 +1,6 @@
 function Main(_latLongObj){
+    this.myLatLongObj = _latLongObj;
+    console.log(">>>>>>>>>>>>>>>this.myLatLongObj %o", this.myLatLongObj);
     this.videoOrPano = "video";
     this.locator = new Locator(this, _latLongObj);
     this.streetView = new StreetView(this, _latLongObj);
@@ -45,7 +47,7 @@ Main.prototype.setVideoOrPano = function(_newState){
     this.videoOrPano = _newState;
 }
 Main.prototype.getVideoOrPano = function(){
-    console.log("returning: " + this.videoOrPano);
+    //console.log("returning: " + this.videoOrPano);
     return(this.videoOrPano);
 }
 Main.prototype.handleTouchDevices = function(){

@@ -78,6 +78,7 @@ function onYouTubeIframeAPIReady() {
                 height: '390',
                 width: '640',
                 videoId: 'uHNCv0kUH38',
+                modestbranding: 1,
                 //videoId: "UtblXY7Lg4k",
                 events: {
                 'onReady': onPlayerReady,
@@ -108,7 +109,9 @@ function stopVideo() {
 VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
     var _self = this;
 
-    console.log("gapi %o: ", gapi)
+    //console.log("gapi %o: ", gapi);
+    console.log(">>> _latLongObj: %o", _latLongObj);
+    console.log("radius: " + this.main.mapView.zoomArr[this.main.mapView.map.getZoom()]);
     try {
         var request = gapi.client.youtube.search.list({
             //q: "politics|music|art|movies|sports", 
@@ -126,7 +129,9 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             //videoEmbeddable: true, //inputObject.videoEmbeddable,
             location: _latLongObj.lat + "," + _latLongObj.lng,
             //location: "40.73685214795608, -73.99154663085938",
-            locationRadius: "40mi",
+            //locationRadius: "2mi",
+            locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
+            
             publishedAfter: '2013-07-01T00:00:00Z',
             publishedBefore: '2016-09-01T00:00:00Z',
             key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
@@ -176,8 +181,8 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             videoResult.description = entryArr[i].snippet.description;
             videoResult.videoId = entryArr[i].id.videoId;
 
-            console.log("descrip: " + videoResult.description);
-            console.log("videoId: " + videoResult.videoId);
+            //console.log("descrip: " + videoResult.description);
+            //console.log("videoId: " + videoResult.videoId);
 
             var year = entryArr[i].snippet.publishedAt.substr(0, 4);
             var monthNumeric = entryArr[i].snippet.publishedAt.substr(5, 2);
