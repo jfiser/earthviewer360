@@ -77,8 +77,12 @@ function onYouTubeIframeAPIReady() {
     main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
                 height: '390',
                 width: '640',
-                videoId: 'uHNCv0kUH38',
-                modestbranding: 1,
+                videoId: 'lEM-d7n6kxE', // balto riots
+                //videoId: 'Fobn1PLwExM', // tuba city
+                playerVars: {
+                    modestbranding: true,
+                    showinfo:0
+                },
                 //videoId: "UtblXY7Lg4k",
                 events: {
                 'onReady': onPlayerReady,

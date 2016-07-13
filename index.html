@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="title" content="Earth Viewer 360">
-<meta name="description" content="StreetView and Google Maps, side by side. Click the Map window anywhere in the world and immediately see a 360 panorama of that spot in the StreetView window. Click on the roof of a house in the map window and see what the house looks like from the street in the StreetView window.">
-<meta name="keywords" content="panorama, earth, streetview, maps, spin, fun, realty, realtor, house, explore, world, views, travel, 360 degrees">
+<meta name="description" content="Click anywhere on earth to watch
+local video and a 360° street view.">
+<meta name="keywords" content="live video, video, news, sports, tv, online tv, current,reporters tool, reporters, newspaper, newsroom, panorama, earth, streetview, maps, spin, fun, realty, realtor, house, explore, world, views, travel, 360 degrees">
 
 <meta name="author" content="Joel Fiser">
 
 <meta property="og:title" content="Earth Viewer 360"/> 
-<meta property="og:description" content="StreetView and Google Maps, side by side. Click the Map window anywhere in the world and immediately see a 360 panorama of that spot in the StreetView window. Click on the roof of a house in the map window and see what the house looks like from the street in the StreetView window." />
+<meta property="og:description" content="Click anywhere on earth to watch
+local video and a 360° street view." />
 <meta property="og:image" content="./img/ogImage.jpg" />
 
 <!-- favicon -->
@@ -32,7 +34,7 @@
 <meta name="msapplication-TileImage" content="./favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 <!-- favicon -->
-<script type="text/javascript" src="//fast.fonts.net/jsapi/535b5a28-7505-48da-bba4-d0b2e85095b7.js"></script>
+<!--<script type="text/javascript" src="//fast.fonts.net/jsapi/535b5a28-7505-48da-bba4-d0b2e85095b7.js"></script>-->
 
 <link rel="stylesheet" href="./css/pikaday.css">
 <!--
@@ -66,30 +68,41 @@ html, body {
 }
 @media (max-width: 1025px){
   #mainHolder{
+    width:95%;
+  }
+}
+@media (max-width: 869px){
+  #mainHolder{
     width:98%;
   }
 }
-
-@media (max-width: 769px){
+@media (max-width: 800px){
   #mainHolder{
-    width:98%;
+    width:100%;
   }
 }
 #map, #pano {
   height: 100%;
   width: 100%;
   position:absolute;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  /*box-shadow: 0px 0px 0px 10px #fff;*/ 
   border-radius: 15px;
   overflow:hidden;
+}
+@media (max-width: 800px){
+  #map, #pano {
+    border-radius: 0px;
+  }
 }
 #panoHolder{
   width:100%;
   height:100%;
   border-radius: 15px;
   overflow:hidden;
+}
+@media (max-width: 800px){
+  #panoHolder {
+    border-radius: 0px;
+  }
 }
 #middleBar{
   height:43px;
@@ -238,12 +251,13 @@ html, body {
     visibility: visible;
 }
 /**** tooltip  ****/
+
 #topNav{
   position:relative;
   width:100%;
   /*height:136px;*/
   height:auto;
-  background:#e3edf5;
+  background:#9cd7ff;
   margin:0 auto;
   margin-bottom:30px;
 }
@@ -261,7 +275,7 @@ html, body {
   text-align:right;
   font-size:22px;
   margin-right:25px;
-
+  color:white;
 }
 
 @media (max-width: 1025px){
@@ -275,7 +289,7 @@ html, body {
     margin-right:12px;
   }
 }
-@media (max-width: 450px){
+@media (max-width: 490px){
   #topNavInstruction{
     display:none;
   }
@@ -361,6 +375,10 @@ html, body {
 .myBlue{
   color:#0099ff;
 }
+.myWhite{
+  color:#ffffff;
+}
+
 /*.rotate90{
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
@@ -375,11 +393,7 @@ html, body {
   position:absolute;
   z-index:10;
   top:0;
-  border-radius: 15px;
-  overflow:hidden;
-}
-iframe{
-  border-radius: 15px;
+  /*border-radius: 15px;*/
   overflow:hidden;
 }
 #videoPlayerCover{
@@ -438,6 +452,11 @@ input[type=submit] {
     position:relative;
     bottom:2px;
 }
+@media (max-width:540px){
+  input[type=submit] {
+      display:none;
+  }
+}
 ::-webkit-input-placeholder { /* WebKit browsers */
   color: #bbbbbb;
 }
@@ -479,8 +498,10 @@ input{
 
 <div id="topNav">
   <img id="birdLogo" src="./img/birdsEyeIcon2.png"/>
-  <div id="earthViewerTxt"><span class="myBrown">e</span><span class="myGreen">arth</span><span class="myBlue">Viewer</span> <span class="myItalic">360</span></div>
-  <div id="topNavInstruction">Click anywhere in the World to <br>watch local video or a 360&deg; street view.</div>
+  <!--<div id="earthViewerTxt"><span class="myBrown">e</span><span class="myGreen">arth</span><span class="myBlue">Viewer</span> <span class="myItalic">360</span></div>-->
+  <div id="earthViewerTxt"><span class="myWhite">earthViewer</span>
+                                      <span class="myItalic">360</span></div>
+  <div id="topNavInstruction">Click anywhere on earth to watch<br>local video and a 360&deg; street view.</div>
 </div>
 
 <div id="controlBar">
@@ -583,7 +604,8 @@ function getCurLoc(){
     console.log("getCurLoc");
     //var latLongObj = {lat:40.73685214795608, lng:-73.99154663085938};
     //var latLongObj = {lat:16.97274101999902, lng:-0.087890625};
-    var latLongObj = {lat:25.005972656239187, lng:91.00250244140625};
+    var latLongObj = {lat:33.72433966174761, lng:-78.046875}; // balto riots
+    //var latLongObj = {lat:33.72433966174761, lng:-78.046875}; // tuba city
     //var latLongObj = {lat:27.68352808378776, lng:-82.001953125};
     input = document.getElementById('pac-input');
     main = new Main(latLongObj);
