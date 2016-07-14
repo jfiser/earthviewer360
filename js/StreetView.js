@@ -56,6 +56,7 @@ StreetView.prototype.addPanorama = function(_latLongObj){
             _self.startSpinPanorama();
         }
         else{
+            clearInterval(_self.fixPanoId);
             _self.fixPanoId = setInterval(fixPanoTiles, 200);
         }
     

@@ -110,43 +110,72 @@ function stopVideo() {
 }
 
 
-VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
+VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType){
     var _self = this;
 
     //console.log("gapi %o: ", gapi);
     console.log(">>> _latLongObj: %o", _latLongObj);
     console.log("radius: " + this.main.mapView.zoomArr[this.main.mapView.map.getZoom()]);
-    try {
-        var request = gapi.client.youtube.search.list({
-            //q: "politics|music|art|movies|sports", 
-            //q: "trump|clinton|", 
-            //q: "travel",
-            //q: "",
-            q: this.main.controlBar.filterTxt,
-            order: "rating",
-            type: "video",
-            part: "id,snippet",
-            maxResults: "10",
-            //eventType: "live",
-            videoLiscense: "", //inputObject.videoLiscense,
-            safeSearch:"none",
-            //videoEmbeddable: true, //inputObject.videoEmbeddable,
-            location: _latLongObj.lat + "," + _latLongObj.lng,
-            //location: "40.73685214795608, -73.99154663085938",
-            //locationRadius: "2mi",
-            locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
+    console.log("_searchType: %o", _searchType);
+
+    if(_searchType == "personThing"){
+        try {
+            // split it to take away everything after first comme
+            var personThing = $("#pac-input").val().split(',')[0];
+            console.log("looking for place: " + $("#pac-input").val());
+            var request = gapi.client.youtube.search.list({
+                q: personThing,
+                order: "rating",
+                type: "video",
+                part: "id,snippet",
+                maxResults: "10",
+                //eventType: "live",
+                //videoLiscense: "", //inputObject.videoLiscense,
+                safeSearch:"none",
+                location: _latLongObj.lat + "," + _latLongObj.lng,
+                locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
+                //publishedAfter: '2013-07-01T00:00:00Z',
+                publishedAfter: this.main.controlBar.curPublishedAfter,
+                publishedBefore: moment().format(),
+                key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
+            });
+        } 
+        catch(err){
+            console.log("err: " + err);
+        }
+    }
+    else
+    if(_searchType == "place"){
+        try {
+            // split it to take away everything after first comme
+            var part1 = $("#pac-input").val().split(',')[0];
+            var part2 = "";
+            if($("#pac-input").val().split(',').length > 1){
+                part2 = $("#pac-input").val().split(',')[1];
+            }
             
-            //publishedAfter: '2013-07-01T00:00:00Z',
-            //publishedBefore: '2016-09-01T00:00:00Z',
-            publishedAfter: this.main.controlBar.curPublishedAfter,
-            publishedBefore: moment().format(),
-            key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
-            //key: "AIzaSyAEcfhZe0akd47CTYaEOWQ1bLCCbLUfVEY"
-        });
-    } 
-    catch(err){
-        //cannot search via the YouTube API
-        console.log("err: " + err);
+            var myPlace = part1 + " " + part2;
+            console.log("looking for place: " + myPlace);
+            var request = gapi.client.youtube.search.list({
+                q: myPlace,
+                order: "relevance", //date,viewCount
+                type: "video",
+                part: "id,snippet",
+                maxResults: "10",
+                //eventType: "live",
+                //videoLiscense: "", //inputObject.videoLiscense,
+                safeSearch:"none",
+                //location: _latLongObj.lat + "," + _latLongObj.lng,
+                //locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
+                publishedAfter: '2001-01-01T00:00:00Z',
+                //publishedAfter: this.main.controlBar.curPublishedAfter,
+                publishedBefore: moment().format(),
+                key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
+            });
+        } 
+        catch(err){
+            console.log("err: " + err);
+        }
     }
     console.log("request: %o", request);
     request.execute(function(response) {
@@ -210,6 +239,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
             videoResult.publishTimeStamp = entryArr[i].snippet.publishedAt;*/
 
             console.log("pubDate: " + entryArr[i].snippet.publishedAt);
+            console.log("title: " + entryArr[i].snippet.title);
 
             //add result to results
             _self.resultsArr.push(videoResult);
@@ -217,7 +247,6 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj){
         if(_self.curVideoIndx >= _self.resultsArr.length){
             _self.curVideoIndx = 0;
         }
-        console.log("curVideoIndx: " + _self.curVideoIndx);
         _self.playVideoId(_self.resultsArr[_self.curVideoIndx++].videoId);
     }
 });

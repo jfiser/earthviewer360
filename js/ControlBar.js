@@ -24,7 +24,7 @@ ControlBar.prototype.addDatePicker = function(){
 ControlBar.prototype.filterTxtClicked = function(){
     this.filterTxt = ($("#filterTxt").val());
     if(this.main.getVideoOrPano() == "video"){
-        this.main.videoPlayer.searchYouTubeByLoc(this.main.myLatLongObj);
+        this.main.videoPlayer.searchYouTubeByLoc(this.main.myLatLongObj, "personThing");
     }
 }
 ControlBar.prototype.setListeners = function(){
@@ -36,8 +36,11 @@ ControlBar.prototype.setListeners = function(){
             _self.filterTxt = ($("#filterTxt").val());
             console.log("filterTxt: " + _self.filterTxt);
             if(_self.main.getVideoOrPano() == "video"){
-                _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj);
+                _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "personThing");
             }
         }
+    });
+    $('#personPlaceRadioBtns input').on('change', function() {
+        console.log("radio: " + $('input[name=personOrPlace]:checked', '#personPlaceRadioBtns').val()); 
     });
 }

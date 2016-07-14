@@ -42,7 +42,7 @@ MapView.prototype.addMap = function(_latLongObj){
         //_self.addMarker(myLatLongObj);
         //_self.streetView.setPanorama(myLatLongObj);
         if(_self.main.getVideoOrPano() == "video"){
-            _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj);
+            _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj, "personThing");
         }
         _self.streetView.setPanorama(event.latLng);
 
@@ -53,7 +53,7 @@ MapView.prototype.addMap = function(_latLongObj){
         //this.setStreetView(_self.streetView.panorama);
         //sv.getPanorama({location: event.latLng, radius: 50}, processSVData);
     });
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     
     this.map.addListener('bounds_changed', function(){
         console.log("boundschanged");

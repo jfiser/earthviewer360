@@ -418,7 +418,7 @@ html, body {
   }
 }
 #controlBtnsHolder{
-  width:470px;
+  width:720px;
   margin: 0 auto;
   /*background:pink;*/
 }
@@ -492,6 +492,10 @@ input[type=submit] {
 input{
   font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
+#personPlaceRadioBtns{
+  display:inline-block;
+}
+
 </style>
 </head>
 <body>
@@ -508,9 +512,13 @@ input{
   <div id="controlBtnsHolder">
     <input type="text" id="datePicker" placeholder="Wed Jul 13 2016" >
     <input type="text" id="filterTxt" placeholder="ex: trump" autocomplete="on">
-    <input type="submit" id=filterSubmitBtn" value="Set Filter" 
+    <input type="submit" id=filterSubmitBtn" value="Set Channel" 
                               onclick="main.controlBar.filterTxtClicked()">
     <!--<p id="currentFilterTxt">current filter: none</p>-->
+    <form id="personPlaceRadioBtns">
+      <input type="radio" name="personOrPlace" value="personThing"> Person or thing<br>
+      <input type="radio" name="personOrPlace" value="place"> Place<br>
+    </form>
   </div>
 </div>
 

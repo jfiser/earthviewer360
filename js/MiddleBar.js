@@ -152,7 +152,7 @@ MiddleBar.prototype.setBtnListeners = function(){
     });
 }
 MiddleBar.prototype.handlePausePlayBtn = function(_reason){
-    console.log("reason: " + _reason);
+    //console.log("reason: " + _reason);
     if(this.main.getVideoOrPano() == "pano"){
         if(this.streetView.panoSpinning){
             $("#playIcon").hide();

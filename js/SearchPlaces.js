@@ -18,8 +18,9 @@ var map = new google.maps.Map(document.getElementById('map'), {
 //var input = document.getElementById('pac-input');
 //var searchBox = new google.maps.places.SearchBox(input);
 
-function SearchPlaces(_input, _map, _streetView){
+function SearchPlaces(_main, _input, _map, _streetView){
     console.log("map: %o", map);
+    this.main = _main;
     this.markers = [];
     this.places = [];
     this.map = _map;
@@ -33,9 +34,21 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
 // Listen for the event fired when the user selects a prediction and retrieve
 // more details for that place.
     var _self = this;
-    this.searchBox.addListener('places_changed', function() {
+    this.searchBox.addListener('places_changed', function(){
         console.log("places_changed");
         _self.places = _self.searchBox.getPlaces();
+        
+        //var personOrPlace = $( "input:checked" ).val();
+        var personOrPlace = $('input[name=personOrPlace]:checked', '#personPlaceRadioBtns').val();
+        console.log(">>>>personOrPlace: " + personOrPlace);
+        if(personOrPlace == "place"){
+            _self.main.videoPlayer.searchYouTubeByLoc(null, "place");
+        }
+        else
+        if(personOrPlace == "personThing"){
+            _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "personThing");
+        }
+        console.log("VAL: " + $("#pac-input").val());
 
         if (_self.places.length == 0) {
             return;
@@ -57,7 +70,7 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
                 anchor: new google.maps.Point(17, 34),
                 scaledSize: new google.maps.Size(25, 25)
             };
-
+            console.log("placeName: " + _place.name);
             // Create a marker for each place.
             console.log("_place: %o", _place);
             _self.markers.push(new google.maps.Marker({
@@ -73,15 +86,16 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
                 // Only geocodes have viewport.
                 console.log("union");
                 bounds.union(_place.geometry.viewport);
-                _self.streetView.setPanorama(_place.geometry.location);
+                //_self.streetView.setPanorama(_place.geometry.location);
             }
             else {
                 console.log("extend");
                 bounds.extend(_place.geometry.location);
-                _self.streetView.setPanorama(_place.geometry.location);
+                //_self.streetView.setPanorama(_place.geometry.location);
             }
         });
         _self.map.fitBounds(bounds);
+        //_self.streetView.setPanorama(_place.geometry.location);
     });
 
 }

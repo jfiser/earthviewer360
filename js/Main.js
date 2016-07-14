@@ -5,7 +5,7 @@ function Main(_latLongObj){
     this.locator = new Locator(this, _latLongObj);
     this.streetView = new StreetView(this, _latLongObj);
     this.mapView = new MapView(this, _latLongObj, this.streetView);
-    this.searchPlaces = new SearchPlaces(input, this.mapView.map, this.streetView);
+    this.searchPlaces = new SearchPlaces(this, input, this.mapView.map, this.streetView);
     this.speechRecog = new SpeechRecognition(this.streetView);
     this.middleBar = new MiddleBar(this, this.mapView, this.streetView, 
                                         document.getElementById('middleBar'));
