@@ -19,10 +19,24 @@ MapView.prototype.addSearchPlaces = function(_searchPlaces){
 MapView.prototype.addMap = function(_latLongObj){
     var _self = this;
     this.map = (new google.maps.Map(document.getElementById('map'), {
-      center: _latLongObj,
-      mapTypeId: google.maps.MapTypeId.HYBRID,
-      zoom: 3
+        center: _latLongObj,
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+
+        /*styles: [{
+                featureType: 'poi',
+                stylers: [{ visibility: 'off' }]  // Turn off points of interest.
+            }, 
+            {
+                featureType: 'transit.station',
+                stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
+            }],*/
+        //disableDoubleClickZoom: true
+
+
+        zoom: 3
     }));
+    
+    this.map.setClickableIcons(false);
 
     console.log("this.streetView.panorama: %o", this.streetView.panorama);
     

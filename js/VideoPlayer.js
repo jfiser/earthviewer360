@@ -110,7 +110,7 @@ function stopVideo() {
 }
 
 
-VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType){
+VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _placeName){
     var _self = this;
 
     //console.log("gapi %o: ", gapi);
@@ -148,10 +148,10 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType){
     if(_searchType == "place"){
         try {
             // split it to take away everything after first comme
-            var part1 = $("#pac-input").val().split(',')[0];
+            var part1 = _placeName.split(',')[0];
             var part2 = "";
-            if($("#pac-input").val().split(',').length > 1){
-                part2 = $("#pac-input").val().split(',')[1];
+            if(_placeName.split(',').length > 1){
+                part2 = _placeName.split(',')[1];
             }
             
             var myPlace = part1 + " " + part2;
@@ -167,7 +167,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType){
                 safeSearch:"none",
                 //location: _latLongObj.lat + "," + _latLongObj.lng,
                 //locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
-                publishedAfter: '2001-01-01T00:00:00Z',
+                publishedAfter: '2011-01-01T00:00:00Z',
                 //publishedAfter: this.main.controlBar.curPublishedAfter,
                 publishedBefore: moment().format(),
                 key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"

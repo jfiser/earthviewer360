@@ -29,7 +29,7 @@ ControlBar.prototype.filterTxtClicked = function(){
 }
 ControlBar.prototype.setListeners = function(){
     var _self = this;
-    document.getElementById("filterTxt").addEventListener("keypress", function (evt) {
+    /*document.getElementById("filterTxt").addEventListener("keypress", function (evt) {
         if (evt.keyCode === 13)   {
             $("#filterSubmitBtn").click();
             evt.preventDefault(); // <<< Most important missing piece from icedwater
@@ -39,7 +39,7 @@ ControlBar.prototype.setListeners = function(){
                 _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "personThing");
             }
         }
-    });
+    });*/
     $('#personPlaceRadioBtns input').on('change', function() {
         console.log("radio: " + $('input[name=personOrPlace]:checked', '#personPlaceRadioBtns').val()); 
     });

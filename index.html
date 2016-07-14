@@ -511,9 +511,10 @@ input{
 <div id="controlBar">
   <div id="controlBtnsHolder">
     <input type="text" id="datePicker" placeholder="Wed Jul 13 2016" >
-    <input type="text" id="filterTxt" placeholder="ex: trump" autocomplete="on">
+    <input id="pac-input" class="controls" type="text" placeholder="Enter address or place">
+    <!--<input type="text" id="filterTxt" placeholder="ex: trump" autocomplete="on">
     <input type="submit" id=filterSubmitBtn" value="Set Channel" 
-                              onclick="main.controlBar.filterTxtClicked()">
+                              onclick="main.controlBar.filterTxtClicked()">-->
     <!--<p id="currentFilterTxt">current filter: none</p>-->
     <form id="personPlaceRadioBtns">
       <input type="radio" name="personOrPlace" value="personThing"> Person or thing<br>
@@ -523,7 +524,6 @@ input{
 </div>
 
 <!--<div id="txtBox">xzxz xcxc</div>-->
-<input id="pac-input" class="controls" type="text" placeholder="Enter address or place">
 <div id="mainHolder">
   <div id="map"></div>
   <div id="middleBar">
