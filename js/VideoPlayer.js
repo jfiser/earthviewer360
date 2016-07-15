@@ -119,7 +119,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
     console.log("_searchType: %o", _searchType);
 
     if(_searchType == "personThing"){
-        try {
+        try{
             // split it to take away everything after first comme
             var personThing = $("#pac-input").val().split(',')[0];
             console.log("looking for place: " + $("#pac-input").val());
@@ -146,7 +146,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
     }
     else
     if(_searchType == "place"){
-        try {
+        try{
             // split it to take away everything after first comme
             var part1 = _placeName.split(',')[0];
             var part2 = "";
