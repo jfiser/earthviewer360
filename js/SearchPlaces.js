@@ -85,7 +85,7 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
         var bounds = new google.maps.LatLngBounds();
         _self.places.forEach(function(_place) {
             var icon = {
-                url: _place.icon,
+                url: "./img/birdsEyeIcon2.png", //_place.icon,
                 size: new google.maps.Size(71, 71),
                 origin: new google.maps.Point(0, 0),
                 anchor: new google.maps.Point(17, 34),
@@ -97,6 +97,8 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
             var myMarker = _self.markers.push(new google.maps.Marker({
                 map: _self.map,
                 icon: icon,
+                animation: google.maps.Animation.DROP,
+                label: _place.name,
                 title: _place.name,
                 position: _place.geometry.location
             }));
@@ -108,10 +110,14 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
                         var searchName = place.name + " " + place.address_components[2].long_name;
                         console.log(">>>>>>>>>>>searchName: " + searchName);
                         if (status == google.maps.places.PlacesServiceStatus.OK) {
-                            console.log("Tit: %o", place);
-
-                            _self.main.videoPlayer.searchYouTubeByLoc(null, 
+                            console.log("Tit: %o", place);                            
+                            if(_self.main.videoOrPano == "video"){
+                                _self.main.videoPlayer.searchYouTubeByLoc(null, 
                                                     "place", searchName);
+                            }
+                            else{
+                                _self.streetView.setPanorama(_place.geometry.location);
+                            }
                         }
                         else{ 
                             console.log("NoTit");
@@ -136,6 +142,12 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
             }
         });
         _self.map.fitBounds(bounds);
+        if(_self.main.videoOrPano == "video"){
+            _self.main.videoPlayer.searchYouTubeByLoc(null, "place", $("#pac-input").val());
+        }
+        else{
+            _self.streetView.setPanorama(_place.geometry.location);
+        }
         //_self.streetView.setPanorama(_place.geometry.location);
     });
 

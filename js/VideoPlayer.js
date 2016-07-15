@@ -122,6 +122,13 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
         try{
             // split it to take away everything after first comme
             var personThing = $("#pac-input").val().split(',')[0];
+
+            var part1 = personThing.split(',')[0];
+            var part2 = "";
+            if(personThing.split(',').length > 1){
+                part2 = personThing.split(',')[1];
+            }
+
             console.log("looking for place: " + $("#pac-input").val());
             var request = gapi.client.youtube.search.list({
                 q: personThing,

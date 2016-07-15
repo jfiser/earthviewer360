@@ -106,7 +106,7 @@ MapView.prototype.addMarker = function(_latLongObj){
     var marker = new google.maps.Marker({
         position: _latLongObj,
         map: this.map,
-        //icon: image,
+        icon: "./img/birdsEyeIcon2.png",
         //shape: shape,
         title: "Fat Monkey"
         //zIndex: 0
