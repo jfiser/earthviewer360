@@ -63,8 +63,6 @@ html, body {
   min-height:300px;
   position:relative;
   margin: 0 auto;
-  /*border:1px solid #9a9a9a;
-  border-radius: 15px;*/
 }
 @media (max-width: 1025px){
   #mainHolder{
@@ -85,14 +83,13 @@ html, body {
   height: 100%;
   width: 100%;
   position:absolute;
-  border-radius: 0px 15px 15px 0px;
+  /*border-radius: 0px 15px 15px 0px;*/
   overflow:hidden;
 }
 #pano{
   height: 100%;
   width: 100%;
   position:absolute;
-  border-radius: 15px 0px 0px 15px;
   overflow:hidden;
 }
 @media (max-width: 800px){
@@ -103,8 +100,6 @@ html, body {
 #panoHolder{
   width:100%;
   height:100%;
-  border-radius: 15px;
-  border-radius: 15px 0px 0px 15px;
   overflow:hidden;
 }
 @media (max-width: 800px){
@@ -568,9 +563,9 @@ input{
   </div>
   <!-- pano and video -->
   <div id="pano">
+    <div id="panoHolder"></div>
     <div id="videoPlayerDiv"></div>
     <div id="videoPlayerCover"></div>
-    <!--<div id="panoHolder"></div>-->
   </div>
 </div> <!-- end mainHolder -->
 
