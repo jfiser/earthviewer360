@@ -27,9 +27,30 @@ function SearchPlaces(_main, _input, _map, _streetView){
     this.streetView = _streetView;
     //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     this.searchBox = new google.maps.places.SearchBox(_input);
+    this.placeService = new google.maps.places.PlacesService(this.map);
     //this.setBoundsChangedListener();
     this.setPlacesChangedListener();
+    //this.setPlaceClickedLisetener();
 };
+SearchPlaces.prototype.setPlaceClickedLisetener = function(_marker, _placeId){
+    try{
+        this.placeService.getDetails({placeId: _placeId}, 
+            function(place, status) {
+                //if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    //var marker = new google.maps.Marker({
+                    //map: map,
+                    //position: place.geometry.location
+                    //});
+                    google.maps.event.addListener(_marker, 'click', function() {
+                        console.log("placeName: " + place.name);
+                    });
+                //}
+            });
+    }
+    catch(err){
+        console.log("err: %o", err);
+    }
+}
 SearchPlaces.prototype.setPlacesChangedListener = function(){
 // Listen for the event fired when the user selects a prediction and retrieve
 // more details for that place.
@@ -42,7 +63,7 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
         var personOrPlace = $('input[name=personOrPlace]:checked', '#personPlaceRadioBtns').val();
         console.log(">>>>personOrPlace: " + personOrPlace);
         if(personOrPlace == "place"){
-            _self.main.videoPlayer.searchYouTubeByLoc(null, "place");
+            _self.main.videoPlayer.searchYouTubeByLoc(null, "place", $("#pac-input").val());
         }
         else
         if(personOrPlace == "personThing"){
@@ -64,7 +85,7 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
         var bounds = new google.maps.LatLngBounds();
         _self.places.forEach(function(_place) {
             var icon = {
-                url: _place.icon,
+                url: "./img/birdsEyeIcon2.png", //_place.icon,
                 size: new google.maps.Size(71, 71),
                 origin: new google.maps.Point(0, 0),
                 anchor: new google.maps.Point(17, 34),
@@ -73,14 +94,41 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
             console.log("placeName: " + _place.name);
             // Create a marker for each place.
             console.log("_place: %o", _place);
-            _self.markers.push(new google.maps.Marker({
+            var myMarker = _self.markers.push(new google.maps.Marker({
                 map: _self.map,
                 icon: icon,
+                animation: google.maps.Animation.DROP,
+                //label: _place.name,
                 title: _place.name,
+                opacity:.7,
                 position: _place.geometry.location
             }));
 
-            //google.maps.event.addListener(_place, 'click', getDetails(results[i], i));
+            console.log("marker: %o", _self.markers[_self.markers.length-1])
+            var request =  {reference: _place.reference};
+            google.maps.event.addListener(_self.markers[_self.markers.length-1],'click',function(){
+                    _self.placeService.getDetails(request, function(place, status) {
+                        var searchName = place.name + " " + place.address_components[2].long_name;
+                        console.log(">>>>>>>>>>>searchName: " + searchName);
+                        if (status == google.maps.places.PlacesServiceStatus.OK) {
+                            console.log("Tit: %o", place);                            
+                            if(_self.main.videoOrPano == "video"){
+                                _self.main.videoPlayer.searchYouTubeByLoc(null, 
+                                                    "place", searchName);
+                            }
+                            else{
+                                _self.streetView.setPanorama(_place.geometry.location);
+                            }
+                        }
+                        else{ 
+                            console.log("NoTit");
+                        }
+                });
+
+            });
+            //_self.setPlaceClickedLisetener(myMarker, _place.id);
+
+            console.log("_place.id: ", _place.id);
 
             if (_place.geometry.viewport) {
                 // Only geocodes have viewport.
@@ -95,6 +143,12 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
             }
         });
         _self.map.fitBounds(bounds);
+        if(_self.main.videoOrPano == "video"){
+            _self.main.videoPlayer.searchYouTubeByLoc(null, "place", $("#pac-input").val());
+        }
+        else{
+            _self.streetView.setPanorama(_place.geometry.location);
+        }
         //_self.streetView.setPanorama(_place.geometry.location);
     });
 

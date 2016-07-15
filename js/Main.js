@@ -20,7 +20,20 @@ function Main(_latLongObj){
     this.windowResize("Startup window resize");
     
     $("#videoPlayerCover").hide();
+
+    this.setTrends();
 }
+Main.prototype.setTrends = function(){
+    $.getJSON( "./data/trends.json", function( data ) {
+        var items = [];
+        $.each( data, function( key, val ) {
+            //items.push( "<li id='" + key + "'>" + val + "</li>" );
+            console.log("key: " + val);
+        });
+    });
+}
+
+
 Main.prototype.setListeners = function(){
     var _self = this;
 

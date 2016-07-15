@@ -19,10 +19,24 @@ MapView.prototype.addSearchPlaces = function(_searchPlaces){
 MapView.prototype.addMap = function(_latLongObj){
     var _self = this;
     this.map = (new google.maps.Map(document.getElementById('map'), {
-      center: _latLongObj,
-      mapTypeId: google.maps.MapTypeId.HYBRID,
-      zoom: 3
+        center: _latLongObj,
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+
+        styles: [{
+                featureType: 'poi',
+                stylers: [{ visibility: 'off' }]  // Turn off points of interest.
+            }, 
+            {
+                featureType: 'transit.station',
+                stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
+            }],
+        //disableDoubleClickZoom: true
+
+
+        zoom: 3
     }));
+
+    this.map.setClickableIcons(false);
 
     console.log("this.streetView.panorama: %o", this.streetView.panorama);
     
@@ -35,7 +49,7 @@ MapView.prototype.addMap = function(_latLongObj){
     this.map.addListener('click', function(event) {
         //_self.streetView.streetViewSvc.getPanorama({location: event.latLng, radius: 50}, processStreetViewData);
         
-        //console.log("evt: %o", event.latLng.lat());
+        console.log(">>>>evt: %o", event);
         console.log("lat: %o", event.latLng.lat());
         console.log("lng: %o", event.latLng.lng());
         _self.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
@@ -92,7 +106,7 @@ MapView.prototype.addMarker = function(_latLongObj){
     var marker = new google.maps.Marker({
         position: _latLongObj,
         map: this.map,
-        //icon: image,
+        icon: "./img/birdsEyeIcon2.png",
         //shape: shape,
         title: "Fat Monkey"
         //zIndex: 0
