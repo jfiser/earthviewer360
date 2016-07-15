@@ -98,8 +98,9 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
                 map: _self.map,
                 icon: icon,
                 animation: google.maps.Animation.DROP,
-                label: _place.name,
+                //label: _place.name,
                 title: _place.name,
+                opacity:.7,
                 position: _place.geometry.location
             }));
 

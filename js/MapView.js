@@ -49,7 +49,7 @@ MapView.prototype.addMap = function(_latLongObj){
     this.map.addListener('click', function(event) {
         //_self.streetView.streetViewSvc.getPanorama({location: event.latLng, radius: 50}, processStreetViewData);
         
-        //console.log("evt: %o", event.latLng.lat());
+        console.log(">>>>evt: %o", event);
         console.log("lat: %o", event.latLng.lat());
         console.log("lng: %o", event.latLng.lng());
         _self.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
