@@ -112,13 +112,13 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
                         console.log(">>>>>>>>>>>searchName: " + searchName);
                         if (status == google.maps.places.PlacesServiceStatus.OK) {
                             console.log("Tit: %o", place);                            
-                            if(_self.main.videoOrPano == "video"){
+                            //if(_self.main.videoOrPano == "video"){
                                 _self.main.videoPlayer.searchYouTubeByLoc(null, 
                                                     "place", searchName);
-                            }
-                            else{
+                            //}
+                            //else{
                                 _self.streetView.setPanorama(_place.geometry.location);
-                            }
+                            //}
                         }
                         else{ 
                             console.log("NoTit");
@@ -143,12 +143,12 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
             }
         });
         _self.map.fitBounds(bounds);
-        if(_self.main.videoOrPano == "video"){
+        //if(_self.main.videoOrPano == "video"){
             _self.main.videoPlayer.searchYouTubeByLoc(null, "place", $("#pac-input").val());
-        }
-        else{
-            _self.streetView.setPanorama(_place.geometry.location);
-        }
+        //}
+        //else{_self.places 
+            _self.streetView.setPanorama(_self.places[0].geometry.location);
+        //}
         //_self.streetView.setPanorama(_place.geometry.location);
     });
 

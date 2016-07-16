@@ -78,6 +78,7 @@ StreetView.prototype.addPanorama = function(_latLongObj){
 StreetView.prototype.setPanorama = function(_latLongObj){
     var _self = this;
     this.clickLatLongObj = _latLongObj;
+    console.log("DS>>>>>>>>>>>");
     var myLatLongObj = {lat:_latLongObj.lat(), lng:_latLongObj.lng()};
     
     var mapZoom = this.mapView.map.getZoom();

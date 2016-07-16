@@ -37,14 +37,11 @@ MapView.prototype.addMap = function(_latLongObj){
     }));
 
     this.map.setClickableIcons(false);
-
     console.log("this.streetView.panorama: %o", this.streetView.panorama);
+    this.map.setStreetView(this.streetView.panorama);
     
     var myLatLng = new google.maps.LatLng(_latLongObj); 
     this.streetView.setPanorama(myLatLng);
-
-    this.map.setStreetView(this.streetView.panorama);
-
 
     this.map.addListener('click', function(event) {
         //_self.streetView.streetViewSvc.getPanorama({location: event.latLng, radius: 50}, processStreetViewData);
@@ -55,9 +52,9 @@ MapView.prototype.addMap = function(_latLongObj){
         _self.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
         //_self.addMarker(myLatLongObj);
         //_self.streetView.setPanorama(myLatLongObj);
-        if(_self.main.getVideoOrPano() == "video"){
+        //if(_self.main.getVideoOrPano() == "video"){
             _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj, "personThing");
-        }
+        //}
         _self.streetView.setPanorama(event.latLng);
 
         //_self.streetView.panorama.setPano(_self.streetView.panorama.getPano());

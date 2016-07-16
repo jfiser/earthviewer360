@@ -101,6 +101,11 @@ Main.prototype.windowResize = function(_reason){
         $("#pano").css("left", 0);
         $("#pano").css("top", 0);
 
+        /*$("#pano").width(this.middleBarLoc);
+        $("#pano").height("100%");
+        $("#pano").css("left", 0);
+        $("#pano").css("top", 0);*/
+
         $("#middleBar").width("43px");
         $("#middleBar").height("100%");
         $("#middleBar").css("left", this.middleBarLoc);

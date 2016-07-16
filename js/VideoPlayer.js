@@ -174,8 +174,8 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
                 safeSearch:"none",
                 //location: _latLongObj.lat + "," + _latLongObj.lng,
                 //locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
-                publishedAfter: '2011-01-01T00:00:00Z',
-                //publishedAfter: this.main.controlBar.curPublishedAfter,
+                //publishedAfter: '2014-01-01T00:00:00Z',
+                publishedAfter: this.main.controlBar.curPublishedAfter,
                 publishedBefore: moment().format(),
                 key: "AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE"
             });
