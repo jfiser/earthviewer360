@@ -1,7 +1,7 @@
 function ControlBar(_main){
     this.main = _main;
     this.filterTxt = "";
-    this.curPubStartDate = "2014-07-01T00:00:00Z";
+    this.curPublishedAfter = "2011-07-01T00:00:00Z";
     this.setListeners();
     this.addDatePicker();
 }

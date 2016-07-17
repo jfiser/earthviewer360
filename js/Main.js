@@ -1,5 +1,6 @@
 function Main(_latLongObj){
     this.myLatLongObj = _latLongObj;
+    this.myLatLongFuncs = new google.maps.LatLng(_latLongObj); 
     console.log(">>>>>>>>>>>>>>>this.myLatLongObj %o", this.myLatLongObj);
     this.videoOrPano = "video";
     this.locator = new Locator(this, _latLongObj);
