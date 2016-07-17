@@ -7,7 +7,7 @@
 <meta name="description" content="Click anywhere on earth to watch
 local video and a 360° street view.">
 <meta name="keywords" content="live video, video, news, sports, tv, online tv, current,reporters tool, reporters, newspaper, newsroom, panorama, earth, streetview, maps, spin, fun, realty, realtor, house, explore, world, views, travel, 360 degrees">
-
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="author" content="Joel Fiser">
 
 <meta property="og:title" content="Earth Viewer 360"/> 
@@ -49,14 +49,46 @@ font-family:'Helvetica Neue LT W01_71488914';
 <!--<link rel="stylesheet" href="./css/fonts.css" type="text/css" charset="utf-8" />-->
 
 <title>Earth Viewer 360</title>
+<!-- Google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53852136-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- end Google analytics -->
+
 <style>
-html, body {
+html {
   height: 100%;
   width:100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
 }
+/*body {
+  height: 100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}*/
+body{
+  position:absolute;
+  width:100%;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 #mainHolder{
   width:80%;
   height:88%;
@@ -92,20 +124,12 @@ html, body {
   position:absolute;
   overflow:hidden;
 }
-@media (max-width: 800px){
-  #map, #pano {
-    border-radius: 0px;
-  }
-}
 #panoHolder{
   width:100%;
-  height:100%;
+  height:48%;
   overflow:hidden;
-}
-@media (max-width: 800px){
-  #panoHolder {
-    border-radius: 0px;
-  }
+  position:absolute;
+  bottom:0;
 }
 #middleBar{
   height:43px;
@@ -120,28 +144,30 @@ html, body {
 }
 
 /* searchPlaces */
-    .controls {
-        margin-top: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      }
-
       #pac-input {
+        display:block;
         background-color: #fff;
         font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
-        font-size: 15px;
+        font-size: 18px;
         font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
+        margin: 29px auto 0 auto;
+        /*padding: 3px 11px 3px 13px;*/
         text-overflow: ellipsis;
-        /*min-width:180px;*/
-        width: 50%;
+        min-width:290px;
+        width: 54%;
+
+        border: 1px solid #888888;
+        border-radius: 0 0 0 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        outline: none;
+        height: 32px;
       }
+      @media (max-width: 1025px){
+        #pac-input{
+          width:62%;
+        }
+      }
+
 
       #pac-input:focus {
         border-color: #4d90fe;
@@ -186,7 +212,7 @@ html, body {
   line-height:37px;
   margin:2px 3px;
   cursor: pointer;
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   display:inline-block;
 }
 .middleBarBtnIcons{
@@ -262,12 +288,10 @@ html, body {
   height:auto;
   background:#9cd7ff;
   margin:0 auto;
-  margin-bottom:30px;
 }
 @media (max-width: 1025px){
   #topNav{
     width:100%;
-    margin-bottom:20px;
   }
 }
 #topNavInstruction{
@@ -391,7 +415,7 @@ html, body {
 }*/
 #videoPlayerDiv{
   width:100%;
-  height:100%;
+  height:48%;
   background:white;
   position:absolute;
   z-index:10;
@@ -407,17 +431,18 @@ html, body {
   right:0;
   top:25%;
   z-index:11;
-  opacity:0;
+  /*opacity:0;*/
 }
 #controlBar{
   width:80%;
-  height:30px;
-  margin: 0 auto 30px auto;
+  height:60px;
+  margin: 0 auto 0 auto;
+  position:relative;
 }
 @media (max-width: 1025px){
   #controlBar{
     width:98%;
-    margin: 0 auto 20px auto;
+    height:60px;
   }
 }
 #controlBtnsHolder{
@@ -488,6 +513,7 @@ input[type=submit] {
   z-index:200;
   width:100px;
   background:white;
+  display:none;
 }
 #filterSubmitBtn{
   font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -496,7 +522,7 @@ input{
   font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 #personPlaceRadioBtns{
-  display:inline-block;
+  display:none; /*inline-block;*/
 }
 
 </style>
@@ -512,18 +538,18 @@ input{
 </div>
 
 <div id="controlBar">
-  <div id="controlBtnsHolder">
-    <input type="text" id="datePicker" placeholder="Wed Jul 13 2016" >
-    <input id="pac-input" class="controls" type="text" placeholder="Enter address or place">
+  <!--<div id="controlBtnsHolder">-->
+    <input type="text" id="datePicker" placeholder="Wed Jul 1 2014" >
+    <input id="pac-input" type="text" placeholder="Enter address or place">
     <!--<input type="text" id="filterTxt" placeholder="ex: trump" autocomplete="on">
     <input type="submit" id=filterSubmitBtn" value="Set Channel" 
                               onclick="main.controlBar.filterTxtClicked()">-->
     <!--<p id="currentFilterTxt">current filter: none</p>-->
-    <form id="personPlaceRadioBtns">
+    <!--<form id="personPlaceRadioBtns">
       <input type="radio" name="personOrPlace" value="personThing"> Person or thing<br>
       <input type="radio" name="personOrPlace" value="place"> Place<br>
     </form>
-  </div>
+  </div>-->
 </div>
 
 <!--<div id="txtBox">xzxz xcxc</div>-->
@@ -615,9 +641,9 @@ function getCurLoc(){
     console.log("getCurLoc");
     //var latLongObj = {lat:40.73685214795608, lng:-73.99154663085938};
     //var latLongObj = {lat:16.97274101999902, lng:-0.087890625};
-    var latLongObj = {lat:33.72433966174761, lng:-78.046875}; // balto riots
+    //var latLongObj = {lat:33.72433966174761, lng:-78.046875}; // balto riots
     //var latLongObj = {lat:33.72433966174761, lng:-78.046875}; // tuba city
-    //var latLongObj = {lat:27.68352808378776, lng:-82.001953125};
+    var latLongObj = {lat:27.68352808378776, lng:-82.001953125};
     input = document.getElementById('pac-input');
     main = new Main(latLongObj);
 }
