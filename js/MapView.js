@@ -31,41 +31,28 @@ MapView.prototype.addMap = function(_latLongObj){
                 stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
             }],
         //disableDoubleClickZoom: true
-
-
         zoom: 3
     }));
 
     this.map.setClickableIcons(false);
     console.log("this.streetView.panorama: %o", this.streetView.panorama);
     this.map.setStreetView(this.streetView.panorama);
-    
-    var myLatLng = new google.maps.LatLng(_latLongObj); 
-    this.streetView.setPanorama(myLatLng);
+
+    this.main.myLatLongFuncs = new google.maps.LatLng(_latLongObj); 
+    this.streetView.setPanorama(this.main.myLatLongFuncs);
 
     this.map.addListener('click', function(event) {
-        //_self.streetView.streetViewSvc.getPanorama({location: event.latLng, radius: 50}, processStreetViewData);
-        
         console.log(">>>>evt: %o", event);
         console.log("lat: %o", event.latLng.lat());
         console.log("lng: %o", event.latLng.lng());
         _self.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
         //_self.addMarker(myLatLongObj);
-        //_self.streetView.setPanorama(myLatLongObj);
         //if(_self.main.getVideoOrPano() == "video"){
-            _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj, "personThing");
+         _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj, "personThing");
         //}
         _self.streetView.setPanorama(event.latLng);
-
-        //_self.streetView.panorama.setPano(_self.streetView.panorama.getPano());
-        //console.log("getPano: " + _self.streetView.panorama.getPano());
-
-        
-        //this.setStreetView(_self.streetView.panorama);
-        //sv.getPanorama({location: event.latLng, radius: 50}, processSVData);
+        //_self.main.searchPlaces.getPlacesWithinRadius(_self.myLatLongObj);
     });
-    //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    
     this.map.addListener('bounds_changed', function(){
         console.log("boundschanged");
         google.maps.event.trigger(this, 'resize');

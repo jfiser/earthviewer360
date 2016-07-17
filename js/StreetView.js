@@ -92,6 +92,7 @@ StreetView.prototype.setPanorama = function(_latLongObj){
             console.log("getPanorama data: %o", data);
             
             if(status === google.maps.StreetViewStatus.OK){
+                console.log("setPanorama status OK")
                 _self.heading = google.maps.geometry.spherical.computeHeading(data.location.latLng,
                                                                         _self.clickLatLongObj);
                 _self.curYellowManLatLng = data.location.latLng; 

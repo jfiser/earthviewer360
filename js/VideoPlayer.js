@@ -77,6 +77,7 @@ function onYouTubeIframeAPIReady() {
     main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
                 height: '390',
                 width: '640',
+                iv_load_policy:3,
                 videoId: 'lEM-d7n6kxE', // balto riots
                 //videoId: 'Fobn1PLwExM', // tuba city
                 playerVars: {
@@ -121,18 +122,25 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
     if(_searchType == "personThing"){
         try{
             // split it to take away everything after first comme
-            var personThing = $("#pac-input").val().split(',')[0];
+            if(_placeName != undefined){
+                var personThing = _placeName;
+            }
+            else{
+                var personThing = $("#pac-input").val().split(',')[0];
+            }
 
             var part1 = personThing.split(',')[0];
             var part2 = "";
             if(personThing.split(',').length > 1){
                 part2 = personThing.split(',')[1];
             }
-
-            console.log("looking for place: " + $("#pac-input").val());
+            
+            console.log("+======searching youtube (personThing) for q: " + personThing);
+            console.log("publishedAfter: %o", this.main.controlBar.curPublishedAfter);
+            
             var request = gapi.client.youtube.search.list({
                 q: personThing,
-                order: "rating",
+                order: (personThing != "" ? "relevance" : "viewCount"),
                 type: "video",
                 part: "id,snippet",
                 maxResults: "10",
@@ -141,6 +149,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
                 safeSearch:"none",
                 location: _latLongObj.lat + "," + _latLongObj.lng,
                 locationRadius: this.main.mapView.zoomArr[this.main.mapView.map.getZoom()],
+                //locationRadius: "17000m",
                 //publishedAfter: '2013-07-01T00:00:00Z',
                 publishedAfter: this.main.controlBar.curPublishedAfter,
                 publishedBefore: moment().format(),
@@ -162,7 +171,8 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
             }
             
             var myPlace = part1 + " " + part2;
-            console.log("looking for place: " + myPlace);
+            console.log("searching youtube (place) for q: " + myPlace);
+            console.log("publishedAfter: " + this.main.controlBar.curPublishedAfter);
             var request = gapi.client.youtube.search.list({
                 q: myPlace,
                 order: "relevance", //date,viewCount
@@ -247,6 +257,8 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
 
             console.log("pubDate: " + entryArr[i].snippet.publishedAt);
             console.log("title: " + entryArr[i].snippet.title);
+            console.log("desc: " + entryArr[i].snippet.description);
+            console.log("thumb: " + entryArr[i].snippet.thumbnails.medium.url);
 
             //add result to results
             _self.resultsArr.push(videoResult);

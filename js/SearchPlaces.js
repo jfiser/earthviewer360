@@ -31,7 +31,45 @@ function SearchPlaces(_main, _input, _map, _streetView){
     //this.setBoundsChangedListener();
     this.setPlacesChangedListener();
     //this.setPlaceClickedLisetener();
-};
+}
+SearchPlaces.prototype.getPlacesWithinRadius = function(_latLongObj){
+    var _self = this;
+    var request = {
+        location: _latLongObj,
+        //bounds: map.getBounds(),
+        keyword: 'beer',
+        //type: "restaurant",
+        //types: ['store'],
+        radius: 1000 //this.main.mapView.zoomArr[this.main.mapView.map.getZoom()] * 800,
+    };
+ 
+    this.placeService.radarSearch(request, 
+        function(_results, _status){
+            console.log("========_results: %o", _results);
+            console.log("_status: %o", _status);
+            var request = {
+                placeId: _results[0].place_id
+            };
+            _self.placeService.getDetails(request, 
+                function(_results2, _status2){
+                    console.log("========_results2: %o", _results2);
+                    console.log("========_results2.name: %o", _results2.name);
+                    console.log("_status2: %o", _status2);
+                    var placeAddr = _results2.formatted_address.replace(/[0-9]/g, '');
+                    _self.main.videoPlayer.searchYouTubeByLoc(
+                            {lat: _results2.geometry.location.lat(), 
+                                lng: _results2.geometry.location.lng()},
+                            "personThing", 
+                            _results2.name + " " 
+                                    + placeAddr.split(',')[1] + " " + placeAddr.split(',')[2]);
+                                    //+ _results2.formatted_address.replace(/[0-9]/g, ''));                                    //+ " "
+                                    //+  _results2.formatted_address.split(',')[2]);
+                    _self.streetView.setPanorama(_results2.geometry.location);
+                });
+
+
+        });
+}
 SearchPlaces.prototype.setPlaceClickedLisetener = function(_marker, _placeId){
     try{
         this.placeService.getDetails({placeId: _placeId}, 
@@ -62,13 +100,13 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
         //var personOrPlace = $( "input:checked" ).val();
         var personOrPlace = $('input[name=personOrPlace]:checked', '#personPlaceRadioBtns').val();
         console.log(">>>>personOrPlace: " + personOrPlace);
-        if(personOrPlace == "place"){
+        /*if(personOrPlace == "place"){
             _self.main.videoPlayer.searchYouTubeByLoc(null, "place", $("#pac-input").val());
         }
         else
         if(personOrPlace == "personThing"){
             _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "personThing");
-        }
+        }*/
         console.log("VAL: " + $("#pac-input").val());
 
         if (_self.places.length == 0) {
@@ -100,7 +138,7 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
                 animation: google.maps.Animation.DROP,
                 //label: _place.name,
                 title: _place.name,
-                opacity:.7,
+                //opacity:.7,
                 position: _place.geometry.location
             }));
 
@@ -144,10 +182,24 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
         });
         _self.map.fitBounds(bounds);
         //if(_self.main.videoOrPano == "video"){
+
+        // if we found at least 1 place
+        if(_self.places.length > 0){
             _self.main.videoPlayer.searchYouTubeByLoc(null, "place", $("#pac-input").val());
+            _self.streetView.setPanorama(_self.places[0].geometry.location);
+        }
+        else{
+            _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, 
+                                                            "personThing",
+                                                            $("#pac-input").val());
+            _self.streetView.setPanorama(_self.main.myLatLongFuncs);
+        }
+
+
+            //_self.main.videoPlayer.searchYouTubeByLoc(null, "place", $("#pac-input").val());
         //}
         //else{_self.places 
-            _self.streetView.setPanorama(_self.places[0].geometry.location);
+           //ZZZ _self.streetView.setPanorama(_self.places[0].geometry.location);
         //}
         //_self.streetView.setPanorama(_place.geometry.location);
     });
