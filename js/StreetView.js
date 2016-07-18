@@ -52,6 +52,7 @@ StreetView.prototype.addPanorama = function(_latLongObj){
         console.log("panoChange: " + this.getPano());
          //clearInterval(_self.fixPanoId);
         //_self.fixPanoId = setInterval(fixPanoTiles, 200);
+        //if(_self.panoSpinState == "on"){
         if(_self.main.getVideoOrPano() == "pano" && _self.panoSpinState == "on"){
             _self.startSpinPanorama();
         }
@@ -69,7 +70,6 @@ StreetView.prototype.addPanorama = function(_latLongObj){
             if(++_self.fixPanoTries > 3){
                 clearInterval(_self.fixPanoId);
                 _self.fixPanoTries = 0;
-                //_self.startSpinPanorama();
             }
         }
         
@@ -87,8 +87,6 @@ StreetView.prototype.setPanorama = function(_latLongObj){
     console.log("myRadius: " + myRadius);
     this.streetViewSvc.getPanorama({location: myLatLongObj, radius: myRadius}, 
         function(data, status){
-            console.log("_self,newPt: %o", _self.clickLatLongObj);
-            console.log("_self,oldPt: %o", _self.curYellowManLatLng);
             console.log("getPanorama data: %o", data);
             
             if(status === google.maps.StreetViewStatus.OK){

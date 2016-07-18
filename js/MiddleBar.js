@@ -19,7 +19,7 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                                             });
                                                 
     //this.myHammer.on("touch swipeleft swiperight dragright dragleft dragup dragdown dragstart dragend", function(evt){
-    this.myHammer.on("touch dragright dragleft dragup dragdown dragstart dragend", function(evt){
+    this.myHammer.on("touch release dragright dragleft dragup dragdown dragstart dragend", function(evt){
         evt.preventDefault();
         // So we don't process mouseEvents here.
         if(evt.gesture == undefined){
@@ -34,7 +34,7 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                 console.log("swiperight");
                 break;
             case "dragstart":
-                $("#videoPlayerCover").css("opacity", 0);
+                //$("#videoPlayerCover").css("opacity", 0);
                 $("#videoPlayerCover").show();
                 evt.preventDefault();
                 evt.stopPropagation();
@@ -46,7 +46,7 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
             case "dragend":
                 console.log("dragend");
                 $("#videoPlayerCover").hide();
-                $("#videoPlayerCover").css("opacity", 0);
+                //$("#videoPlayerCover").css("opacity", 0);
                 _self.resizeMapAndPano();
                 google.maps.event.trigger(_self.mapView.map, "resize");
                 google.maps.event.trigger(_self.streetView.panorama, "resize");
@@ -92,13 +92,13 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                 _self.resizeMapAndPano();
                 break;
             case "touch":
-                $("#videoPlayerCover").css("opacity", 0);
+                //$("#videoPlayerCover").css("opacity", 0);
                 $("#videoPlayerCover").show();
                 console.log("press evt");
                 break;
             case "release":
                 $("#videoPlayerCover").hide();
-                $("#videoPlayerCover").css("opacity", 0);
+                //$("#videoPlayerCover").css("opacity", 0);
                 console.log("release evt");
                 break;
             }
