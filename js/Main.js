@@ -1,8 +1,9 @@
 function Main(_latLongObj){
     this.myLatLongObj = _latLongObj;
-    this.myLatLongFuncs = new google.maps.LatLng(_latLongObj); 
+    this.myLatLongFuncs = new google.maps.LatLng(_latLongObj);
+    this.playlistLayout = "grid"; 
     console.log(">>>>>>>>>>>>>>>this.myLatLongObj %o", this.myLatLongObj);
-    this.videoOrPano = "video";
+    this.videoOrPano = "pano";
     this.locator = new Locator(this, _latLongObj);
     this.streetView = new StreetView(this, _latLongObj);
     this.mapView = new MapView(this, _latLongObj, this.streetView);
@@ -14,6 +15,7 @@ function Main(_latLongObj){
     this.controlBar = new ControlBar(this);
     this.mapView.addSearchPlaces(this.searchPlaces);
     this.videoPlayer = new VideoPlayer(this);
+    this.playlist = new Playlist(this);
     this.handleTouchDevices();
     var _self = this;
 
@@ -186,6 +188,26 @@ Main.prototype.windowResize = function(_reason){
         $("#videoPlayerCover").css("width", "72%");
         $("#videoPlayerCover").css("height", "42%");
     }
+    var pano_w = $("#pano").width();
+    if(pano_w <= 340){
+        $(".playlistItem-grid").width("48%");
+    }
+    else
+    if(pano_w <= 530){
+        $(".playlistItem-grid").width("32%");
+    }
+    else
+    if(pano_w <= 780){
+        $(".playlistItem-grid").width("24%");
+    }
+    else
+    if(pano_w <= 900){
+        $(".playlistItem-grid").width("19%");
+    }
+    else{
+        $(".playlistItem-grid").width("16.3%");
+    }
+    //$(".playlistItem-grid. 
 }
 Main.prototype.isTouchDevice = function(){
   var bool = 'ontouchstart' in window || navigator.maxTouchPoints;

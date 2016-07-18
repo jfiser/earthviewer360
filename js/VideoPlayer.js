@@ -14,9 +14,6 @@ VideoPlayer.prototype.addPlayer = function(){
 
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    /*$("#videoPlayerCover").click(function(evt){
-        //_self.;
-    });*/
 }
 function onPlayerReady(event) {
     //console.log("zz-onPlayerReady: %o", this);
@@ -138,7 +135,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
                 order: (filter != "" ? "relevance" : "viewCount"),
                 type: "video",
                 part: "id,snippet",
-                maxResults: "10",
+                maxResults: "30",
                 //eventType: "live",
                 //videoLiscense: "", //inputObject.videoLiscense,
                 safeSearch:"none",
@@ -173,7 +170,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
                 order: "relevance", //date,viewCount
                 type: "video",
                 part: "id,snippet",
-                maxResults: "10",
+                maxResults: "30",
                 //eventType: "live",
                 //videoLiscense: "", //inputObject.videoLiscense,
                 safeSearch:"none",
@@ -226,7 +223,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             videoResult.liveBroadcastContent = entryArr[i].snippet.liveBroadcastContent;
             videoResult.thumbNailURL = entryArr[i].snippet.thumbnails.default.url;
             videoResult.description = entryArr[i].snippet.description;
-            videoResult.videoId = entryArr[i].id.videoId;
+            //videoResult.videoId = entryArr[i].id.videoId;
 
             //console.log("descrip: " + videoResult.description);
             //console.log("videoId: " + videoResult.videoId);
@@ -250,10 +247,10 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
                                                     + year + " - " + time + " UTC";
             videoResult.publishTimeStamp = entryArr[i].snippet.publishedAt;*/
 
-            console.log("pubDate: " + entryArr[i].snippet.publishedAt);
-            console.log("title: " + entryArr[i].snippet.title);
-            console.log("desc: " + entryArr[i].snippet.description);
-            console.log("thumb: " + entryArr[i].snippet.thumbnails.medium.url);
+            //console.log("pubDate: " + entryArr[i].snippet.publishedAt);
+            //console.log("title: " + entryArr[i].snippet.title);
+            //console.log("desc: " + entryArr[i].snippet.description);
+            //console.log("thumb: " + entryArr[i].snippet.thumbnails.high.url);
 
             //add result to results
             _self.resultsArr.push(videoResult);
@@ -261,7 +258,8 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
         if(_self.curVideoIndx >= _self.resultsArr.length){
             _self.curVideoIndx = 0;
         }
-        _self.playVideoId(_self.resultsArr[_self.curVideoIndx++].videoId);
+        //_self.playVideoId(_self.resultsArr[_self.curVideoIndx++].videoId);
+        _self.main.playlist.setPlaylist( _self.resultsArr);
     }
 });
 }
