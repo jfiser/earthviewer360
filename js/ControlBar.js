@@ -1,7 +1,7 @@
 function ControlBar(_main){
     this.main = _main;
-    this.filterTxt = "";
-    this.curPublishedAfter = "2011-07-01T00:00:00Z";
+    this.placeOrFilter = "place";
+    this.curPublishedAfter = "2007-07-01T00:00:00Z";
     this.setListeners();
     this.addDatePicker();
 }
@@ -21,26 +21,18 @@ ControlBar.prototype.addDatePicker = function(){
     });
     //field.parentNode.insertBefore(picker.el, field.nextSibling);
 }
-ControlBar.prototype.filterTxtClicked = function(){
-    this.filterTxt = ($("#filterTxt").val());
-    if(this.main.getVideoOrPano() == "video"){
-        this.main.videoPlayer.searchYouTubeByLoc(this.main.myLatLongObj, "personThing");
-    }
-}
 ControlBar.prototype.setListeners = function(){
     var _self = this;
-    /*document.getElementById("filterTxt").addEventListener("keypress", function (evt) {
-        if (evt.keyCode === 13)   {
-            $("#filterSubmitBtn").click();
-            evt.preventDefault(); // <<< Most important missing piece from icedwater
-            _self.filterTxt = ($("#filterTxt").val());
-            console.log("filterTxt: " + _self.filterTxt);
-            if(_self.main.getVideoOrPano() == "video"){
-                _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "personThing");
-            }
+    $('#personPlaceRadioBtns input').on('change', function(){
+        _self.placeOrFilter = $('input[name=personOrPlace]:checked', 
+                                            '#personPlaceRadioBtns').val();
+        if(_self.placeOrFilter == "place"){
+            $("#pac-input").attr("placeholder", "ex: Mexican food near me or Alcatraz");       
         }
-    });*/
-    $('#personPlaceRadioBtns input').on('change', function() {
-        console.log("radio: " + $('input[name=personOrPlace]:checked', '#personPlaceRadioBtns').val()); 
+        else{
+            $("#pac-input").attr("placeholder", "ex: music or dog or Trump");       
+        }
+        //$('#pac-input').val('');
+        console.log("radio: " + _self.placeOrFilter); 
     });
 }
