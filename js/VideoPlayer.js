@@ -18,6 +18,38 @@ VideoPlayer.prototype.addPlayer = function(){
         //_self.;
     });*/
 }
+function onPlayerReady(event) {
+    //console.log("zz-onPlayerReady: %o", this);
+    var latLongObj = {lat:22.895691687705654, lng:113.9501953125};
+    main.videoPlayer.thePlayer.mute();
+}
+function onPlayerStateChange(event) {
+    this.main.middleBar.handlePausePlayBtn();
+}
+function stopVideo() {
+    main.videoPlayer.thePlayer.stopVideo();
+}
+function onYouTubeIframeAPIReady() {
+    console.log("<<>>player");
+    main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
+                height: '390',
+                width: '640',
+                iv_load_policy:3,
+                videoId: 'lEM-d7n6kxE', // balto riots
+                //videoId: 'Fobn1PLwExM', // tuba city
+                playerVars: {
+                    modestbranding: true,
+                    iv_load_policy:3,
+                    showinfo:0
+                },
+                //videoId: "UtblXY7Lg4k",
+                events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+    });
+}
+
 VideoPlayer.prototype.playVideo = function(){
     this.thePlayer.playVideo();
 }
@@ -72,46 +104,9 @@ VideoPlayer.prototype.playPauseClick = function(){
             break;
     }
 }
-function onYouTubeIframeAPIReady() {
-    console.log("<<>>player");
-    main.videoPlayer.thePlayer = new YT.Player('videoPlayerDiv', {
-                height: '390',
-                width: '640',
-                iv_load_policy:3,
-                videoId: 'lEM-d7n6kxE', // balto riots
-                //videoId: 'Fobn1PLwExM', // tuba city
-                playerVars: {
-                    modestbranding: true,
-                    showinfo:0
-                },
-                //videoId: "UtblXY7Lg4k",
-                events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-    });
-}
-// 4. The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-    //console.log("zz-onPlayerReady: %o", this);
-    var latLongObj = {lat:22.895691687705654, lng:113.9501953125};
-
-    //main.videoPlayer.searchYouTubeByLoc(latLongObj);
-}
-
-// 5. The API calls this function when the player's state changes.
-//    The function indicates that when playing a video (state=1),
-//    the player should play for six seconds and then stop.
-var done = false;
-function onPlayerStateChange(event) {
-    this.main.middleBar.handlePausePlayBtn();
-}
-function stopVideo() {
-    main.videoPlayer.thePlayer.stopVideo();
-}
 
 
-VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _placeName){
+VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _searchTerm){
     var _self = this;
 
     //console.log("gapi %o: ", gapi);
@@ -119,28 +114,28 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
     console.log("radius: " + this.main.mapView.zoomArr[this.main.mapView.map.getZoom()]);
     console.log("_searchType: %o", _searchType);
 
-    if(_searchType == "personThing"){
+    if(_searchType == "filter"){
         try{
             // split it to take away everything after first comme
-            if(_placeName != undefined){
-                var personThing = _placeName;
+            if(_searchTerm != undefined){
+                var filter = _searchTerm;
             }
             else{
-                var personThing = $("#pac-input").val().split(',')[0];
+                var filter = $("#pac-input").val().split(',')[0];
             }
 
-            var part1 = personThing.split(',')[0];
+            var part1 = filter.split(',')[0];
             var part2 = "";
-            if(personThing.split(',').length > 1){
-                part2 = personThing.split(',')[1];
+            if(filter.split(',').length > 1){
+                part2 = filter.split(',')[1];
             }
             
-            console.log("+======searching youtube (personThing) for q: " + personThing);
+            console.log("+======searching youtube (filter) for q: " + filter);
             console.log("publishedAfter: %o", this.main.controlBar.curPublishedAfter);
             
             var request = gapi.client.youtube.search.list({
-                q: personThing,
-                order: (personThing != "" ? "relevance" : "viewCount"),
+                q: filter,
+                order: (filter != "" ? "relevance" : "viewCount"),
                 type: "video",
                 part: "id,snippet",
                 maxResults: "10",
@@ -164,10 +159,10 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _p
     if(_searchType == "place"){
         try{
             // split it to take away everything after first comme
-            var part1 = _placeName.split(',')[0];
+            var part1 = _searchTerm.split(',')[0];
             var part2 = "";
-            if(_placeName.split(',').length > 1){
-                part2 = _placeName.split(',')[1];
+            if(_searchTerm.split(',').length > 1){
+                part2 = _searchTerm.split(',')[1];
             }
             
             var myPlace = part1 + " " + part2;

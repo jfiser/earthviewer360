@@ -150,7 +150,7 @@ body{
         font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
         font-size: 18px;
         font-weight: 300;
-        margin: 29px auto 0 auto;
+        margin: 0px auto 0 auto;
         /*padding: 3px 11px 3px 13px;*/
         text-overflow: ellipsis;
         min-width:290px;
@@ -287,6 +287,7 @@ body{
   /*height:136px;*/
   height:auto;
   background:#9cd7ff;
+  /*background:#b6e2ff;*/
   margin:0 auto;
 }
 @media (max-width: 1025px){
@@ -302,7 +303,7 @@ body{
   text-align:right;
   font-size:22px;
   margin-right:25px;
-  color:white;
+  color:rgb(26, 101, 158);
 }
 
 @media (max-width: 1025px){
@@ -379,6 +380,8 @@ body{
 	font-weight: 300;
 	line-height: 50px;
   display:inline;
+  /*color:rgb(26, 101, 158);*/
+  color:white;
 }
 @media (max-width: 1025px){
   #earthViewerTxt{
@@ -392,6 +395,7 @@ body{
 }
 .myItalic{
   font-style: italic;
+  color:rgb(0,0, 0);
 }
 .myBrown{
   color:#cc6600;
@@ -403,7 +407,7 @@ body{
   color:#0099ff;
 }
 .myWhite{
-  color:#ffffff;
+  color:rgb(ff, ff, ff);
 }
 
 /*.rotate90{
@@ -435,15 +439,27 @@ body{
 }
 #controlBar{
   width:80%;
-  height:60px;
+  height:100px;
   margin: 0 auto 0 auto;
   position:relative;
 }
 @media (max-width: 1025px){
   #controlBar{
     width:98%;
-    height:60px;
+    height: 100px;
   }
+}
+#filterRadio{
+  position:absolute;
+  right:0;
+  font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
+  font-size:15px;
+}
+#placeRadio{
+  position:absolute;
+  left:0;
+  font-family: "Helvetica Neue", "Helvetica Neue LT W01_41488878", Arial, sans-serif;
+  font-size:15px;
 }
 #controlBtnsHolder{
   width:720px;
@@ -522,9 +538,44 @@ input{
   font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 #personPlaceRadioBtns{
-  display:none; /*inline-block;*/
+  display: block;
+  margin:0px auto 0px auto;
+  width:46%;
+  height:25px;
+  padding-top:15px;
+  position:relative;
+}
+@media(max-width:650px){
+  #personPlaceRadioBtns{
+    width:55%;
+    height:25px;
+  }
+}
+@media(max-width:500px){
+  #personPlaceRadioBtns{
+    width:70%;
+    height:25px;
+  }
+}
+@media(max-width:430px){
+  #personPlaceRadioBtns{
+    width:100%;
+    height:25px;
+  }
 }
 
+input[type=radio],
+input.radio {
+  float: left;
+  clear: none;
+  /*margin: 2px 0 0 2px;*/
+}
+label {
+  float: left;
+  clear: none;
+  display: block;
+  /*padding: 2px 1em 0 0;*/
+}
 </style>
 </head>
 <body>
@@ -539,17 +590,24 @@ input{
 
 <div id="controlBar">
   <!--<div id="controlBtnsHolder">-->
+    <form id="personPlaceRadioBtns">
+      <div id="placeRadio">
+        <input type="radio" name="personOrPlace" id="place" value="place" checked> 
+        <label for="place">Find a place</label>
+      </div>
+      <div id="filterRadio">
+        <input type="radio" name="personOrPlace" id="filter" value="filter"/>
+        <label for="filter">Set video filter</label>
+      </div>
+    </form>
+
     <input type="text" id="datePicker" placeholder="Wed Jul 1 2014" >
-    <input id="pac-input" type="text" placeholder="Enter address or place">
+    <input id="pac-input" type="text" placeholder="ex: Mex food near me or Alcatraz">
     <!--<input type="text" id="filterTxt" placeholder="ex: trump" autocomplete="on">
     <input type="submit" id=filterSubmitBtn" value="Set Channel" 
                               onclick="main.controlBar.filterTxtClicked()">-->
     <!--<p id="currentFilterTxt">current filter: none</p>-->
-    <!--<form id="personPlaceRadioBtns">
-      <input type="radio" name="personOrPlace" value="personThing"> Person or thing<br>
-      <input type="radio" name="personOrPlace" value="place"> Place<br>
-    </form>
-  </div>-->
+  </div>
 </div>
 
 <!--<div id="txtBox">xzxz xcxc</div>-->

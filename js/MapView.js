@@ -48,7 +48,7 @@ MapView.prototype.addMap = function(_latLongObj){
         _self.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
         //_self.addMarker(myLatLongObj);
         //if(_self.main.getVideoOrPano() == "video"){
-         _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj, "personThing");
+         _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj, "filter");
         //}
         _self.streetView.setPanorama(event.latLng);
         //_self.main.searchPlaces.getPlacesWithinRadius(_self.myLatLongObj);
