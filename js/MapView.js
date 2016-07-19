@@ -45,10 +45,12 @@ MapView.prototype.addMap = function(_latLongObj){
         console.log(">>>>evt: %o", event);
         console.log("lat: %o", event.latLng.lat());
         console.log("lng: %o", event.latLng.lng());
-        _self.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
+        _self.main.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
+        _self.main.myLatLongFuncs = event.latLng;
+
         //_self.addMarker(myLatLongObj);
         //if(_self.main.getVideoOrPano() == "video"){
-         _self.main.videoPlayer.searchYouTubeByLoc(_self.myLatLongObj, "filter");
+         _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "filter");
         //}
         _self.streetView.setPanorama(event.latLng);
         //_self.main.searchPlaces.getPlacesWithinRadius(_self.myLatLongObj);

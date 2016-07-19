@@ -43,6 +43,28 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
             _self.main.videoPlayer.playVideoId($(this).data("videoid"));
             _self.closePlaylist();
         });
+
+
+        /*$(this.playlistElemArr[this.playlistElemArr.length-1]).on("click", function(){
+            var _apiRequest;
+
+            _self.main.videoPlayer.playVideoId($(this).data("videoid"));
+            _self.closePlaylist();
+            apiRequest = 'https://www.googleapis.com/youtube/v3/videos?part=recordingDetails'
+                            + '&id=' + $(this).data("videoid")
+                            + '&key=AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE';
+
+            $.getJSON(apiRequest, function(data){
+                console.log("data: %o", data);
+                var _lat = data.items[0].recordingDetails.location.latitude;
+                var _lng = data.items[0].recordingDetails.location.longitude;
+                _self.main.locator.showLatLong({lat:_lat, lng:_lng});
+                //_self.main.streetView.setPanorama(null, {lat:_lat, lng:_lng});
+            });
+
+        });*/
+
+
     }
 }
 Playlist.prototype.imgLoaded = function(evt){
