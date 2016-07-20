@@ -132,6 +132,13 @@ body{
   position:absolute;
   top:0;
 }
+#videoShadowDiv{
+  width:100%;
+  position:absolute;
+  top:48%;
+  height:12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
 #middleBar{
   height:43px;
   width:43px;
@@ -420,7 +427,7 @@ body{
 }*/
 #videoHolder{
   width:100%;
-  height:48%;
+  height:46%;
   background:white;
   position:absolute;
   z-index:10;
@@ -701,6 +708,7 @@ label {
   <!-- pano and video -->
   <div id="pano">
     <div id="panoHolder"></div>
+    <div id="videoShadowDiv"></div>
     <div id="videoHolder">
       <div id="videoPlayerDiv"></div>
       <div id="videoPlayerCover"></div>
