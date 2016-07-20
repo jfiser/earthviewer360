@@ -1,6 +1,23 @@
 function Locator(_main, _latLongObj){
     this.main = _main;
-    this.latLongObj = _latLongObj;
+    //this.latLongObj = _latLongObj;
+    this.tryToGetUserLoc();
+}
+Locator.prototype.tryToGetUserLoc = function(){
+    var _self = this;
+
+    if(navigator.geolocation){
+        //console.log("newz - xxxyyy");
+        navigator.geolocation.getCurrentPosition(function(_latLongObj){
+            _self.main.userLatLngObj = {lat:_latLongObj.coords.latitude, lng:_latLongObj.coords.longitude};
+            _self.main.userLatLngFuncs = new google.maps.LatLng(_self.main.userLatLngObj);
+            console.log("usrLatLng: " + _self.main.userLatLngObj.lat + ":" + _self.main.userLatLngObj.lng);
+        }, this.getLocError);
+        //console.log("newz - after");
+    }
+    else{
+        console.log("navigator.geolocation didn't work.");
+    }
 }
 Locator.prototype.showCurrentUserLoc = function(){
     var _self = this;
@@ -17,23 +34,21 @@ Locator.prototype.showCurrentUserLoc = function(){
         console.log("navigator.geolocation didn't work.");
     }
 }
-/*Locator.prototype.gerCurPosSuccess = function(_latLongObj){
-    this.showLatLong(_latLongObj);
-    this.mapView.map.setZoom(17);
-}*/
-Locator.prototype.showLatLong = function(_latLongObj){
-    console.log("showStreet lat/long: " + _latLongObj.coords.latitude + ":" + _latLongObj.coords.longitude);
-    var latLongObj = {lat:_latLongObj.coords.latitude, lng:_latLongObj.coords.longitude};
-    //var latLongObj = {lat: 42.345573, lng: -71.098326};;
-    //var myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
-    var center = new google.maps.LatLng(_latLongObj.coords.latitude, 
-                                        _latLongObj.coords.longitude);
-    this.main.mapView.map.panTo(center);
-    this.main.streetView.setPanorama(center);
-    if(this.main.getVideoOrPano() == "video"){
-        this.main.videoPlayer.searchYouTubeByLoc(latLongObj, "filter");
+/*Locator.prototype.showCurrentUserLoc = function(){
+    var _self = this;
+
+    if(navigator.geolocation){
+        //console.log("newz - xxxyyy");
+        navigator.geolocation.getCurrentPosition(function(_latLongObj){
+            _self.showLatLong(_latLongObj);
+            _self.main.mapView.map.setZoom(17);
+        }, this.getLocError);
+        //console.log("newz - after");
     }
-}
+    else{
+        console.log("navigator.geolocation didn't work.");
+    }
+}*/
 Locator.prototype.getLocError = function(err){
     console.warn('ERROR(' + err.code + '): ' + err.message);
     switch(err.code) {
@@ -53,5 +68,23 @@ Locator.prototype.getLocError = function(err){
             console.warn("An unknown error occurred (default).");
             break;
 
+    }
+}
+
+/*Locator.prototype.gerCurPosSuccess = function(_latLongObj){
+    this.showLatLong(_latLongObj);
+    this.mapView.map.setZoom(17);
+}*/
+Locator.prototype.showLatLong = function(_latLongObj){
+    console.log("showStreet lat/long: " + _latLongObj.coords.latitude + ":" + _latLongObj.coords.longitude);
+    var latLongObj = {lat:_latLongObj.coords.latitude, lng:_latLongObj.coords.longitude};
+    //var latLongObj = {lat: 42.345573, lng: -71.098326};;
+    //var myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
+    var center = new google.maps.LatLng(_latLongObj.coords.latitude, 
+                                        _latLongObj.coords.longitude);
+    this.main.mapView.map.panTo(center);
+    this.main.streetView.setPanorama(center);
+    if(this.main.getVideoOrPano() == "video"){
+        this.main.videoPlayer.searchYouTubeByLoc(latLongObj, "filter");
     }
 }

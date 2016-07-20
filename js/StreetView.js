@@ -23,7 +23,6 @@ function StreetView(_main, _latLongObj){
 StreetView.prototype.setPanoListeners = function(_latLongObj){
     var _self = this;
     $("#pano").mousedown(function(){
-        console.log("mousedown");
         _self.stopSpinPanorama();
     });
 }
@@ -49,9 +48,6 @@ StreetView.prototype.addPanorama = function(_latLongObj){
     this.panorama.addListener('pano_changed', function(){
         var _pano = this;
         
-        console.log("panoChange: " + this.getPano());
-         //clearInterval(_self.fixPanoId);
-        //_self.fixPanoId = setInterval(fixPanoTiles, 200);
         //if(_self.panoSpinState == "on"){
         if(_self.main.getVideoOrPano() == "pano" && _self.panoSpinState == "on"){
             _self.startSpinPanorama();
@@ -62,7 +58,6 @@ StreetView.prototype.addPanorama = function(_latLongObj){
         }
     
         function fixPanoTiles(){
-            console.log("fixPanoTiles");
             _pano.setPov({
                     heading: _self.heading,
                     pitch: 0
@@ -78,7 +73,6 @@ StreetView.prototype.addPanorama = function(_latLongObj){
 StreetView.prototype.setPanorama = function(_latLongObj){
     var _self = this;
     this.clickLatLongObj = _latLongObj;
-    console.log("DS>>>>>>>>>>>");
     var myLatLongObj = {lat:_latLongObj.lat(), lng:_latLongObj.lng()};
     
     var mapZoom = this.mapView.map.getZoom();
@@ -87,7 +81,6 @@ StreetView.prototype.setPanorama = function(_latLongObj){
     console.log("myRadius: " + myRadius);
     this.streetViewSvc.getPanorama({location: myLatLongObj, radius: myRadius}, 
         function(data, status){
-            console.log("getPanorama data: %o", data);
             
             if(status === google.maps.StreetViewStatus.OK){
                 console.log("setPanorama status OK")
@@ -130,13 +123,11 @@ StreetView.prototype.startSpinPanorama = function(){
     this.need_spinPanoramaStartHeading = true;
     this.panoSpinning = true;
     this.main.middleBar.handlePausePlayBtn();
-    console.log("this.spinPanoramaStartHeading: " + this.spinPanoramaStartHeading);
     //this.spinPanoramaStartPov.heading = this.panorama.getPov().heading;
     this.spinIntervalId = setInterval(function(){
                 //console.log("spinPanorama");
                 try{
                     var pov = _self.panorama.getPov();
-                    //console.log("pov.heading" + pov.heading);
                     pov.heading += _self.spinIncrement;
                     if(pov.heading > 360.0) {
                         pov.heading -= 360.0;
@@ -145,7 +136,6 @@ StreetView.prototype.startSpinPanorama = function(){
                         pov.heading += 360.0;
                     }
                     _self.panorama.setPov(pov);
-                    //console.log("pov", pov.heading);
 
                     // find the end of the spin
                     if(pov.heading < _self.spinPanoramaStartHeading-1

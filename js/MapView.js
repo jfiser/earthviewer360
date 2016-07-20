@@ -48,12 +48,14 @@ MapView.prototype.addMap = function(_latLongObj){
         _self.main.myLatLongObj = {lat:event.latLng.lat(), lng:event.latLng.lng()};
         _self.main.myLatLongFuncs = event.latLng;
 
-        //_self.addMarker(myLatLongObj);
-        //if(_self.main.getVideoOrPano() == "video"){
-         _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "filter");
+        /*if(_self.main.searchBoxTxt.indexOf("near me") != -1){
+            _self.main.searchPlaces.getNearMe(_self.main.myLatLongObj);
+            return;
+        }
+        else{*/
+            _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "filter");
+            _self.streetView.setPanorama(event.latLng);
         //}
-        _self.streetView.setPanorama(event.latLng);
-        //_self.main.searchPlaces.getPlacesWithinRadius(_self.myLatLongObj);
     });
     this.map.addListener('bounds_changed', function(){
         console.log("boundschanged");

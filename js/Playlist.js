@@ -68,16 +68,13 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
     }
 }
 Playlist.prototype.imgLoaded = function(evt){
-    console.log("target>>: %o", evt);
 }
 Playlist.prototype.closePlaylist = function(){
-    console.log("WW: " + $("#playlistHolderHolder").width());
     TweenLite.to($("#playlistHolderHolder"), .5, 
                                     {left:$("#playlistHolderHolder").width()*-1,
                                     ease:Quad.easeOut })
 }
 Playlist.prototype.openPlaylist = function(){
-    console.log("WW: " + $("#playlistHolderHolder").width());
     TweenLite.to($("#playlistHolderHolder"), .5, 
                                     {left:0, 
                                     ease:Quad.easeOut });
