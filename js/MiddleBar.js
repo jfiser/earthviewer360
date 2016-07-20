@@ -94,12 +94,10 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
             case "touch":
                 //$("#videoPlayerCover").css("opacity", 0);
                 $("#videoPlayerCover").show();
-                console.log("press evt");
                 break;
             case "release":
                 $("#videoPlayerCover").hide();
                 //$("#videoPlayerCover").css("opacity", 0);
-                console.log("release evt");
                 break;
             }
         });
@@ -118,7 +116,6 @@ MiddleBar.prototype.setBtnListeners = function(){
                 _self.streetView.panoSpinState = "on";
             }
             _self.handlePausePlayBtn();
-            console.log("panoState: " + _self.streetView.panoSpinState);
         }
         else // video state
         if(_self.main.getVideoOrPano() == "video"){

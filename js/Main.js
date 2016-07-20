@@ -1,10 +1,14 @@
 function Main(_latLongObj){
     this.myLatLongObj = _latLongObj;
     this.myLatLongFuncs = new google.maps.LatLng(_latLongObj);
+    this.userLatLngObj = null;
+    this.userLatLngFuncs = null;
+
     this.playlistLayout = "grid"; 
     console.log(">>>>>>>>>>>>>>>this.myLatLongObj %o", this.myLatLongObj);
     this.videoOrPano = "pano";
     this.locator = new Locator(this, _latLongObj);
+    this.placeTypes = new PlaceTypes(this);
     this.streetView = new StreetView(this, _latLongObj);
     this.mapView = new MapView(this, _latLongObj, this.streetView);
     this.searchPlaces = new SearchPlaces(this, input, this.mapView.map, this.streetView);
