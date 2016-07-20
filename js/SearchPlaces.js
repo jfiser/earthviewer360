@@ -190,7 +190,8 @@ SearchPlaces.prototype.setMarkers = function(_placesArr) {
 
         //console.log("marker: %o", _self.markers[_self.markers.length-1])
         var request =  {reference: _place.reference};
-        google.maps.event.addListener(_self.markers[_self.markers.length-1],'click',function(){
+        google.maps.event.addListener(_self.markers[_self.markers.length-1],
+            'click',function(){
                 _self.placeService.getDetails(request, function(place, status) {
                     console.log("Marker click - place: %o", place);
                     var searchName = place.name;
@@ -207,14 +208,17 @@ SearchPlaces.prototype.setMarkers = function(_placesArr) {
                         catch(_err){
                             console.log("err: " + err)
                         }
-                        //}
                     }
                     else{ 
                         console.log("NoTit");
                     }
             });
         });
+        google.maps.event.addListener(_self.markers[_self.markers.length-1],
+                    'mouseover',function(evt){
+                        console.log("mouseover: %o", evt);
 
+                    })
         if (_place.geometry.viewport) {
             // Only geocodes have viewport.
             //console.log("union");
