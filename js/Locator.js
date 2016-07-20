@@ -1,4 +1,4 @@
-function Locator(_main, _latLongObj){
+function Locator(_main){
     this.main = _main;
     //this.latLongObj = _latLongObj;
     this.tryToGetUserLoc();
@@ -12,11 +12,15 @@ Locator.prototype.tryToGetUserLoc = function(){
             _self.main.userLatLngObj = {lat:_latLongObj.coords.latitude, lng:_latLongObj.coords.longitude};
             _self.main.userLatLngFuncs = new google.maps.LatLng(_self.main.userLatLngObj);
             console.log("usrLatLng: " + _self.main.userLatLngObj.lat + ":" + _self.main.userLatLngObj.lng);
+    
+            _self.main.streetView.setPanorama(_self.main.userLatLngFuncs);
+            //_self.main.videoPlayer.searchYouTubeByLoc(_self.main.userLatLngObj, "filter");
         }, this.getLocError);
         //console.log("newz - after");
     }
     else{
         console.log("navigator.geolocation didn't work.");
+        this.main.streetView.setPanorama(this.main.defaultLatLng);
     }
 }
 Locator.prototype.showCurrentUserLoc = function(){
@@ -69,6 +73,7 @@ Locator.prototype.getLocError = function(err){
             break;
 
     }
+    this.main.streetView.setPanorama(_self.main.defaultLatLng);
 }
 
 /*Locator.prototype.gerCurPosSuccess = function(_latLongObj){

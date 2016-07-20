@@ -32,8 +32,9 @@ function onYouTubeIframeAPIReady() {
                 height: '390',
                 width: '640',
                 iv_load_policy:3,
-                videoId: 'lEM-d7n6kxE', // balto riots
+                //videoId: 'lEM-d7n6kxE', // balto riots
                 //videoId: 'Fobn1PLwExM', // tuba city
+                videoId: 'a9KZ3jgbbmI', // fireworks
                 playerVars: {
                     modestbranding: true,
                     iv_load_policy:3,

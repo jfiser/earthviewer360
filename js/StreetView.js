@@ -3,8 +3,7 @@ function StreetView(_main, _latLongObj){
     this.addPanorama(_latLongObj);
     this.streetViewSvc = new google.maps.StreetViewService();
     //this.oldPoint = _latLongObj;
-    this.curYellowManLatLng = new google.maps.LatLng({lat: _latLongObj.lat, 
-                                                        lng: _latLongObj.lng}); 
+    this.curYellowManLatLng = new google.maps.LatLng(this.main.defaultLatLng); 
     this.fixPanoTries = 0;
     this.fixPanoId = 0;
     this.heading = 90;
@@ -30,15 +29,15 @@ StreetView.prototype.addPanorama = function(_latLongObj){
     var _self = this;
 
     this.panorama = new google.maps.StreetViewPanorama(
-    document.getElementById('panoHolder'), {
-                position: _latLongObj,
-                pov: {
-                    heading: 34,
-                    pitch: 0
-                },
-                linksControl: false,
-                panControl: false,
-                enableCloseButton: false
+                        document.getElementById('panoHolder'), {
+                                    position: _latLongObj,
+                                    pov: {
+                                        heading: 34,
+                                        pitch: 0
+                                    },
+                                    linksControl: false,
+                                    panControl: false,
+                                    enableCloseButton: false
     });
 
     this.panorama.addListener('pov_changed', function(){

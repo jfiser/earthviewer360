@@ -1,16 +1,19 @@
 function Main(_latLongObj){
-    this.myLatLongObj = _latLongObj;
-    this.myLatLongFuncs = new google.maps.LatLng(_latLongObj);
+    this.defaultLatLng = _latLongObj;
+    this.myLatLongObj = null; //_latLongObj;
+    this.myLatLongFuncs = null; //new google.maps.LatLng(_latLongObj);
     this.userLatLngObj = null;
     this.userLatLngFuncs = null;
 
     this.playlistLayout = "grid"; 
     console.log(">>>>>>>>>>>>>>>this.myLatLongObj %o", this.myLatLongObj);
     this.videoOrPano = "pano";
-    this.locator = new Locator(this, _latLongObj);
+    this.locator = new Locator(this);
+    
     this.placeTypes = new PlaceTypes(this);
-    this.streetView = new StreetView(this, _latLongObj);
-    this.mapView = new MapView(this, _latLongObj, this.streetView);
+    // show the user's current location if possible
+    this.streetView = new StreetView(this);
+    this.mapView = new MapView(this, this.streetView);
     this.searchPlaces = new SearchPlaces(this, input, this.mapView.map, this.streetView);
     this.speechRecog = new SpeechRecognition(this.streetView);
     this.middleBar = new MiddleBar(this, this.mapView, this.streetView, 
