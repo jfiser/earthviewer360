@@ -1,7 +1,7 @@
 function PlaceTypes(){
     this.placeTypesArr = ["accounting","fly|airport","plane|airport","airport","amusement_park","aquarium","artist|art_gallery","art_gallery","atm","bakery","bank",
 "beer|bar","bars|bar","joint|bar","lounge|bar","taverns|bar","tavern|bar","dive|bar","pubs|bar","pub|bar","bar","beauty_salon","bike|bicycle_store","bicycle_store","book_store","bowling_alley","bus_station","cafe","campground","automobile|car_dealer","car_dealer",
-"car_rental","car_repair","car_wash","gambl|casino","casino","cemetery","church","city_hall","clothing_store","kwik|convenience_store","mart|convenience_store","highs|convenience_store","7 11|convenience_store","royal farm|convenience_store","convenience_store",
+"car_rental","car_repair","carwash","car wash","car_wash","gambl|casino","casino","cemetery","church","city_hall","clothing_store","kwik|convenience_store","mart|convenience_store","highs|convenience_store","7 11|convenience_store","royal farm|convenience_store","convenience_store",
 "courthouse","dentist","department_store","doctor","electrician","electronics_store","embassy","establishment (deprecated)",
 "finance (deprecated)","fire_station","flower|florist","florist","funeral_home","furniture_store","deisel|gas_station","fuel|gas_station","gas_station","grocery_or_supermarket","gym","perm|hair_care","style|hair_care","hair_care","hardware_store","clinic|hospital","hospital","insurance_agency","jewelry_store","laundry","lawyer","library",
 "liquor_store","local_government_office","locksmith","motel|lodging","hotel|lodging","lodging","meal_delivery","meal_takeaway","mosque","movie_rental",
