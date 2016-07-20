@@ -93,6 +93,8 @@ StreetView.prototype.setPanorama = function(_latLongObj){
                 });
                 _self.panorama.setVisible(true);
                 //google.maps.event.trigger(_self.panorama, 'resize');
+                _self.main.myLatLongObj = ({lat:data.location.latLat,
+                                            lng:data.location.latLng});
             }
             else
             if(status === google.maps.StreetViewStatus.ZERO_RESULTS){

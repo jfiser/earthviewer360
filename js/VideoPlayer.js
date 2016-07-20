@@ -187,11 +187,11 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             console.log("err: " + err);
         }
     }
-    console.log("request: %o", request);
+    console.log("YT request: %o", request);
     request.execute(function(response) {
         _self.resultsArr = [];
         var videoIDString = '';
-        console.log("response: %o", response);
+        console.log("YT response: %o", response);
         //if the result object from the response is null, show error; if its empty, remove old results and display
         //message on how to broaden search to get more results.
         if('error' in response || !response){
