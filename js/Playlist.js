@@ -17,7 +17,9 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
     for(i = 0; i < _itemsArr.length; i++){
         item = _itemsArr[i];
         if(this.main.playlistLayout == "grid"){
-            $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoId="' + item.videoId +  '">'
+            $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoId="' 
+                    + item.videoId + '" '
+                    + 'data-desc="' + item.description +  '">'
                     + '<img class="videoThumbnail-grid" src="' 
                                         + item.thumbNailURL + '"/>'
                     + '<div class="thumbTxt">' + item.title + '</div>'
@@ -37,12 +39,27 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
 
         $(".videoThumbnail-grid").on("load", function(){
             TweenLite.to($(this).parent(), 1, {opacity:1});
+        });
+        $("#playlistHolderHolder").on("mouseover", function(){
+            $("#infoBox").show();
         })
-
-        $(this.playlistElemArr[this.playlistElemArr.length-1]).on("click", function(){
+        $("#playlistHolderHolder").on("mouseout", function(){
+            $("#infoBox").hide();
+        })
+        
+        $($el).on("click", function(){
             _self.main.videoPlayer.playVideoId($(this).data("videoid"));
             _self.closePlaylist();
         });
+        $($el).on("mousemove", function(evt){
+            console.log("mouseo: %o",  evt.originalEvent.pageY);
+            $("#infoBox").css("top", 
+                        (evt.originalEvent.pageY - $("#infoBox").height()-30)
+                        + "px");
+            $("#infoBox").css("left", evt.originalEvent.pageX-10 + "px");
+            $("#infoBox").html('<p id="thumbDesc">' 
+                                + $(this).data("desc") + '</p>');
+            });
 
 
         /*$(this.playlistElemArr[this.playlistElemArr.length-1]).on("click", function(){
