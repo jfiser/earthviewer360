@@ -99,6 +99,8 @@ SearchPlaces.prototype.getNearMe = function(_myLocObj){
     this.main.videoPlayer.searchYouTubeByLoc(_myLocObj, "filter", _beforeNearMe);
     //this.streetView.setPanorama(this.main.userLatLngFuncs);
     this.streetView.setPanorama(myLocFuncs);
+    //this.map.pan(myLocFuncs);
+    
     myType = this.main.placeTypes.checkForTypeMatch(_beforeNearMe);
     console.log("nearMe - myType: " + myType);
     var nearMeRequest = {

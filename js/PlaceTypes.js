@@ -5,7 +5,7 @@ function PlaceTypes(){
 "courthouse","dentist","department store|department_store","department_store","dr|doctor","doctor","electrician","electronics_store","embassy","establishment (deprecated)",
 "finance (deprecated)","fire_station","flower|florist","florist","funeral_home","furniture_store","deisel|gas_station","fuel|gas_station","gas_station","grocery_or_supermarket","basketball|gym","fitness|gym","workout|gym","gym","perm|hair_care","style|hair_care","hair_care","hardware_store","clinic|hospital","hospital","insurance_agency","jewelry_store","laundry","lawyer","library",
 "liquor_store","local_government_office","locksmith","motel|lodging","hotel|lodging","lodging","meal_delivery","meal_takeaway","mosque","movie_rental",
-"movie_theater","moving_company","museum","club|night_club","nightclub|night_club","night_club","painter","park","parking","pet_store","pharmacy","physiotherapist",
+"movie_theater","moving_company","museum","club|night_club","nightclub|night_club","night_club","painter","park","parking","dog food|pet_store","kittens|pet_store","puppies|pet_store","pets|pet_store","pet_store","pharmacy","physiotherapist",
 "plumber","911|police","cop|police","police","post office|post_office","post_office","real_estate_agency","restaurant","roofing_contractor",
 "rv_park","schools|school","school","shoe_store","shopping_mall","spa","stadium","storage","store","subway_station","synagogue",
 "taxi_stand","train_station","bus|transit_station","transit_station","travel_agency","college|university","university","veterinary_care","zoo"];
