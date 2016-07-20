@@ -1,7 +1,7 @@
 function Locator(_main){
     this.main = _main;
     //this.latLongObj = _latLongObj;
-    this.tryToGetUserLoc();
+    //this.tryToGetUserLoc();
 }
 Locator.prototype.tryToGetUserLoc = function(){
     var _self = this;
@@ -14,7 +14,10 @@ Locator.prototype.tryToGetUserLoc = function(){
             console.log("usrLatLng: " + _self.main.userLatLngObj.lat + ":" + _self.main.userLatLngObj.lng);
     
             _self.main.streetView.setPanorama(_self.main.userLatLngFuncs);
-            //_self.main.videoPlayer.searchYouTubeByLoc(_self.main.userLatLngObj, "filter");
+            _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
+            _self.main.videoPlayer.searchYouTubeByLoc(_self.main.userLatLngObj, 
+                                            "filter",
+                                            "restaurant near me");
         }, this.getLocError);
         //console.log("newz - after");
     }

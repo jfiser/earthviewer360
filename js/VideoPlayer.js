@@ -4,7 +4,7 @@ function VideoPlayer(_main){
     this.resultsArr = [];
     this.curVideoIndx = 0;
     this.addPlayer();
-
+	this.MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 }
 VideoPlayer.prototype.addPlayer = function(){
     console.log("addPlayer");
@@ -34,7 +34,7 @@ function onYouTubeIframeAPIReady() {
                 iv_load_policy:3,
                 //videoId: 'lEM-d7n6kxE', // balto riots
                 //videoId: 'Fobn1PLwExM', // tuba city
-                videoId: 'a9KZ3jgbbmI', // fireworks
+                //videoId: 'a9KZ3jgbbmI', // fireworks
                 playerVars: {
                     modestbranding: true,
                     iv_load_policy:3,
@@ -229,7 +229,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             //console.log("descrip: " + videoResult.description);
             //console.log("videoId: " + videoResult.videoId);
 
-            /*var year = entryArr[i].snippet.publishedAt.substr(0, 4);
+            var year = entryArr[i].snippet.publishedAt.substr(0, 4);
             var monthNumeric = entryArr[i].snippet.publishedAt.substr(5, 2);
             var monthInt = 0;
 
@@ -242,14 +242,16 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             var day = entryArr[i].snippet.publishedAt.substr(8, 2);
             var time = entryArr[i].snippet.publishedAt.substr(11, 8);
 
-            var monthString = MONTH_NAMES[monthInt - 1];
+            var monthString = _self.MONTH_NAMES[monthInt - 1];
 
-            videoResult.displayTimeStamp = monthString + " " + day + ", " 
-                                                    + year + " - " + time + " UTC";
-            videoResult.publishTimeStamp = entryArr[i].snippet.publishedAt;*/
+            //videoResult.displayTimeStamp = monthString + " " + day + ", " 
+                                                    //+ year + " - " + time + " UTC";
+            videoResult.date = monthString + " " + day + ", " 
+                                                    + year;
+            videoResult.publishTimeStamp = entryArr[i].snippet.publishedAt;
 
-            //console.log("pubDate: " + entryArr[i].snippet.publishedAt);
-            //console.log("title: " + entryArr[i].snippet.title);
+            //console.log("displayTimeStamp: " + videoResult.displayTimeStamp);
+            //console.log("publishTimeStamp: " + videoResult.publishTimeStamp);
             //console.log("desc: " + entryArr[i].snippet.description);
             //console.log("thumb: " + entryArr[i].snippet.thumbnails.high.url);
 

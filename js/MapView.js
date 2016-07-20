@@ -62,6 +62,10 @@ MapView.prototype.addMap = function(_latLongObj){
         google.maps.event.trigger(this, 'resize');
     });
 }
+MapView.prototype.moveToLatLng = function(_latLngObj){
+    var center = new google.maps.LatLng(_latLngObj.lat, _latLngObj.lng);
+    this.map.panTo(center);
+}
 MapView.prototype.zoomInOut = function(_zoomInOut, _increment){
     if(_zoomInOut == "in"){
         this.map.setZoom(this.map.getZoom() + _increment);
