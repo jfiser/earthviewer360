@@ -19,7 +19,8 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
         if(this.main.playlistLayout == "grid"){
             $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoId="' 
                     + item.videoId + '" '
-                    + 'data-desc="' + item.description +  '">'
+                    + 'data-desc="' + item.description +  '" '
+                    + 'data-date="' + item.date +  '">'
                     + '<img class="videoThumbnail-grid" src="' 
                                         + item.thumbNailURL + '"/>'
                     + '<div class="thumbTxt">' + item.title + '</div>'
@@ -40,10 +41,10 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
         $(".videoThumbnail-grid").on("load", function(){
             TweenLite.to($(this).parent(), 1, {opacity:1});
         });
-        $("#playlistHolderHolder").on("mouseover", function(){
+        $("#playlistHolder-grid").on("mouseover", function(){
             $("#infoBox").show();
         })
-        $("#playlistHolderHolder").on("mouseout", function(){
+        $("#playlistHolder-grid").on("mouseout", function(){
             $("#infoBox").hide();
         })
         
@@ -52,12 +53,14 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
             _self.closePlaylist();
         });
         $($el).on("mousemove", function(evt){
-            console.log("mouseo: %o",  evt.originalEvent.pageY);
+            //console.log("mouseo: %o",  evt.originalEvent.pageY);
             $("#infoBox").css("top", 
-                        (evt.originalEvent.pageY - $("#infoBox").height()-30)
+                        (evt.originalEvent.pageY - $("#infoBox").height()-40)
                         + "px");
-            $("#infoBox").css("left", evt.originalEvent.pageX-10 + "px");
-            $("#infoBox").html('<p id="thumbDesc">' 
+            $("#infoBox").css("left", evt.originalEvent.pageX+0 + "px");
+            $("#infoBox").html('<p id="thumbDate">'
+                                + $(this).data("date") + '</p>'
+                                + '<p id="thumbDesc">' 
                                 + $(this).data("desc") + '</p>');
             });
 

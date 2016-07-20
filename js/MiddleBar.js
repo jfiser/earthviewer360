@@ -124,7 +124,7 @@ MiddleBar.prototype.setBtnListeners = function(){
     });
 
     $("#homeBtn").click(function(){
-        _self.main.locator.showCurrentUserLoc();
+        _self.main.locator.tryToGetUserLoc();
     });
     // switch between pano and video
     $("#videoBtn").click(function(){
