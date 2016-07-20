@@ -20,7 +20,8 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
             $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoId="' 
                     + item.videoId + '" '
                     + 'data-desc="' + item.description +  '" '
-                    + 'data-date="' + item.date +  '">'
+                    + 'data-date="' + item.date +  '" '
+                    + 'data-title="' + item.title +  '">'
                     + '<img class="videoThumbnail-grid" src="' 
                                         + item.thumbNailURL + '"/>'
                     + '<div class="thumbTxt">' + item.title + '</div>'
@@ -54,6 +55,8 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
         });
         $($el).on("mousemove", function(evt){
             //console.log("mouseo: %o",  evt.originalEvent.pageY);
+            var _descToUse = $(this).data("desc") == "" ? $(this).data("title")
+                                                    : $(this).data("desc")
             $("#infoBox").css("top", 
                         (evt.originalEvent.pageY - $("#infoBox").height()-40)
                         + "px");
@@ -61,7 +64,7 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
             $("#infoBox").html('<p id="thumbDate">'
                                 + $(this).data("date") + '</p>'
                                 + '<p id="thumbDesc">' 
-                                + $(this).data("desc") + '</p>');
+                                + _descToUse + '</p>');
             });
 
 

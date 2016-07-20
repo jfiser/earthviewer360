@@ -234,11 +234,14 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             var monthInt = 0;
 
             if (monthNumeric.indexOf("0") === 0) {
-            monthInt = monthNumeric.substr(1, 1);
+                monthInt = monthNumeric.substr(1, 1);
             } 
             else{
-            monthInt = monthNumeric;
+                monthInt = monthNumeric;
             }
+
+            videoResult.publishedAt = entryArr[i].snippet.publishedAt;
+
             var day = entryArr[i].snippet.publishedAt.substr(8, 2);
             var time = entryArr[i].snippet.publishedAt.substr(11, 8);
 
@@ -258,6 +261,15 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             //add result to results
             _self.resultsArr.push(videoResult);
         }
+        
+        // order by date descending
+        _self.resultsArr.sort(function(a,b){
+            var c = new Date(a.publishedAt);
+            var d = new Date(b.publishedAt);
+            //return c-d;
+            return c>d ? -1 : c<d ? 1 : 0;
+        }); 
+
         if(_self.curVideoIndx >= _self.resultsArr.length){
             _self.curVideoIndx = 0;
         }
