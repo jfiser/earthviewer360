@@ -1,6 +1,6 @@
-function MapView(_main, _latLongObj, _streetView){
+function MapView(_main, _streetView){
     this.main = _main;
-    this.startLatLongObj = _latLongObj;
+    this.startLatLongObj = this.main.defaultLatLng;
     this.streetView = _streetView;
     this.streetView.mapView = this; // map reference for streetView
     this.zoomArr = ["200mi", "200mi", "180mi", "170mi", "160mi", 
@@ -9,7 +9,7 @@ function MapView(_main, _latLongObj, _streetView){
                     "3mi", "3mi", "3mi", "2mi", "2mi", "1mi"
                     ];
     
-    this.addMap(_latLongObj);
+    this.addMap(this.main.defaultLatLng);
 
 }
 MapView.prototype.addSearchPlaces = function(_searchPlaces){
@@ -39,7 +39,7 @@ MapView.prototype.addMap = function(_latLongObj){
     this.map.setStreetView(this.streetView.panorama);
 
     this.main.myLatLongFuncs = new google.maps.LatLng(_latLongObj); 
-    this.streetView.setPanorama(this.main.myLatLongFuncs);
+    //this.streetView.setPanorama(this.main.myLatLongFuncs);
 
     this.map.addListener('click', function(event) {
         console.log(">>>>evt: %o", event);
@@ -60,18 +60,6 @@ MapView.prototype.addMap = function(_latLongObj){
     this.map.addListener('bounds_changed', function(){
         console.log("boundschanged");
         google.maps.event.trigger(this, 'resize');
-        //_self.main.windowResize();
-
-        /*if(this.searchPlaces){
-            this.searchPlaces.searchBox.setBounds(this.getBounds());
-        }
-        console.log("getCenter: %o", this.getBounds().getCenter().lat())
-        var _latLongObj = {lat:this.getBounds().getCenter().lat(), lng:this.getBounds().getCenter().lng()};
-        _self.streetView.setPanorama(_latLongObj);*/
-        
-        //this.setStreetView(_self.streetView.panorama);
-
-        //_self.streetView.getPanorama({location: event.latLng, radius: 50}, processSVData);
     });
 }
 MapView.prototype.addMarker = function(_latLongObj){
