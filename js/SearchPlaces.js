@@ -113,8 +113,6 @@ SearchPlaces.prototype.getNearMe = function(_myLocObj){
     this.placeService.nearbySearch(nearMeRequest, this.setMarkers.bind(this));
 }
 SearchPlaces.prototype.setPlacesChangedListener = function(){
-// Listen for the event fired when the user selects a prediction and retrieve
-// more details for that place.
     var _self = this, nearMe = false;
     
     this.searchBox.addListener('places_changed', function(){
@@ -125,12 +123,19 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
         // near me
         if(_searchBoxTxt.indexOf("near me") != -1){
             _self.getNearMe(_self.main.userLatLngObj);
-            return;
+            return; // getNearMe will set the markers
         }
-        else
+        else // place
         if(_self.main.controlBar.placeOrFilter == "place"){
             _self.main.videoPlayer.searchYouTubeByLoc(null, "place", _searchBoxTxt);
             //_self.streetView.setPanorama(_self.places[0].geometry.location);
+            _self.places = _self.searchBox.getPlaces();
+            console.log("_self.places.length: "+ _self.places.length);
+            if (_self.places.length != 0){
+                _self.streetView.setPanorama(_self.places[0].geometry.location);
+                _self.setMarkers.bind(_self, _self.places);
+                _self.setMarkers(_self.places);
+            }
         }
         else{ // filter
             _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, 
@@ -139,100 +144,20 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
             _self.streetView.setPanorama(_self.main.myLatLongFuncs);
             return; // don't set any markers
         }
-        /********* marker stuff below ******/
         console.log("VAL: " + _searchBoxTxt);
-        _self.places = _self.searchBox.getPlaces();
-        if (_self.places.length == 0) {
-            return;
-        }
 
-        // Clear out the old markers.
-        _self.markers.forEach(function(_marker){
-            _marker.setMap(null);
-        });
-        _self.markers = [];
-
-        // For each place, get the icon, name and location.
-        var bounds = new google.maps.LatLngBounds();
-        _self.places.forEach(function(_place) {
-            var icon = {
-                url: "./img/birdsEyeIcon2.png", //_place.icon,
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(25, 25)
-            };
-            //console.log("placeName: " + _place.name);
-            // Create a marker for each place.
-            //console.log("_place: %o", _place);
-            var myMarker = _self.markers.push(new google.maps.Marker({
-                map: _self.map,
-                icon: icon,
-                animation: google.maps.Animation.DROP,
-                //label: _place.name,
-                title: _place.name,
-                //opacity:.7,
-                position: _place.geometry.location
-            }));
-
-            //console.log("marker: %o", _self.markers[_self.markers.length-1])
-            var request =  {reference: _place.reference};
-            google.maps.event.addListener(_self.markers[_self.markers.length-1],'click',function(){
-                    _self.placeService.getDetails(request, function(place, status) {
-                        var searchName = place.name + " " + place.address_components[2].long_name;
-                        console.log(">>>>>>>>>>>searchName: " + searchName);
-                        if (status == google.maps.places.PlacesServiceStatus.OK) {
-                            console.log("Tit: %o", place);                            
-                            //if(_self.main.videoOrPano == "video"){
-                            /*_self.main.videoPlayer.searchYouTubeByLoc(
-                                    {lat:place.geometry.location.lat(), 
-                                            lng:place.geometry.location.lng()},
-                                    "filter", searchName);*/
-                            try{
-                                _self.main.videoPlayer.searchYouTubeByLoc(null,
-                                        "place", searchName);
-                                _self.streetView.setPanorama(place.geometry.location);
-                            }
-                            catch(_err){
-                                console.log("err: " + err)
-                            }
-                            //}
-                        }
-                        else{ 
-                            console.log("NoTit");
-                        }
-                });
-
-            });
-
-            if (_place.geometry.viewport) {
-                // Only geocodes have viewport.
-                //console.log("union");
-                bounds.union(_place.geometry.viewport);
-                //_self.streetView.setPanorama(_place.geometry.location);
-            }
-            else {
-                //console.log("extend");
-                bounds.extend(_place.geometry.location);
-                //_self.streetView.setPanorama(_place.geometry.location);
-            }
-        });
-        _self.map.fitBounds(bounds);
-        //if(_self.main.videoOrPano == "video"){
-        _self.streetView.setPanorama(_self.places[0].geometry.location);
     });
-
 }
 SearchPlaces.prototype.setMarkers = function(_placesArr) {
     var _self = this;
-    
-    //console.log("this: %o", this);
+    console.log("this: %o", this);
+    console.log("_placesArr: %o", _placesArr);
     this.markers.forEach(function(_marker){
         _marker.setMap(null);
     });
     this.markers = [];
     this.places = _placesArr;
-
+    console.log("placeArr.length: "+ _placesArr.length)
     if(_placesArr.length == 0){
         console.log("found no places");
         return;
