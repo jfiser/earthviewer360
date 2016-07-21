@@ -136,7 +136,7 @@ body{
   width:100%;
   position:absolute;
   top:43%;
-  height:12px;
+  height:5px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 #middleBar{
@@ -622,6 +622,7 @@ label {
 }
 .videoThumbnail-grid{
   width:100%;
+  cursor: pointer;
 }
 .thumbTxt{
   display: inline-block;
@@ -650,6 +651,9 @@ label {
   border-radius:12px;
   text-align: left; /*justify;*/
   overflow:hidden;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 #thumbDate{
   font-weight: bold;
@@ -684,7 +688,7 @@ label {
     </form>
 
     <input type="text" id="datePicker" placeholder="Wed Jul 1 2014" >
-    <input id="pac-input" type="text" placeholder="ex: Mex food near me or Alcatraz">
+    <input id="pac-input" type="text" placeholder="ex: restaurant near me or Alcatraz">
     <!--<input type="text" id="filterTxt" placeholder="ex: trump" autocomplete="on">
     <input type="submit" id=filterSubmitBtn" value="Set Channel" 
                               onclick="main.controlBar.filterTxtClicked()">-->

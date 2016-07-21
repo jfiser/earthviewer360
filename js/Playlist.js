@@ -42,31 +42,35 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
         $(".videoThumbnail-grid").on("load", function(){
             TweenLite.to($(this).parent(), 1, {opacity:1});
         });
-        $("#playlistHolder-grid").on("mouseover", function(){
-            $("#infoBox").show();
-        })
-        $("#playlistHolder-grid").on("mouseout", function(){
-            $("#infoBox").hide();
-        })
-        
-        $($el).on("click", function(){
+
+        if(!_self.main.isTouchDevice()){
+            $("#playlistHolder-grid").on("mouseover", function(){
+                $("#infoBox").show();
+            })
+            $("#playlistHolder-grid").on("mouseout", function(){
+                $("#infoBox").hide();
+            });
+            $($el).on("mousemove", function(evt){
+                //console.log("mouseo: %o",  evt.originalEvent.pageY);
+                var _descToUse = $(this).data("desc") == "" ? $(this).data("title")
+                                                        : $(this).data("desc")
+                $("#infoBox").css("top", 
+                            (evt.originalEvent.pageY - $("#infoBox").height()-40)
+                            + "px");
+                $("#infoBox").css("left", evt.originalEvent.pageX+0 + "px");
+                $("#infoBox").html('<p id="thumbDate">'
+                                    + $(this).data("date") + '</p>'
+                                    + '<p id="thumbDesc">' 
+                                    + _descToUse + '</p>');
+                });
+        }
+
+        var tmpHammer = new Hammer($el[0]);
+        tmpHammer.on("tap", function(evt){
+            evt.preventDefault();
             _self.main.videoPlayer.playVideoId($(this).data("videoid"));
             _self.closePlaylist();
         });
-        $($el).on("mousemove", function(evt){
-            //console.log("mouseo: %o",  evt.originalEvent.pageY);
-            var _descToUse = $(this).data("desc") == "" ? $(this).data("title")
-                                                    : $(this).data("desc")
-            $("#infoBox").css("top", 
-                        (evt.originalEvent.pageY - $("#infoBox").height()-40)
-                        + "px");
-            $("#infoBox").css("left", evt.originalEvent.pageX+0 + "px");
-            $("#infoBox").html('<p id="thumbDate">'
-                                + $(this).data("date") + '</p>'
-                                + '<p id="thumbDesc">' 
-                                + _descToUse + '</p>');
-            });
-
 
         /*$(this.playlistElemArr[this.playlistElemArr.length-1]).on("click", function(){
             var _apiRequest;

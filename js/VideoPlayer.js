@@ -53,7 +53,7 @@ VideoPlayer.prototype.playVideo = function(){
 }
 VideoPlayer.prototype.playVideoId = function(_id){
     console.log("_id: " + _id);
-    this.thePlayer.loadVideoById(_id);
+    this.thePlayer.loadVideoById(_id, 5);
 }
 VideoPlayer.prototype.pauseVideo = function(){
     this.thePlayer.pauseVideo();
@@ -261,14 +261,14 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             //add result to results
             _self.resultsArr.push(videoResult);
         }
-        
+
         // order by date descending
-        _self.resultsArr.sort(function(a,b){
+        /*_self.resultsArr.sort(function(a,b){
             var c = new Date(a.publishedAt);
             var d = new Date(b.publishedAt);
             //return c-d;
             return c>d ? -1 : c<d ? 1 : 0;
-        }); 
+        }); */
 
         if(_self.curVideoIndx >= _self.resultsArr.length){
             _self.curVideoIndx = 0;
