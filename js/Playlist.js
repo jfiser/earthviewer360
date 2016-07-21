@@ -97,11 +97,13 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
 Playlist.prototype.imgLoaded = function(evt){
 }
 Playlist.prototype.closePlaylist = function(){
+    this.main.playlistOrVideo = "video";
     TweenLite.to($("#playlistHolderHolder"), .5, 
                                     {left:$("#playlistHolderHolder").width()*-1,
                                     ease:Quad.easeOut })
 }
 Playlist.prototype.openPlaylist = function(){
+    this.main.playlistOrVideo = "playlist";
     TweenLite.to($("#playlistHolderHolder"), .5, 
                                     {left:0, 
                                     ease:Quad.easeOut });

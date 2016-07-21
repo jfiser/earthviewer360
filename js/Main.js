@@ -214,6 +214,10 @@ Main.prototype.windowResize = function(_reason){
     else{
         $(".playlistItem-grid").width("16.3%");
     }
+
+    if(this.playlistOrVideo == "video"){
+        TweenLite.set($("#playlistHolderHolder"), {left:$("#pano").width()*-1});
+    }
     //$(".playlistItem-grid. 
 }
 Main.prototype.isTouchDevice = function(){
