@@ -2,15 +2,18 @@ function Playlist(_main){
     this.main = _main;
     this.playlistElemArr = [];
     this.initPlaylistHolderHolder();
+    this.firstPlaylistLoad = true;
 }
 Playlist.prototype.initPlaylistHolderHolder = function(){
     TweenLite.set($("#playlistHolderHolder"), {left:$("#pano").width()*-1})
 }
 Playlist.prototype.setPlaylist = function(_itemsArr){
     var i, item, $el, _self = this;
+    
+    //this.main.windowResize("Startup playlist resize");
 
-    $(".playlistItem").remove(); // remove lsast playlist
-    $(".playlistItem-grid").remove(); // remove lsast playlist
+    $(".playlistItem").remove(); // remove last playlist
+    $(".playlistItem-grid").remove(); // remove last playlist
     this.playlistElemArr = [];
     $("#playlistHolderHolder").scrollTop(0);
     
@@ -41,6 +44,10 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
 
         $(".videoThumbnail-grid").on("load", function(){
             TweenLite.to($(this).parent(), 1, {opacity:1});
+            if(_self.firstPlaylistLoad == true){
+                _self.firstPlaylistLoad = false;
+                _self.main.windowResize("Startup playlist resize");
+            }
         });
 
         if(!_self.main.isTouchDevice()){
