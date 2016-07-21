@@ -167,14 +167,13 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
                 part3 = _searchTerm.split(',')[2].trim();
             }
             // boating|sailing -fishing
-            var myPlace = '"' + part1 + '"' 
-                    + '|' + '"' + part1 + ' ' + part2 + '"'
-                    + '|' + '"' + part1 + ' ' + part2 + ' ' + part3 + '"';
-                    //+ ' -' + '"' + part2 + '"';
             var myPlace = 
-                    '"' + part1 + ' ' + part2 + ' ' + part3 + '"'
-                    + '|' + '"' + part1 + ' ' + part2 + '"'
-                    + '|' + '"' + part1 + '"';
+                    //'"' + part1 + '"' 
+                    //+ '|' + 
+                    //'"' + part1 + ' ' + part2 + '"'
+                    part1 + ' ' + part2
+                    //+ '|' + '"' + part1 + ' ' + part2 + ' ' + part3 + '"';
+                    //+ ' -' + '"' + part2 + '"';
             console.log("searching youtube (place) for q: " + myPlace);
             console.log("publishedAfter: " + this.main.controlBar.curPublishedAfter);
             var request = gapi.client.youtube.search.list({

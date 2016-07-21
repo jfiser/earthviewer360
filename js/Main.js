@@ -135,12 +135,12 @@ Main.prototype.windowResize = function(_reason){
         $("#svgDotsVert").show();
         $(".middleBarBtn").css("margin", "2px 3px");
         // need this to cover the YT player because it listens to mouseover
-        $("#videoPlayerCover").css("right", 0);
-        $("#videoPlayerCover").css("top", "25%");
+        /*$("#videoPlayerCover").css("right", 0);
+        //$("#videoPlayerCover").css("top", "25%");
         $("#videoPlayerCover").css("bottom:", "auto");
-        $("#videoPlayerCover").css("left", "auto");
-        $("#videoPlayerCover").css("height", "62%");
-        $("#videoPlayerCover").css("width", "50%");
+        //$("#videoPlayerCover").css("left", "auto");
+        //$("#videoPlayerCover").css("height", "62%");
+        $("#videoPlayerCover").css("width", "50%");*/
     }
     else{  // vertical
         if(this.orientation == "horizontal"){ // just switched from horiz orientation to vert
@@ -188,12 +188,12 @@ Main.prototype.windowResize = function(_reason){
 
         $(".middleBarBtn").css("margin", "3px 2px");
         // need this to cover the YT player because it listens to mouseover
-        $("#videoPlayerCover").css("right", "auto");
+        /*$("#videoPlayerCover").css("right", "auto");
         $("#videoPlayerCover").css("top", "auto");
         $("#videoPlayerCover").css("bottom", 0);
         $("#videoPlayerCover").css("left", "17%");
         $("#videoPlayerCover").css("width", "72%");
-        $("#videoPlayerCover").css("height", "42%");
+        $("#videoPlayerCover").css("height", "42%");*/
     }
     var pano_w = $("#pano").width();
     if(pano_w <= 340){
