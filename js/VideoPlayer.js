@@ -114,7 +114,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
 
     if(_searchType == "filter"){
         try{
-            // split it to take away everything after first comme
+            // split it to take away everything after first comma
             if(_searchTerm != undefined){
                 var filter = _searchTerm;
             }
@@ -156,14 +156,25 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
     else
     if(_searchType == "place"){
         try{
-            // split it to take away everything after first comme
-            var part1 = _searchTerm.split(',')[0];
+            // split it to take away everything after first comma
+            var part1 = _searchTerm.split(',')[0].trim();
             var part2 = "";
+            var part3 = "";
             if(_searchTerm.split(',').length > 1){
-                part2 = _searchTerm.split(',')[1];
+                part2 = _searchTerm.split(',')[1].trim();
             }
-            
-            var myPlace = part1 + " " + part2;
+            if(_searchTerm.split(',').length > 2){
+                part3 = _searchTerm.split(',')[2].trim();
+            }
+            // boating|sailing -fishing
+            var myPlace = '"' + part1 + '"' 
+                    + '|' + '"' + part1 + ' ' + part2 + '"'
+                    + '|' + '"' + part1 + ' ' + part2 + ' ' + part3 + '"';
+                    //+ ' -' + '"' + part2 + '"';
+            var myPlace = 
+                    '"' + part1 + ' ' + part2 + ' ' + part3 + '"'
+                    + '|' + '"' + part1 + ' ' + part2 + '"'
+                    + '|' + '"' + part1 + '"';
             console.log("searching youtube (place) for q: " + myPlace);
             console.log("publishedAfter: " + this.main.controlBar.curPublishedAfter);
             var request = gapi.client.youtube.search.list({
