@@ -110,7 +110,7 @@ SearchPlaces.prototype.getNearMe = function(_myLocObj){
         keyword: (myType == null ? _beforeNearMe : myType), //_beforeNearMe,
         type: (myType == null ? "restaurant" : myType),
         //types: ['store'],
-        radius: 4000 //this.main.mapView.zoomArr[this.main.mapView.map.getZoom()] * 800,
+        radius: 10000 //this.main.mapView.zoomArr[this.main.mapView.map.getZoom()] * 800,
     };
     this.placeService.nearbySearch(nearMeRequest, this.setMarkers.bind(this));
 }
