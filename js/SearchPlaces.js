@@ -135,7 +135,7 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
             console.log("_self.places.length: "+ _self.places.length);
             if (_self.places.length != 0){
                 _self.streetView.setPanorama(_self.places[0].geometry.location);
-                _self.setMarkers.bind(_self, _self.places);
+                //_self.setMarkers.bind(_self, _self.places);
                 _self.setMarkers(_self.places);
             }
         }
