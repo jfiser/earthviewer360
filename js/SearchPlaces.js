@@ -70,7 +70,7 @@ function SearchPlaces(_main, _input, _map, _streetView){
 
         });
 }*/
-SearchPlaces.prototype.setPlaceClickedLisetener = function(_marker, _placeId){
+/*SearchPlaces.prototype.setPlaceClickedLisetener = function(_marker, _placeId){
     try{
         this.placeService.getDetails({placeId: _placeId}, 
             function(place, status) {
@@ -88,7 +88,7 @@ SearchPlaces.prototype.setPlaceClickedLisetener = function(_marker, _placeId){
     catch(err){
         console.log("err: %o", err);
     }
-}
+}*/
 SearchPlaces.prototype.getNearMe = function(_myLocObj){
     var _searchBoxTxt = $("#pac-input").val();
     var _beforeNearMe = _searchBoxTxt.split('near me')[0].trim();
@@ -152,12 +152,13 @@ SearchPlaces.prototype.setPlacesChangedListener = function(){
 }
 SearchPlaces.prototype.setMarkers = function(_placesArr) {
     var _self = this;
-    console.log("this: %o", this);
+    //console.log("this: %o", this);
     console.log("_placesArr: %o", _placesArr);
     this.markers.forEach(function(_marker){
         _marker.setMap(null);
     });
     this.markers = [];
+    this.panoMarkers = [];
     this.places = _placesArr;
     console.log("placeArr.length: "+ _placesArr.length)
     if(_placesArr.length == 0){
@@ -187,6 +188,16 @@ SearchPlaces.prototype.setMarkers = function(_placesArr) {
             //opacity:.7,
             position: _place.geometry.location
         }));
+
+        /*var myPanoMarker = _self.panoMarkers.push(new google.maps.Marker({
+            map: _self.main.streetView.panorama,
+            icon: icon,
+            animation: google.maps.Animation.DROP,
+            //label: _place.name,
+            title: _place.name,
+            //opacity:.7,
+            position: _place.geometry.location
+        }));*/
 
         //console.log("marker: %o", _self.markers[_self.markers.length-1])
         var request =  {reference: _place.reference};
