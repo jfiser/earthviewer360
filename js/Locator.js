@@ -11,13 +11,14 @@ Locator.prototype.tryToGetUserLoc = function(){
         navigator.geolocation.getCurrentPosition(function(_latLongObj){
             _self.main.userLatLngObj = {lat:_latLongObj.coords.latitude, lng:_latLongObj.coords.longitude};
             _self.main.userLatLngFuncs = new google.maps.LatLng(_self.main.userLatLngObj);
-            console.log("usrLatLng: " + _self.main.userLatLngObj.lat + ":" + _self.main.userLatLngObj.lng);
+            console.log("usrLatLng: %o", _self.main.userLatLngObj);
     
             _self.main.streetView.setPanorama(_self.main.userLatLngFuncs);
             _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
-            _self.main.videoPlayer.searchYouTubeByLoc(_self.main.userLatLngObj, 
-                                            "filter",
-                                            "restaurant near me");
+            //_self.main.videoPlayer.searchYouTubeByLoc(_self.main.userLatLngObj, 
+                                            //"filter",
+                                            //"restaurant");
+            _self.latLngToAddress_YT_Search(_self.main.userLatLngObj);                          
         }, this.getLocError);
         //console.log("newz - after");
     }
@@ -26,7 +27,36 @@ Locator.prototype.tryToGetUserLoc = function(){
         this.main.streetView.setPanorama(this.main.defaultLatLng);
     }
 }
-Locator.prototype.showCurrentUserLoc = function(){
+Locator.prototype.latLngToAddress_YT_Search = function(_latLngObj){
+    var _self = this;
+    var pacInput = ($("#pac-input").val() == "" ? "restaurant" : $("#pac-input").val());
+    var apiRequest = 'https://maps.googleapis.com/maps/api/geocode/json?'
+                + 'latlng=' + _latLngObj.lat + ',' +  _latLngObj.lng
+                + '&key=AIzaSyDlPrs2egoZrLaWiYzG_qAx88PpeDin5oE';
+   
+    $.getJSON(apiRequest, function(_data){
+        console.log("data: %o", _data);
+        var _str = '', i, _tmpStr = "";
+
+        for(i = 0; i < _data.results[0].address_components.length; i++){
+            _tmpStr = _data.results[0].address_components[i].types[0]
+            if(_tmpStr == "locality" || _tmpStr == "administrative_area_level_1"){
+                _str += _data.results[0].address_components[i].long_name + " ";
+            }
+        }
+        _str.trim();
+
+        _self.main.videoPlayer.searchYouTubeByLoc(_self.main.userLatLngObj, 
+                    "filter",
+                    pacInput + ' in ' + ' ' + _str
+                            //+ _data.results[0].address_components[2].long_name
+                            //+ ' '
+                            //+ _data.results[0].address_components[4].long_name
+                            );
+    });
+}
+
+/*Locator.prototype.showCurrentUserLoc = function(){
     var _self = this;
 
     if(navigator.geolocation){
@@ -40,7 +70,7 @@ Locator.prototype.showCurrentUserLoc = function(){
     else{
         console.log("navigator.geolocation didn't work.");
     }
-}
+}*/
 /*Locator.prototype.showCurrentUserLoc = function(){
     var _self = this;
 

@@ -53,6 +53,7 @@ MapView.prototype.addMap = function(_latLongObj){
             return;
         }
         else{*/
+            //_self.main.locator.latLngToAddress_YT_Search(_self.main.myLatLongObj);                          
             _self.main.videoPlayer.searchYouTubeByLoc(_self.main.myLatLongObj, "filter");
             _self.streetView.setPanorama(event.latLng);
         //}
