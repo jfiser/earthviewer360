@@ -51,10 +51,10 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
         });
 
         if(!_self.main.isTouchDevice()){
-            $("#playlistHolder-grid").on("mouseover", function(){
+            $(".playlistItem-grid").on("mouseover", function(){
                 $("#infoBox").show();
             })
-            $("#playlistHolder-grid").on("mouseout", function(){
+            $(".playlistItem-grid").on("mouseout", function(){
                 $("#infoBox").hide();
             });
             $($el).on("mousemove", function(evt){
@@ -70,6 +70,7 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
                                     + '<p id="thumbDesc">' 
                                     + _descToUse + '</p>');
                 });
+                
         }
 
         var tmpHammer = new Hammer($el[0]);
