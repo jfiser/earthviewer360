@@ -58,18 +58,16 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
                 $("#infoBox").hide();
             });
             $($el).on("mousemove", function(evt){
-                //console.log("mouseo: %o",  evt.originalEvent.pageY);
+                console.log("mouseo: %o",  evt);//.originalEvent.pageY);
+                
                 var _descToUse = $(this).data("desc") == "" ? $(this).data("title")
                                                         : $(this).data("desc")
-                $("#infoBox").css("top", 
-                            (evt.originalEvent.pageY - $("#infoBox").height()-40)
-                            + "px");
-                $("#infoBox").css("left", evt.originalEvent.pageX+0 + "px");
-                $("#infoBox").html('<p id="thumbDate">'
-                                    + $(this).data("date") + '</p>'
-                                    + '<p id="thumbDesc">' 
-                                    + _descToUse + '</p>');
-                });
+                $("#infoBox").css("top", evt.pageY - ($("#infoBox").height()-30) + "px");
+                $("#infoBox").css("left", evt.pageX + 50 + "px");
+                
+                $("#thumbDate").text($(this).data("date"));
+                $("#thumbDesc").text(_descToUse);
+            });
                 
         }
 
@@ -115,5 +113,7 @@ Playlist.prototype.openPlaylist = function(){
     TweenLite.to($("#playlistHolderHolder"), .5, 
                                     {left:0, 
                                     ease:Quad.easeOut });
-    this.main.videoPlayer.pauseVideo();
+    if(this.main.videoPlayer != undefined){
+        this.main.videoPlayer.pauseVideo();
+    }
 }

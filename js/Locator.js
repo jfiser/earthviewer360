@@ -19,7 +19,7 @@ Locator.prototype.tryToGetUserLoc = function(){
                                             //"filter",
                                             //"restaurant");
             _self.latLngToAddress_YT_Search(_self.main.userLatLngObj);                          
-        }, this.getLocError);
+        }, this.getLocError.bind(_self));
         //console.log("newz - after");
     }
     else{
@@ -106,7 +106,27 @@ Locator.prototype.getLocError = function(err){
             break;
 
     }
-    this.main.streetView.setPanorama(_self.main.defaultLatLng);
+    //this.main.streetView.setPanorama(_self.main.defaultLatLng);
+
+    $("#infoBox").html('<p id="thumbDate">' + err.message + '</p>');
+
+    $("#infoBox").html('<p id="thumbDate">'
+                        + err.message + '</p>'
+                        + '<p id="thumbDesc">' 
+                        + 'That means "near me" search functionality '
+                        + 'and the Home button won\'t work. You can still click the '
+                        + 'map to view local videos. Try Burma.'
+                        + '</p>');
+    
+    $("#infoBox").show();
+    $("#infoBox").click(function(){
+        $("#infoBox").hide();
+    });
+    console.log("this: %o", this);
+    this.main.mapView.moveToLatLng(this.main.defaultLatLng);
+    this.main.streetView.setPanorama(this.main.defaultLatLngFuncs);
+    this.main.videoPlayer.searchYouTubeByLoc(this.main.defaultLatLng, "filter",
+                                            "restaurant");
 }
 
 /*Locator.prototype.gerCurPosSuccess = function(_latLongObj){

@@ -644,7 +644,8 @@ label {
   width:260px;
   background:#eeeeee;
   position:fixed;
-  left:200px;
+  left:75px;
+  top:75px;
   z-index:100;
   font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size:13px;
@@ -663,6 +664,14 @@ label {
   margin-bottom:0;
   padding:0;
   line-height:15px;
+}
+#x-icon{
+  position:absolute;
+  top:8px;
+  right:8px;
+  height:22px;
+  width:22px;
+  opacity:.6;
 }
 </style>
 </head>
@@ -746,7 +755,11 @@ label {
       </div>
     </div>
   </div>
-  <div id="infoBox"></div>
+  <div id="infoBox">
+    <img id="x-icon" src="./img/x-icon4.png"/>
+    <p id="thumbDate"></p>
+    <p id="thumbDesc"></p>
+  </div>
 </div> <!-- end mainHolder -->
 
 <div id="btmNav">
