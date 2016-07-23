@@ -77,7 +77,7 @@ Main.prototype.getVideoOrPano = function(){
 Main.prototype.handleTouchDevices = function(){
     if(this.isTouchDevice()){
         $(".tooltiptext").css("visibility", "hidden");
-        this.middleBar.setViewConfig();
+        this.middleBar.setViewConfig("pano");
         //$("html, body").css("overflow-y", "hidden"); 
     }  
 }

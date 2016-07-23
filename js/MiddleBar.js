@@ -147,13 +147,24 @@ MiddleBar.prototype.setBtnListeners = function(){
             _self.main.streetView.stopSpinPanorama();
         }*/
 
-        _self.setViewConfig.bind(_self)();
+        _self.toggleViewConfig.bind(_self)();
         _self.handlePausePlayBtn();
     });
 }
-MiddleBar.prototype.setViewConfig = function(){
+MiddleBar.prototype.toggleViewConfig = function(_newCnfig){
     switch(this.curViewConfig){
-        case "video":
+        case "pano|video": this.setViewConfig("pano");
+            break;
+        case "pano": this.setViewConfig("video");
+            break;
+        case "video": this.setViewConfig("pano|video");
+            break;
+    }
+}
+// set pano view to video, pano or both
+MiddleBar.prototype.setViewConfig = function(_newConfig){
+    switch(_newConfig){
+        case "pano":
             $("#panoHolder").css("height", "100%");
             $("#panoHolder").css("top", "0%");
             $("#panoHolder").show();
@@ -161,7 +172,7 @@ MiddleBar.prototype.setViewConfig = function(){
             $("#videoShadowDiv").hide();
             this.curViewConfig = "pano";
             break;
-        case "pano|video":
+        case "video":
             $("#panoHolder").hide();
             $("#videoHolder").css("height", "100%");
             $("#videoHolder").css("top", "0%");
@@ -169,7 +180,7 @@ MiddleBar.prototype.setViewConfig = function(){
             this.curViewConfig = "video";
             $("#videoShadowDiv").hide();
             break;
-        case "pano":
+        case "pano|video":
             $("#panoHolder").css("height", "43%");
             $("#panoHolder").css("top", "0%");
             $("#videoHolder").css("height", "51%");

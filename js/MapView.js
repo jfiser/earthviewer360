@@ -60,7 +60,8 @@ MapView.prototype.addMap = function(_latLongObj){
     });
     this.map.addListener('bounds_changed', function(){
         console.log("boundschanged");
-        google.maps.event.trigger(this, 'resize');
+        google.maps.event.trigger(_self, 'resize');
+        _self.main.searchPlaces.searchBox.setBounds(_self.map.getBounds());
     });
 }
 MapView.prototype.moveToLatLng = function(_latLngObj){
