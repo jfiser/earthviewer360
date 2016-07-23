@@ -38,6 +38,9 @@ Locator.prototype.latLngToAddress_YT_Search = function(_latLngObj){
         console.log("data: %o", _data);
         var _str = '', i, _tmpStr = "";
 
+        if(_data.results.length == 0){
+            return;
+        }
         for(i = 0; i < _data.results[0].address_components.length; i++){
             _tmpStr = _data.results[0].address_components[i].types[0]
             if(_tmpStr == "locality" || _tmpStr == "administrative_area_level_1"){

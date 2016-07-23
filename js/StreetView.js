@@ -16,7 +16,7 @@ function StreetView(_main, _latLongObj){
     this.spinIncrement = .4;
     this.spinInterval = 40; //30;
     this.spinIntervalId = 0;
-    this.panoSpinState = "on"; // off, on
+    this.panoSpinState = "off"; // off, on
     this.setPanoListeners();
 }
 StreetView.prototype.setPanoListeners = function(_latLongObj){

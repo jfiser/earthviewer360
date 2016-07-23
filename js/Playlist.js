@@ -58,7 +58,7 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
                 $("#infoBox").hide();
             });
             $($el).on("mousemove", function(evt){
-                console.log("mouseo: %o",  evt);//.originalEvent.pageY);
+                //console.log("mouseo: %o",  evt);//.originalEvent.pageY);
                 
                 var _descToUse = $(this).data("desc") == "" ? $(this).data("title")
                                                         : $(this).data("desc")

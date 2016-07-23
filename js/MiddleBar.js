@@ -1,6 +1,7 @@
 function MiddleBar(_main, _mapView, _streetView, _middleBarEl){
     this.main = _main;
     this.mapView = _mapView;
+    this.curViewConfig = "pano|video"; // pano|video, video, pano
     this.streetView = _streetView;
     this.middleBarEl = _middleBarEl;
     this.setMiddleBarDraggable();
@@ -129,7 +130,7 @@ MiddleBar.prototype.setBtnListeners = function(){
     // switch between pano and video
     $("#videoBtn").click(function(){
         // was showing video
-        if($("#videoPlayerDiv").is(":visible")){
+        /*if($("#videoPlayerDiv").is(":visible")){
             $("#videoPlayerDiv").hide();
             $("#videoPlayerCover").hide();
             $("#videoIcon").show();
@@ -144,9 +145,44 @@ MiddleBar.prototype.setBtnListeners = function(){
             $("#panoIcon").show();
             _self.main.setVideoOrPano("video");
             _self.main.streetView.stopSpinPanorama();
-        }
+        }*/
+
+        _self.setViewConfig.bind(_self)();
         _self.handlePausePlayBtn();
     });
+}
+MiddleBar.prototype.setViewConfig = function(){
+    switch(this.curViewConfig){
+        case "video":
+            $("#panoHolder").css("height", "100%");
+            $("#panoHolder").css("top", "0%");
+            $("#panoHolder").show();
+            $("#videoHolder").hide();
+            $("#videoShadowDiv").hide();
+            this.curViewConfig = "pano";
+            break;
+        case "pano|video":
+            $("#panoHolder").hide();
+            $("#videoHolder").css("height", "100%");
+            $("#videoHolder").css("top", "0%");
+            $("#videoHolder").show();
+            this.curViewConfig = "video";
+            $("#videoShadowDiv").hide();
+            break;
+        case "pano":
+            $("#panoHolder").css("height", "43%");
+            $("#panoHolder").css("top", "0%");
+            $("#videoHolder").css("height", "51%");
+            $("#videoHolder").css("bottom", "0%");
+            $("#videoHolder").css("top", "auto");
+            $("#panoHolder").show();
+            $("#videoHolder").show();
+            this.curViewConfig = "pano|video";
+            $("#videoShadowDiv").show();
+            break;
+    }
+    google.maps.event.trigger(this.mapView.map, "resize");
+    google.maps.event.trigger(this.streetView.panorama, "resize");
 }
 MiddleBar.prototype.handlePausePlayBtn = function(_reason){
     //console.log("reason: " + _reason);
