@@ -1,5 +1,6 @@
 function Main(_latLongObj){
     this.defaultLatLng = _latLongObj;
+    this.defaultLatLngFuncs = new google.maps.LatLng(_latLongObj); 
     this.myLatLongObj = null; //_latLongObj;
     this.myLatLongFuncs = null; //new google.maps.LatLng(_latLongObj);
     this.userLatLngObj = null;
