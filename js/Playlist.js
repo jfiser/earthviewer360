@@ -137,13 +137,13 @@ Playlist.prototype.imgLoaded = function(evt){
 }
 Playlist.prototype.closePlaylist = function(){
     this.main.playlistOrVideo = "video";
-    TweenLite.to($("#playlistHolderHolder"), .5, 
+    TweenLite.to($("#playlistHolderHolder"), .3, 
                                     {left:$("#playlistHolderHolder").width()*-1,
                                     ease:Quad.easeOut })
 }
 Playlist.prototype.openPlaylist = function(){
     this.main.playlistOrVideo = "playlist";
-    TweenLite.to($("#playlistHolderHolder"), .5, 
+    TweenLite.to($("#playlistHolderHolder"), .3, 
                                     {left:0, 
                                     ease:Quad.easeOut });
     if(this.main.videoPlayer != undefined){
