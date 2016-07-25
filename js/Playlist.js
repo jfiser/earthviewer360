@@ -20,7 +20,7 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
     for(i = 0; i < _itemsArr.length; i++){
         item = _itemsArr[i];
         if(this.main.playlistLayout == "grid"){
-            $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoId="' 
+            $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoid="' 
                     + item.videoId + '" '
                     + 'data-desc="' + item.description +  '" '
                     + 'data-date="' + item.date +  '" '
@@ -33,15 +33,17 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
             $("#playlistHolder-grid").append($el);
         }
         else{
-            $el = $('<div class="playlistItem-wide">'
+            $el = $('<div class="playlistItem-wide" data-videoid="'
+                    + item.videoId + '">'
                     + '<img class="videoThumbnail-wide" src="' + item.thumbNailURL + '"/>'
                     + '<p class="thumbTxt-wide">' + item.description + '</p>'
+                    + '<p class="thumbDate-wide">' + item.date + '</p>'
                     + '</div>');
             $("#playlistHolder").append($el);
         }
 
         this.playlistElemArr.push($el);
-        this.openPlaylist();
+        //this.openPlaylist();
 
         $(".videoThumbnail-grid").on("load", function(){
             TweenLite.to($(this).parent(), 1, {opacity:1});
@@ -106,6 +108,7 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
 
 
     }
+    this.openPlaylist();
 
     if(this.main.playlistLayout == "wide"){
         this.markFilterInText(".thumbTxt-wide");
