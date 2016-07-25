@@ -6,7 +6,7 @@ function Main(_latLongObj){
     this.userLatLngObj = null;
     this.userLatLngFuncs = null;
 
-    this.playlistLayout = "grid"; 
+    this.playlistLayout = "wide"; // grid, wide
     console.log(">>>>>>>>>>>>>>>this.myLatLongObj %o", this.myLatLongObj);
     this.videoOrPano = "pano";
     this.locator = new Locator(this);

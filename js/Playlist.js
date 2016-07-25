@@ -12,7 +12,7 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
     
     //this.main.windowResize("Startup playlist resize");
 
-    $(".playlistItem").remove(); // remove last playlist
+    $(".playlistItem-wide").remove(); // remove last playlist
     $(".playlistItem-grid").remove(); // remove last playlist
     this.playlistElemArr = [];
     $("#playlistHolderHolder").scrollTop(0);
@@ -20,7 +20,7 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
     for(i = 0; i < _itemsArr.length; i++){
         item = _itemsArr[i];
         if(this.main.playlistLayout == "grid"){
-            $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoId="' 
+            $el = $('<div class="playlistItem-grid" style="opacity:0" data-videoid="' 
                     + item.videoId + '" '
                     + 'data-desc="' + item.description +  '" '
                     + 'data-date="' + item.date +  '" '
@@ -33,14 +33,17 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
             $("#playlistHolder-grid").append($el);
         }
         else{
-            $el = $('<div class="playlistItem">'
-                    + '<img class="videoThumbnail" src="' + item.thumbNailURL + '"/>'
-                    + '<div class="thumbTxt">' + item.title + '</div>'
+            $el = $('<div class="playlistItem-wide" data-videoid="'
+                    + item.videoId + '">'
+                    + '<img class="videoThumbnail-wide" src="' + item.thumbNailURL + '"/>'
+                    + '<p class="thumbTxt-wide">' + item.description + '</p>'
+                    + '<p class="thumbDate-wide">' + item.date + '</p>'
                     + '</div>');
             $("#playlistHolder").append($el);
         }
+
         this.playlistElemArr.push($el);
-        this.openPlaylist();
+        //this.openPlaylist();
 
         $(".videoThumbnail-grid").on("load", function(){
             TweenLite.to($(this).parent(), 1, {opacity:1});
@@ -67,10 +70,16 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
                 
                 $("#thumbDate").text($(this).data("date"));
                 $("#thumbDesc").text(_descToUse);
+
+                //_self.markFilterInText("#thumbDesc");
+                if(_self.main.playlistLayout == "grid"){
+                    _self.markFilterInText("#thumbDesc");
+                }
+
             });
                 
         }
-
+        // $el[0] - yields the original element ($el is jquery var)
         var tmpHammer = new Hammer($el[0]);
         tmpHammer.on("tap", function(evt){
             evt.preventDefault();
@@ -99,8 +108,30 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
 
 
     }
+    this.openPlaylist();
+
+    if(this.main.playlistLayout == "wide"){
+        this.markFilterInText(".thumbTxt-wide");
+    }
+}
+Playlist.prototype.markFilterInText = function(_txtElem){
+    if(this.main.controlBar.placeOrFilter == "filter" 
+                    && this.main.videoPlayer.curFilter != ""){
+        try{
+            $(_txtElem).wrapInTag2({
+                //tag: 'strong',
+                tag: 'mark',
+                //words: ['the','is','have','info','was','and','of','in']
+                words: [this.main.videoPlayer.curFilter]
+            });
+        }
+        catch(err){
+            console.log("wrapInTag failed: %o", err);
+        }
+    }
 }
 Playlist.prototype.imgLoaded = function(evt){
+
 }
 Playlist.prototype.closePlaylist = function(){
     this.main.playlistOrVideo = "video";
