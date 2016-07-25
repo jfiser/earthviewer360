@@ -33,14 +33,16 @@ Playlist.prototype.setPlaylist = function(_itemsArr){
             $("#playlistHolder-grid").append($el);
         }
         else{
+            var _descToUse = item.description == "" ? item.title : item.description;
             $el = $('<div class="playlistItem-wide" data-videoid="'
                     + item.videoId + '">'
                     + '<img class="videoThumbnail-wide" src="' + item.thumbNailURL + '"/>'
-                    + '<p class="thumbTxt-wide">' + item.description + '</p>'
+                    + '<p class="thumbTxt-wide">' + _descToUse + '</p>'
                     + '<p class="thumbDate-wide">' + item.date + '</p>'
                     + '</div>');
             $("#playlistHolder").append($el);
         }
+        //$el.addClass("noselect");
 
         this.playlistElemArr.push($el);
         //this.openPlaylist();

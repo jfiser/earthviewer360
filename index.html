@@ -683,6 +683,8 @@ label {
   height:auto;
   overflow:hidden;
   border:1px solid #ffffff;
+  min-width:310px;
+  cursor:pointer;
 }
 .videoThumbnail-wide{
   /*width:24%;*/
@@ -700,6 +702,8 @@ label {
   /*padding:5px 8px 5px 13px;*/
   font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size:13px;
+  max-height:55px;
+  overflow:hidden;
 }
 .thumbDate-wide{
   position:absolute;
@@ -708,10 +712,17 @@ label {
   top:5px;
   right:8px;
   line-height:15px;
-  color:#9cd7ff
-;
+  color:#9cd7ff;
   margin:0;
   font-family: "Helvetica Neue LT W01_41488878", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+.noselect{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently                              not supported by any browser */
 }
 </style>
 </head>
