@@ -1,6 +1,7 @@
 function VideoPlayer(_main){
     this.main = _main;
     this.thePlayer = null;
+    this.curFilter = "";
     this.resultsArr = [];
     this.curVideoIndx = 0;
     this.addPlayer();
@@ -127,7 +128,7 @@ VideoPlayer.prototype.searchYouTubeByLoc = function(_latLongObj, _searchType, _s
             if(filter.split(',').length > 1){
                 part2 = filter.split(',')[1];
             }
-            
+            this.curFilter = filter;
             console.log("+======searching youtube (filter) for q: " + filter);
             console.log("publishedAfter: %o", this.main.controlBar.curPublishedAfter);
             
