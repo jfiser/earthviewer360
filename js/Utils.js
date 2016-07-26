@@ -1,4 +1,4 @@
-$.fn.wrapInTag = function(opts) {
+$.fn.wrapInTag2 = function(opts) {
 
   var tag = opts.tag || 'strong'
     , words = opts.words || []
@@ -10,7 +10,7 @@ $.fn.wrapInTag = function(opts) {
   });
 };
 
-$.fn.wrapInTag2 = function (opts) {
+$.fn.wrapInTag = function (opts) {
     // http://stackoverflow.com/a/1646618
     function getText(obj) {
         return obj.textContent ? obj.textContent : obj.innerText;
