@@ -120,7 +120,7 @@ Playlist.prototype.markFilterInText = function(_txtElem){
     if(this.main.controlBar.placeOrFilter == "filter" 
                     && this.main.videoPlayer.curFilter != ""){
         try{
-            $(_txtElem).wrapInTag2({
+            $(_txtElem).wrapInTag({
                 //tag: 'strong',
                 tag: 'mark',
                 //words: ['the','is','have','info','was','and','of','in']
