@@ -33,6 +33,7 @@ function Main(_latLongObj){
     $("#videoPlayerCover").hide();
 
     this.setTrends();
+    this.shooter3D = new Shooter3d(this);
 }
 Main.prototype.setTrends = function(){
     $.getJSON( "./data/trends.json", function( data ) {
