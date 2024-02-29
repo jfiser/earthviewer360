@@ -16,6 +16,10 @@ Locator.prototype.tryToGetUserLoc = function(){
             _self.main.streetView.setPanorama(_self.main.userLatLngFuncs);
             _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
             _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
+            _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
+            _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
+            _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
+            _self.main.mapView.moveToLatLng(_self.main.userLatLngObj);
             //_self.main.videoPlayer.searchYouTubeByLoc(_self.main.userLatLngObj, 
                                             //"filter",
                                             //"restaurant");
