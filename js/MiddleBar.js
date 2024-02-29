@@ -81,10 +81,6 @@ MiddleBar.prototype.setMiddleBarDraggable = function(){
                 //console.log("deltaX: " + evt.gesture.deltaX);
                 break;
             case "dragdown":
-                //$("#videoPlayerCover").hide();
-                //$("#videoPlayerCover").css("opacity", 0);
-                //evt.preventDefault();
-                //evt.stopPropagation();
                 if(_self.main.orientation == "vertical"){
                     evt.gesture.preventDefault();
                     $middleBarEl.css("top", (cur_y + evt.gesture.deltaY) + "px");
